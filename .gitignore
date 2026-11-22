@@ -6,3 +6,6 @@ tileviewer.html
 linh-thu-tien-trinh-*.json
 .DS_Store
 Thumbs.db
+
+# bài học (nội dung giáo trình có bản quyền) chỉ để trên máy, nạp vào game bằng file
+lessons/
