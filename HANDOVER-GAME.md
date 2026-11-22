@@ -165,7 +165,7 @@ utils → save → words & SRS → species → lessons import → maps → playe
 | Chủ tiệm | (6,8) | Bán đồ |
 | Người mở hội chợ | (16,8) | Mini game kiếm tiền |
 | Thợ rèn | (13,12) | Rèn châu |
-| Người phiên dịch | (8,8) | Luyện dịch cả câu, 3 cấp: Trung→Việt chọn, Trung→Việt xếp, Việt→Trung xếp. Đạt 4/5 mở cấp sau (`S.trans = {best, open}`). Câu lấy từ câu ví dụ đã học và hội thoại bài (`transPool`) |
+| Người phiên dịch | (8,8) | Luyện dịch cả câu, 5 cấp (`TR_LEVELS`): Trung→Việt chọn / xếp / tự gõ (mở sẵn); Việt→Trung xếp (mở khi đạt 4/5 ở Trung→Việt xếp hoặc tự gõ); Việt→Trung gõ pinyin cả câu (chấm `pyScore`, cần khớp 97%). Lưu ở `S.trans.best[5]`. Câu lấy từ câu ví dụ đã học và hội thoại bài (`transPool`) |
 
 ### 6.6 Trận đấu
 - **Các dạng câu hỏi** (`makeQ`), mở dần theo bước SRS của từ:
@@ -179,6 +179,7 @@ utils → save → words & SRS → species → lessons import → maps → playe
   - `type`: gõ pinyin.
   - `z2v`: đọc câu ví dụ tiếng Trung, chọn bản dịch tiếng Việt (từ bước SRS 1).
   - `z2vt`: đọc câu tiếng Trung, xếp các mảnh tiếng Việt thành bản dịch (từ bước 2).
+  - `z2vw`: đọc câu tiếng Trung, **tự gõ** bản dịch tiếng Việt (từ bước 2). Chấm bằng `viScore`: so khớp theo từ, có dấu hay không dấu đều được. Đạt từ 80% là đúng. Dưới mức đó thì hiện đáp án mẫu, người chơi có thể bấm "Mình dịch đúng ý" (đồng hồ tạm dừng). Chung hàm `typeGame`.
   - `order` (Việt → Trung, xếp chữ Hán) **chỉ xuất hiện từ bước 3**, vì đây là dạng khó nhất.
   - Mọi dạng xếp mảnh dùng chung `tileGame(box, toks, extra, sep, onDone, isDone)`. Câu tiếng Việt cắt bằng `viChunks` (tối đa 12 mảnh), câu tiếng Trung cắt bằng `zhToks`.
 - Có thêm **Hô to** (nhận giọng nói của Chrome) và **Uống trà**.

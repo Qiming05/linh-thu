@@ -1026,53 +1026,62 @@ function gamePyForge(done) {
 /* ---- village fair: quick games that earn coins ---- */
 function fairPool() { return learned().map(h => WORDS.get(h)).filter(Boolean); }
 /* ---- translator: practise whole sentences, Chinese -> Vietnamese first, Vietnamese -> Chinese last ---- */
+/* kind: z2v = Chinese -> Vietnamese, v2z = Vietnamese -> Chinese; how: pick / tiles / type. need = levels, any of which must reach 4/5 first */
 const TR_LEVELS = [
-  { n: 'Cấp 1 · Trung → Việt (chọn)', d: 'Đọc câu tiếng Trung (có pinyin), chọn bản dịch tiếng Việt đúng.' },
-  { n: 'Cấp 2 · Trung → Việt (xếp)', d: 'Đọc câu tiếng Trung, tự xếp các mảnh tiếng Việt thành bản dịch.' },
-  { n: 'Cấp 3 · Việt → Trung (xếp)', d: 'Khó nhất: đọc câu tiếng Việt, xếp các mảnh chữ Hán (có pinyin) thành câu tiếng Trung.' },
+  { n: 'Trung → Việt · chọn', kind: 'z2v', how: 'pick', d: 'Đọc câu tiếng Trung (có pinyin), chọn bản dịch đúng. Khởi động.' },
+  { n: 'Trung → Việt · xếp', kind: 'z2v', how: 'tiles', d: 'Tự xếp các mảnh tiếng Việt thành bản dịch.' },
+  { n: 'Trung → Việt · tự gõ', kind: 'z2v', how: 'type', d: 'Tự gõ bản dịch tiếng Việt. Dịch đúng ý mà khác chữ thì tự xác nhận.' },
+  { n: 'Việt → Trung · xếp', kind: 'v2z', how: 'tiles', need: [1, 2], d: 'Đọc câu tiếng Việt, xếp các mảnh chữ Hán (có pinyin) thành câu.' },
+  { n: 'Việt → Trung · gõ pinyin', kind: 'v2z', how: 'type', need: [3], d: 'Khó nhất: đọc câu tiếng Việt, tự gõ pinyin cả câu tiếng Trung.' },
 ];
-function trState() { return S.trans || (S.trans = { best: [0, 0, 0], open: 1 }); }
+function trState() {
+  const t = S.trans || (S.trans = { best: [0, 0, 0, 0, 0] });
+  if (t.best.length === 3) { const [a, b, c] = t.best; t.best = [a, t.open >= 3 ? Math.max(b, 4) : b, 0, c, 0]; delete t.open; } // older save: 3 levels
+  return t;
+}
+const trOpen = i => !TR_LEVELS[i].need || TR_LEVELS[i].need.some(j => trState().best[j] >= 4);
 function talkTranslator() {
   const pool = transPool(), st = trState();
   if (pool.length < 5) { dialog([{ who: 'Người phiên dịch', zh: '你好，我是翻译。', py: 'Nǐ hǎo, wǒ shì fānyì.', vi: 'Ta luyện dịch cả câu. Hãy học thêm từ ở một vùng đất (cần ít nhất 5 câu ví dụ hoặc hội thoại) rồi quay lại nhé.' }]); return; }
   sheet(`<h3>Người phiên dịch <span class="han">翻译</span></h3>
-    <p class="muted">Luyện dịch <b>cả câu</b> từ câu ví dụ và hội thoại của các bài bạn đã học (${pool.length} câu). Mỗi lượt 5 câu, đúng mỗi câu +2 tiền, đúng hết +5 tiền. Đạt 4/5 ở một cấp để mở cấp tiếp theo.</p>
-    <div class="fair">${TR_LEVELS.map((L, i) => { const lock = i + 1 > st.open;
-      return `<button class="mc" data-l="${i}" ${lock ? 'disabled' : ''}><div class="nm">${lock ? '🔒 ' : ''}${L.n}</div><small class="muted">${L.d}</small><br><small>${lock ? `Đạt 4/5 ở cấp ${i} để mở` : `Kỷ lục: ${st.best[i]}/5`}</small></button>`; }).join('')}</div>`, el => {
+    <p class="muted">Luyện dịch <b>cả câu</b> từ câu ví dụ và hội thoại của các bài bạn đã học (${pool.length} câu). Mỗi lượt 5 câu, đúng mỗi câu +2 tiền (tự gõ +3), đúng hết +5 tiền. Trung → Việt mở sẵn; Việt → Trung mở khi bạn dịch Trung → Việt tốt.</p>
+    <div class="fair">${TR_LEVELS.map((L, i) => { const lock = !trOpen(i);
+      return `<button class="mc" data-l="${i}" ${lock ? 'disabled' : ''}><div class="nm">${lock ? '🔒 ' : ''}${L.n}</div><small class="muted">${L.d}</small><br><small>${lock ? `Đạt 4/5 ở "${L.need.map(j => TR_LEVELS[j].n).join('" hoặc "')}" để mở` : `Kỷ lục: ${st.best[i]}/5`}</small></button>`; }).join('')}</div>`, el => {
     el.querySelectorAll('[data-l]').forEach(b => b.onclick = () => transRound(+b.dataset.l));
   });
 }
 function transRound(level) {
-  const pool = transPool();
-  const fit = s => level === 0 ? true : level === 1 ? viToks(s.vi).length >= 3 : (n => n >= 3 && n <= 9)(zhToks(s.zh).length);
+  const pool = transPool(), LV = TR_LEVELS[level], v2z = LV.kind === 'v2z';
+  const fit = s => LV.how === 'tiles' ? (v2z ? (n => n >= 3 && n <= 9)(zhToks(s.zh).length) : viToks(s.vi).length >= 3) : true;
   let qs = shuffle(pool.filter(fit)).slice(0, 5);
   if (qs.length < 5) qs = shuffle(pool).slice(0, 5);
-  let k = 0, got = 0;
+  let k = 0, got = 0, pts = 0;
   const next = () => {
     if (k >= qs.length) return endRound();
     const q = qs[k], others = pool.filter(x => x !== q);
     let done = false;
     const head = `<h3>${TR_LEVELS[level].n} <small class="muted">câu ${k + 1}/${qs.length} · đúng ${got}</small></h3>`;
     const zhBlock = `<div class="tsent han">${esc(q.zh)}</div><button class="say" data-say="${esc(q.zh)}">nghe câu</button>`;
-    const el = sheet(head + (level === 2
-      ? `<p>Dịch sang tiếng Trung:</p><div class="tvi">«${esc(q.vi)}»</div><div id="trt"></div>`
-      : `<p>Câu này nghĩa là gì?</p>${zhBlock}<div id="trt"></div>`) + `<div class="res" id="trr" aria-live="polite"></div>`);
-    if (level !== 2) speak(q.zh);
+    const el = sheet(head + (v2z
+      ? `<p>Dịch sang tiếng Trung${LV.how === 'type' ? ' (gõ pinyin)' : ''}:</p><div class="tvi">«${esc(q.vi)}»</div><div id="trt"></div>`
+      : `<p>${LV.how === 'type' ? 'Dịch câu này sang tiếng Việt:' : 'Câu này nghĩa là gì?'}</p>${zhBlock}<div id="trt"></div>`) + `<div class="res" id="trr" aria-live="polite"></div>`);
+    if (!v2z) speak(q.zh);
     const box = el.querySelector('#trt');
-    const finish = ok => {
-      if (done) return; done = true; if (ok) got++;
+    const finish = (ok, sc, self) => {
+      if (done) return; done = true; if (ok) { got++; pts += LV.how === 'type' ? 3 : 2; }
       today().answers++; if (ok) today().correct++; if (q.h) track(q.h, ok, 10); save();
-      el.querySelector('#trr').innerHTML = `${ok ? '✓ Chính xác!' : '✗ Chưa đúng.'} <b class="han">${esc(q.zh)}</b> ${esc(q.py)}<br>→ ${esc(q.vi)}
+      el.querySelector('#trr').innerHTML = `${ok ? (self ? '✓ Tính là đúng (bạn tự xác nhận đúng ý).' : '✓ Chính xác!') : '✗ Chưa đúng.'} <b class="han">${esc(q.zh)}</b> ${esc(q.py)}<br>→ ${esc(q.vi)}
         <div class="row"><button class="btn" id="trn">${k + 1 < qs.length ? 'Câu tiếp' : 'Xem kết quả'}</button></div>`;
-      if (level === 2) speak(q.zh);
+      if (v2z) speak(q.zh);
       el.querySelector('#trn').onclick = () => { k++; next(); };
     };
-    if (level === 0) {
+    if (LV.how === 'type') typeGame(box, v2z ? { ...PY_TYPE, ref: q.py } : { ...VI_TYPE, ref: q.vi }, finish, () => done);
+    else if (LV.how === 'pick') {
       const opts = shuffle([q, ...shuffle(others.filter(o => o.vi !== q.vi)).slice(0, 3)]);
       box.innerHTML = `<div class="opts">${opts.map((o, i) => `<button class="opt" data-i="${i}">${i + 1}. ${esc(o.vi)}</button>`).join('')}</div>`;
       box.querySelector('.opts').onclick = e => { const b = e.target.closest('.opt'); if (!b || done) return; const o = opts[+b.dataset.i];
         box.querySelectorAll('.opt').forEach((x, i) => { x.disabled = true; if (opts[i] === q) x.classList.add('ok'); }); if (o !== q) b.classList.add('no'); finish(o === q); };
-    } else if (level === 1) {
+    } else if (!v2z) {
       const toks = viChunks(q.vi);
       tileGame(box, toks, extraTiles(toks, others.map(o => o.vi), 2, true), ' ', finish, () => done);
     } else {
@@ -1081,13 +1090,14 @@ function transRound(level) {
     }
   };
   const endRound = () => {
-    const st = trState(), coins = got * 2 + (got === qs.length ? 5 : 0), better = got > st.best[level];
+    const st = trState(), coins = pts + (got === qs.length ? 5 : 0), better = got > st.best[level];
+    const before = TR_LEVELS.map((_, i) => trOpen(i));
     if (better) st.best[level] = got;
-    const unlock = got >= 4 && st.open === level + 1 && level < 2;
-    if (unlock) st.open = level + 2;
+    const newly = TR_LEVELS.filter((_, i) => !before[i] && trOpen(i));
+    const unlock = newly.length > 0;
     S.coins += coins; save();
     sheet(`<h3>Kết quả · ${TR_LEVELS[level].n}</h3><p style="font-size:20px">Đúng <b>${got}/${qs.length}</b> câu${better ? ' · kỷ lục mới!' : ''}</p>
-      <p>+${coins} tiền (đang có ${S.coins}).${unlock ? ` <b>Đã mở ${TR_LEVELS[level + 1].n}!</b>` : ''}</p>
+      <p>+${coins} tiền (đang có ${S.coins}).${unlock ? ` <b>Đã mở: ${newly.map(L => L.n).join(', ')}!</b>` : ''}</p>
       <div class="row"><button class="btn" id="tra">Chơi lại</button><button class="btn ghost" id="trb">Chọn cấp khác</button><button class="btn ghost" id="trx">Rời đi</button></div>`, el => {
       el.querySelector('#tra').onclick = () => transRound(level); el.querySelector('#trb').onclick = talkTranslator; el.querySelector('#trx').onclick = closeSheet;
     });
@@ -1448,6 +1458,35 @@ function tileGame(box, toks, extra, sep, onDone, isDone) {
   ok.onclick = () => { const good = placed.map(p => p.t).join(sep).toLowerCase() === toks.join(sep).toLowerCase(); sl.classList.add(good ? 'good' : 'bad'); ok.disabled = clr.disabled = true; onDone(good); };
   draw();
 }
+/* free typing: Vietnamese translations are graded by word overlap (accents optional), pinyin by letters */
+const viNorm = s => String(s).normalize('NFC').toLowerCase().replace(/[.,!?;:…"“”()«»\-–]/g, ' ').replace(/\s+/g, ' ').trim();
+const deAcc = s => s.normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/đ/g, 'd');
+function lcsLen(a, b) { const dp = new Array(b.length + 1).fill(0); for (let i = 1; i <= a.length; i++) { let prev = 0; for (let j = 1; j <= b.length; j++) { const t = dp[j]; dp[j] = a[i - 1] === b[j - 1] ? prev + 1 : Math.max(dp[j], dp[j - 1]); prev = t; } } return dp[b.length]; }
+function viScore(inp, ref) {
+  const a = viNorm(inp).split(' ').filter(Boolean), b = viNorm(ref).split(' ').filter(Boolean); if (!a.length || !b.length) return 0;
+  const exact = 2 * lcsLen(a, b) / (a.length + b.length), loose = 2 * lcsLen(a.map(deAcc), b.map(deAcc)) / (a.length + b.length);
+  return Math.max(exact, loose * .95);
+}
+function pyScore(inp, ref) { const a = [...norm(inp)], b = [...norm(ref)]; if (!a.length || !b.length) return 0; return 2 * lcsLen(a, b) / (a.length + b.length); }
+/* o: {ph, ref, score, pass, near, self, onSubmit}; onDone(ok) — self=true lets the player accept a translation worded differently */
+function typeGame(box, o, onDone, isDone) {
+  box.innerHTML = `<form class="tin" data-f><input data-i autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="${esc(o.ph)}" aria-label="${esc(o.ph)}"><button class="btn">Kiểm tra</button></form><div data-r></div>`;
+  const f = box.querySelector('[data-f]'), inp = box.querySelector('[data-i]'), r = box.querySelector('[data-r]');
+  setTimeout(() => inp.focus(), 50);
+  f.onsubmit = e => {
+    e.preventDefault(); const v = inp.value.trim(); if (!v || inp.disabled || isDone()) return;
+    inp.disabled = true; f.querySelector('button').disabled = true; o.onSubmit?.();
+    const sc = o.score(v, o.ref);
+    if (sc >= o.pass) { onDone(true, sc); return; }
+    if (!o.self) { onDone(false, sc); return; }
+    r.innerHTML = `<div class="res">${sc >= o.near ? '≈ Gần đúng' : '✗ Khác đáp án'} (giống ${Math.round(sc * 100)}%). Đáp án mẫu: <b>${esc(o.ref)}</b><br><span class="muted">Nếu bạn dịch đúng ý nhưng dùng từ khác, bấm "Mình dịch đúng ý".</span>
+      <div class="row"><button class="btn" data-y type="button">Mình dịch đúng ý</button><button class="btn ghost" data-n type="button">Chưa đúng</button></div></div>`;
+    r.querySelector('[data-y]').onclick = () => { r.innerHTML = ''; onDone(true, sc, true); };
+    r.querySelector('[data-n]').onclick = () => { r.innerHTML = ''; onDone(false, sc); };
+  };
+}
+const VI_TYPE = { ph: 'Gõ bản dịch tiếng Việt (có dấu hay không dấu đều được)', score: viScore, pass: .8, near: .5, self: true };
+const PY_TYPE = { ph: 'Gõ pinyin cả câu (không cần dấu thanh, không cần cách)', score: pyScore, pass: .97, near: .8, self: false };
 /* distractor tiles: syllables (or words) from other sentences that are not in the answer */
 function extraTiles(toks, others, n, vi) {
   const have = new Set(toks.map(t => t.toLowerCase()));
@@ -1456,9 +1495,10 @@ function extraTiles(toks, others, n, vi) {
 }
 function makeQ(pool) {
   const w = pickWord(pool), step = card(w.h)?.step || 0;
-  const types = step === 0 ? ['h2m', 'h2m', 'm2h'] : step === 1 ? ['h2m', 'm2h', 'p2h', 'tone', 'z2v'] : step === 2 ? ['m2h', 'tone', 'listen', 'fill', 'z2v', 'z2vt'] : ['type', 'fill', 'listen', 'type', 'order', 'tone', 'z2vt'];
+  const types = step === 0 ? ['h2m', 'h2m', 'm2h'] : step === 1 ? ['h2m', 'm2h', 'p2h', 'tone', 'z2v'] : step === 2 ? ['m2h', 'tone', 'listen', 'fill', 'z2vt', 'z2vw'] : ['type', 'fill', 'listen', 'type', 'order', 'tone', 'z2vw'];
   let t = pick(types);
   const sentBody = () => `<div class="sent han">${esc(w.eh)}</div><button class="say" data-say="${esc(w.eh)}">nghe câu</button>`;
+  if (t === 'z2vw') { if (w.eh && w.em) return { w, t, ask: 'Dịch câu này sang tiếng Việt (tự gõ):', body: sentBody(), opts: null, typeVi: true }; t = 'h2m'; }
   if (t === 'z2vt') { const toks = w.eh && w.em ? viChunks(w.em) : []; if (toks.length >= 3) return { w, t, ask: 'Dịch sang tiếng Việt: xếp các mảnh theo đúng thứ tự', body: sentBody(), opts: null, toks, sep: ' ', extra: extraTiles(toks, pool.filter(x => x !== w && x.em).map(x => x.em), 2, true) }; t = 'z2v'; }
   if (t === 'z2v') { const os = others(w, 3, 'em', pool.filter(x => x.em)); if (w.eh && w.em && os.length === 3) return { w, t, ask: 'Câu này nghĩa là gì?', body: sentBody(), opts: shuffle([w, ...os]).map(x => ({ label: x.em, ok: x === w })) }; t = 'h2m'; }
   if (t === 'order') { const toks = w.eh ? tokenize(w.eh, w.h) : []; if (toks.length >= 3 && toks.length <= 8) return { w, t, ask: `Dịch sang tiếng Trung: xếp thành câu · <i>${esc(w.em)}</i>`, body: '', opts: null, toks, sep: '', extra: [] }; t = 'fill'; }
@@ -1543,26 +1583,27 @@ function menu(msg) {
 }
 function ask() {
   if (B.busy) return; B.busy = true;
-  const q = makeQ(B.pool), t0 = performance.now(), LIM = q.toks ? 35000 : q.t === 'type' ? 20000 : 15000; let done = false;
+  const q = makeQ(B.pool), t0 = performance.now(), LIM = q.typeVi ? 60000 : q.toks ? 35000 : q.t === 'type' ? 20000 : 15000; let done = false;
   $('#bp').innerHTML = `<div class="tbar"><i id="qt"></i></div><div class="qa">${q.ask}</div><div class="qb" ${q.t === 'tone' || q.t === 'type' ? 'data-nopy' : ''}>${q.body}</div>
     ${q.opts ? `<div class="opts" ${q.t === 'p2h' ? 'data-nopy' : ''}>${q.opts.map((o, i) => `<button class="opt ${o.hz ? 'hz' : ''}" data-i="${i}">${i + 1}. ${esc(o.label)}</button>`).join('')}</div>`
-      : q.toks ? `<div id="otiles"></div>`
+      : q.toks ? `<div id="otiles"></div>` : q.typeVi ? `<div id="otype"></div>`
       : `<form class="tin" id="tf"><input id="ti" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Pinyin"><button class="btn">Đánh</button></form>`}
     <div class="res" id="qr"></div>`;
   const timer = setInterval(() => { const r = 1 - (performance.now() - t0) / LIM, el = $('#qt'); if (!el) return clearInterval(timer); el.style.transform = `scaleX(${Math.max(0, r)})`; if (r <= 0) finish(false, true); }, 60);
   function finish(ok, timeout) {
     if (done) return; done = true; clearInterval(timer);
     const secs = (performance.now() - t0) / 1000, w = q.w;
-    const g = !ok ? 0 : (q.t === 'type' && secs < 8) ? 3 : secs < (q.toks ? 15 : 7) ? 2 : 1;
+    const g = !ok ? 0 : (q.t === 'type' && secs < 8) ? 3 : secs < (q.typeVi ? 25 : q.toks ? 15 : 7) ? 2 : 1;
     track(w.h, ok, secs); B.lastW = w;
     const counted = grade(w.h, g);
     if (q.opts) document.querySelectorAll('.opt').forEach((b, i) => { b.disabled = true; if (q.opts[i].ok) b.classList.add('ok'); });
-    $('#qr').innerHTML = `${ok ? '✓' : timeout ? '⏰ Hết giờ.' : '✗'} ${q.t === 'order' || q.t === 'z2v' || q.t === 'z2vt' ? `<b class="han">${esc(w.eh)}</b> · ${esc(w.ep)}<br>→ ${esc(w.em)}<br>` : ''}<b class="han">${esc(w.h)}</b> · ${esc(w.p)} · ${esc(w.m)} <span class="muted">${counted ? `(lịch ôn: ${g === 0 ? 'ôn lại sau 10 phút' : 'gặp lại sau ' + S.cards[w.h].interval + ' ngày'})` : '(chưa đến hạn, không đổi lịch ôn)'}</span>`;
+    $('#qr').innerHTML = `${ok ? '✓' : timeout ? '⏰ Hết giờ.' : '✗'} ${q.t === 'order' || q.t === 'z2v' || q.t === 'z2vt' || q.t === 'z2vw' ? `<b class="han">${esc(w.eh)}</b> · ${esc(w.ep)}<br>→ ${esc(w.em)}<br>` : ''}<b class="han">${esc(w.h)}</b> · ${esc(w.p)} · ${esc(w.m)} <span class="muted">${counted ? `(lịch ôn: ${g === 0 ? 'ôn lại sau 10 phút' : 'gặp lại sau ' + S.cards[w.h].interval + ' ngày'})` : '(chưa đến hạn, không đổi lịch ôn)'}</span>`;
     speak(w.h);
     setTimeout(() => ok ? hitFoe() : hitMe(), ok ? 1000 : 2000);
   }
   if (q.opts) $('#bp').querySelector('.opts').onclick = e => { const b = e.target.closest('.opt'); if (!b) return; const i = +b.dataset.i; if (!q.opts[i].ok) b.classList.add('no'); finish(q.opts[i].ok); };
   else if (q.toks) tileGame($('#otiles'), q.toks, q.extra || [], q.sep ?? '', ok => finish(ok), () => done);
+  else if (q.typeVi) typeGame($('#otype'), { ...VI_TYPE, ref: q.w.em, onSubmit: () => clearInterval(timer) }, ok => finish(ok), () => done);
   else { $('#ti').focus(); $('#tf').onsubmit = e => { e.preventDefault(); const v = norm($('#ti').value), a = norm(q.w.p); finish(v === a || (q.w.h.endsWith('儿') && v === a.replace(/r$/, ''))); }; }
 }
 function floatAt(id, txt) { const el = $(id), r = el.getBoundingClientRect(), fr = $('#bf').getBoundingClientRect(); const f = document.createElement('div'); f.className = 'float'; f.textContent = txt; f.style.left = (r.left - fr.left + r.width / 2 - 14) + 'px'; f.style.top = (r.top - fr.top + 10) + 'px'; $('#bf').appendChild(f); setTimeout(() => f.remove(), 900); }
