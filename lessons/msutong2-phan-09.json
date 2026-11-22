@@ -1,0 +1,394 @@
+{
+ "topic": "MSUTONG 2 · Phần 9: 熊猫、动物园、郊区…",
+ "vocab": [
+  {
+   "hanzi": "熊猫",
+   "pinyin": "xióngmāo",
+   "han_viet": "hùng miêu",
+   "meaning": "gấu trúc",
+   "pos": "danh từ",
+   "example": {
+    "hanzi": "熊猫很可爱。",
+    "pinyin": "Xióngmāo hěn kě'ài.",
+    "meaning": "Gấu trúc rất đáng yêu."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "动物园",
+   "pinyin": "dòngwùyuán",
+   "han_viet": "động vật viên",
+   "meaning": "sở thú",
+   "pos": "danh từ",
+   "example": {
+    "hanzi": "我们去动物园吧！",
+    "pinyin": "Wǒmen qù dòngwùyuán ba!",
+    "meaning": "Mình đi sở thú nhé!"
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "郊区",
+   "pinyin": "jiāoqū",
+   "han_viet": "giao khu",
+   "meaning": "ngoại ô",
+   "pos": "danh từ",
+   "example": {
+    "hanzi": "我家在郊区。",
+    "pinyin": "Wǒ jiā zài jiāoqū.",
+    "meaning": "Nhà tôi ở ngoại ô."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "市中心",
+   "pinyin": "shìzhōngxīn",
+   "han_viet": "thị trung tâm",
+   "meaning": "trung tâm thành phố",
+   "pos": "danh từ",
+   "example": {
+    "hanzi": "商场在市中心。",
+    "pinyin": "Shāngchǎng zài shìzhōngxīn.",
+    "meaning": "Trung tâm thương mại ở trung tâm thành phố."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "可爱",
+   "pinyin": "kě'ài",
+   "han_viet": "khả ái",
+   "meaning": "đáng yêu",
+   "pos": "tính từ",
+   "example": {
+    "hanzi": "这只小狗很可爱。",
+    "pinyin": "Zhè zhī xiǎo gǒu hěn kě'ài.",
+    "meaning": "Chú chó con này rất đáng yêu."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "感兴趣",
+   "pinyin": "gǎn xìngqù",
+   "han_viet": "cảm hứng thú",
+   "meaning": "hứng thú",
+   "pos": "cụm động từ",
+   "example": {
+    "hanzi": "我对中文很感兴趣。",
+    "pinyin": "Wǒ duì Zhōngwén hěn gǎn xìngqù.",
+    "meaning": "Tôi rất hứng thú với tiếng Trung."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "动物",
+   "pinyin": "dòngwù",
+   "han_viet": "động vật",
+   "meaning": "động vật",
+   "pos": "danh từ",
+   "example": {
+    "hanzi": "你喜欢什么动物？",
+    "pinyin": "Nǐ xǐhuan shénme dòngwù?",
+    "meaning": "Bạn thích con vật nào?"
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "烤鸭",
+   "pinyin": "kǎoyā",
+   "han_viet": "khảo áp",
+   "meaning": "vịt quay",
+   "pos": "danh từ",
+   "example": {
+    "hanzi": "北京烤鸭很有名。",
+    "pinyin": "Běijīng kǎoyā hěn yǒumíng.",
+    "meaning": "Vịt quay Bắc Kinh rất nổi tiếng."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "打算",
+   "pinyin": "dǎsuàn",
+   "han_viet": "đả toán",
+   "meaning": "dự định, kế hoạch",
+   "pos": "động từ / danh từ",
+   "example": {
+    "hanzi": "你周末打算做什么？",
+    "pinyin": "Nǐ zhōumò dǎsuàn zuò shénme?",
+    "meaning": "Cuối tuần bạn định làm gì?"
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "味道",
+   "pinyin": "wèidao",
+   "han_viet": "vị đạo",
+   "meaning": "mùi vị",
+   "pos": "danh từ",
+   "example": {
+    "hanzi": "这个菜味道很好。",
+    "pinyin": "Zhège cài wèidao hěn hǎo.",
+    "meaning": "Món này vị rất ngon."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "建议",
+   "pinyin": "jiànyì",
+   "han_viet": "kiến nghị",
+   "meaning": "đề nghị, gợi ý",
+   "pos": "động từ / danh từ",
+   "example": {
+    "hanzi": "我建议你去看看。",
+    "pinyin": "Wǒ jiànyì nǐ qù kànkan.",
+    "meaning": "Tôi gợi ý bạn đi xem thử."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "肚子",
+   "pinyin": "dùzi",
+   "han_viet": "đỗ tử",
+   "meaning": "bụng",
+   "pos": "danh từ",
+   "example": {
+    "hanzi": "我肚子饿了。",
+    "pinyin": "Wǒ dùzi è le.",
+    "meaning": "Tôi đói bụng rồi."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "地方",
+   "pinyin": "dìfang",
+   "han_viet": "địa phương",
+   "meaning": "nơi, địa điểm",
+   "pos": "danh từ",
+   "example": {
+    "hanzi": "这个地方很美。",
+    "pinyin": "Zhège dìfang hěn měi.",
+    "meaning": "Nơi này rất đẹp."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "饿",
+   "pinyin": "è",
+   "han_viet": "ngạ",
+   "meaning": "đói",
+   "pos": "tính từ",
+   "example": {
+    "hanzi": "你饿吗？",
+    "pinyin": "Nǐ è ma?",
+    "meaning": "Bạn đói không?"
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "约会",
+   "pinyin": "yuēhuì",
+   "han_viet": "ước hội",
+   "meaning": "cuộc hẹn",
+   "pos": "danh từ",
+   "example": {
+    "hanzi": "我今天晚上有约会。",
+    "pinyin": "Wǒ jīntiān wǎnshang yǒu yuēhuì.",
+    "meaning": "Tối nay tôi có hẹn."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "博物馆",
+   "pinyin": "bówùguǎn",
+   "han_viet": "bác vật quán",
+   "meaning": "bảo tàng",
+   "pos": "danh từ",
+   "example": {
+    "hanzi": "我没去过这个博物馆。",
+    "pinyin": "Wǒ méi qù guo zhège bówùguǎn.",
+    "meaning": "Tôi chưa từng đến bảo tàng này."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "已经",
+   "pinyin": "yǐjīng",
+   "han_viet": "dĩ kinh",
+   "meaning": "đã, rồi",
+   "pos": "phó từ",
+   "example": {
+    "hanzi": "我已经吃饭了。",
+    "pinyin": "Wǒ yǐjīng chīfàn le.",
+    "meaning": "Tôi ăn cơm rồi."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "参观",
+   "pinyin": "cānguān",
+   "han_viet": "tham quan",
+   "meaning": "tham quan",
+   "pos": "động từ",
+   "example": {
+    "hanzi": "我参观了博物馆。",
+    "pinyin": "Wǒ cānguān le bówùguǎn.",
+    "meaning": "Tôi đã tham quan bảo tàng."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "遗憾",
+   "pinyin": "yíhàn",
+   "han_viet": "di hám",
+   "meaning": "đáng tiếc",
+   "pos": "tính từ",
+   "example": {
+    "hanzi": "太遗憾了！",
+    "pinyin": "Tài yíhàn le!",
+    "meaning": "Tiếc quá!"
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "感谢",
+   "pinyin": "gǎnxiè",
+   "han_viet": "cảm tạ",
+   "meaning": "cảm ơn",
+   "pos": "động từ",
+   "example": {
+    "hanzi": "感谢你的帮助。",
+    "pinyin": "Gǎnxiè nǐ de bāngzhù.",
+    "meaning": "Cảm ơn bạn đã giúp đỡ."
+   },
+   "correction": ""
+  }
+ ],
+ "characters": [
+  {
+   "char": "馆",
+   "pinyin": "guǎn",
+   "han_viet": "quán",
+   "meaning": "quán, toà nhà công cộng",
+   "strokes": 11,
+   "type": "hình thanh",
+   "structure": "⿰",
+   "components": [
+    {
+     "part": "饣",
+     "pinyin": "shí",
+     "han_viet": "thực",
+     "meaning": "ăn",
+     "role": "nghĩa"
+    },
+    {
+     "part": "官",
+     "pinyin": "guān",
+     "han_viet": "quan",
+     "meaning": "quan chức",
+     "role": "âm"
+    }
+   ],
+   "meaning_part": "饣 – ăn uống (ban đầu là nhà trọ có cơm ăn)",
+   "sound_part": "官 guān",
+   "mnemonic": "Quan (官) đi công tác ghé vào nơi có cơm ăn (饣) – đó là 'quán'.",
+   "collocations": [
+    {
+     "hanzi": "图书馆",
+     "pinyin": "túshūguǎn",
+     "meaning": "thư viện"
+    },
+    {
+     "hanzi": "博物馆",
+     "pinyin": "bówùguǎn",
+     "meaning": "bảo tàng"
+    },
+    {
+     "hanzi": "饭馆",
+     "pinyin": "fànguǎn",
+     "meaning": "quán ăn"
+    }
+   ],
+   "confusables": [
+    {
+     "char": "官",
+     "pinyin": "guān",
+     "meaning": "quan",
+     "tip": "官 không có bộ 饣, thanh 1."
+    },
+    {
+     "char": "管",
+     "pinyin": "guǎn",
+     "meaning": "quản lý",
+     "tip": "管 có bộ trúc ⺮ ở trên."
+    }
+   ],
+   "variant": "館",
+   "shape_tip": "饣 hẹp và cao bên trái; 官 rộng hơn, mái 宀 phủ vừa phần dưới.",
+   "stroke_rules": [
+    "trái trước phải sau",
+    "trên trước dưới sau"
+   ]
+  },
+  {
+   "char": "饿",
+   "pinyin": "è",
+   "han_viet": "ngạ",
+   "meaning": "đói",
+   "strokes": 10,
+   "type": "hình thanh",
+   "structure": "⿰",
+   "components": [
+    {
+     "part": "饣",
+     "pinyin": "shí",
+     "han_viet": "thực",
+     "meaning": "ăn",
+     "role": "nghĩa"
+    },
+    {
+     "part": "我",
+     "pinyin": "wǒ",
+     "han_viet": "ngã",
+     "meaning": "tôi",
+     "role": "âm"
+    }
+   ],
+   "meaning_part": "饣 – ăn",
+   "sound_part": "我 wǒ (gợi âm cổ; Hán Việt ngã ~ ngạ)",
+   "mnemonic": "Tôi (我) muốn ăn (饣) ngay – tôi đói rồi!",
+   "collocations": [
+    {
+     "hanzi": "饿了",
+     "pinyin": "è le",
+     "meaning": "đói rồi"
+    },
+    {
+     "hanzi": "肚子饿",
+     "pinyin": "dùzi è",
+     "meaning": "đói bụng"
+    },
+    {
+     "hanzi": "很饿",
+     "pinyin": "hěn è",
+     "meaning": "rất đói"
+    }
+   ],
+   "confusables": [
+    {
+     "char": "俄",
+     "pinyin": "é",
+     "meaning": "Nga",
+     "tip": "俄 có bộ nhân 亻; 饿 có bộ thực 饣."
+    }
+   ],
+   "variant": "餓",
+   "shape_tip": "饣 hẹp bên trái; 我 rộng, nét móc xiên (戈) vươn dài sang phải.",
+   "stroke_rules": [
+    "trái trước phải sau",
+    "ngang trước sổ sau"
+   ]
+  }
+ ],
+ "dialogue": {
+  "lines": []
+ }
+}

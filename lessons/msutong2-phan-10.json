@@ -1,0 +1,317 @@
+{
+ "topic": "MSUTONG 2 · Phần 10: 进来、出去、下去…",
+ "vocab": [
+  {
+   "hanzi": "进来",
+   "pinyin": "jìnlái",
+   "han_viet": "tiến lai",
+   "meaning": "vào đây",
+   "pos": "động từ",
+   "example": {
+    "hanzi": "请进来！",
+    "pinyin": "Qǐng jìnlái!",
+    "meaning": "Mời vào!"
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "出去",
+   "pinyin": "chūqu",
+   "han_viet": "xuất khứ",
+   "meaning": "ra ngoài",
+   "pos": "động từ",
+   "example": {
+    "hanzi": "我们出去走走吧。",
+    "pinyin": "Wǒmen chūqu zǒuzou ba.",
+    "meaning": "Mình ra ngoài đi dạo nhé."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "下去",
+   "pinyin": "xiàqu",
+   "han_viet": "hạ khứ",
+   "meaning": "đi xuống",
+   "pos": "động từ",
+   "example": {
+    "hanzi": "我下去接你。",
+    "pinyin": "Wǒ xiàqu jiē nǐ.",
+    "meaning": "Tôi xuống đón bạn."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "爱人",
+   "pinyin": "àiren",
+   "han_viet": "ái nhân",
+   "meaning": "vợ hoặc chồng",
+   "pos": "danh từ",
+   "example": {
+    "hanzi": "这是我爱人。",
+    "pinyin": "Zhè shì wǒ àiren.",
+    "meaning": "Đây là vợ/chồng tôi."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "约会",
+   "pinyin": "yuēhuì",
+   "han_viet": "ước hội",
+   "meaning": "cuộc hẹn",
+   "pos": "danh từ / động từ",
+   "example": {
+    "hanzi": "不好意思，我有约会。",
+    "pinyin": "Bù hǎoyìsi, wǒ yǒu yuēhuì.",
+    "meaning": "Xin lỗi, tôi có hẹn rồi."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "添麻烦",
+   "pinyin": "tiān máfan",
+   "han_viet": "thiêm ma phiền",
+   "meaning": "làm phiền",
+   "pos": "cụm động từ",
+   "example": {
+    "hanzi": "给您添麻烦了！",
+    "pinyin": "Gěi nín tiān máfan le!",
+    "meaning": "Làm phiền anh/chị rồi ạ!"
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "做客",
+   "pinyin": "zuòkè",
+   "han_viet": "tố khách",
+   "meaning": "đến chơi, làm khách",
+   "pos": "động từ",
+   "example": {
+    "hanzi": "欢迎来我家做客！",
+    "pinyin": "Huānyíng lái wǒ jiā zuòkè!",
+    "meaning": "Mời đến nhà tôi chơi!"
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "酸",
+   "pinyin": "suān",
+   "han_viet": "toan",
+   "meaning": "chua",
+   "pos": "tính từ",
+   "example": {
+    "hanzi": "这个苹果很酸。",
+    "pinyin": "Zhège píngguǒ hěn suān.",
+    "meaning": "Quả táo này rất chua."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "敲门",
+   "pinyin": "qiāo mén",
+   "han_viet": "xao môn",
+   "meaning": "gõ cửa",
+   "pos": "cụm động từ",
+   "example": {
+    "hanzi": "有人敲门。",
+    "pinyin": "Yǒu rén qiāo mén.",
+    "meaning": "Có người gõ cửa."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "甜",
+   "pinyin": "tián",
+   "han_viet": "điềm",
+   "meaning": "ngọt",
+   "pos": "tính từ",
+   "example": {
+    "hanzi": "西瓜很甜。",
+    "pinyin": "Xīguā hěn tián.",
+    "meaning": "Dưa hấu rất ngọt."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "欢迎",
+   "pinyin": "huānyíng",
+   "han_viet": "hoan nghênh",
+   "meaning": "chào đón",
+   "pos": "động từ",
+   "example": {
+    "hanzi": "欢迎你！",
+    "pinyin": "Huānyíng nǐ!",
+    "meaning": "Chào mừng bạn!"
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "辣",
+   "pinyin": "là",
+   "han_viet": "lạt",
+   "meaning": "cay",
+   "pos": "tính từ",
+   "example": {
+    "hanzi": "你怕辣吗？",
+    "pinyin": "Nǐ pà là ma?",
+    "meaning": "Bạn có sợ cay không?"
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "麻烦",
+   "pinyin": "máfan",
+   "han_viet": "ma phiền",
+   "meaning": "phiền, làm phiền",
+   "pos": "tính từ / động từ",
+   "example": {
+    "hanzi": "麻烦你等一下。",
+    "pinyin": "Máfan nǐ děng yíxià.",
+    "meaning": "Phiền bạn đợi một chút."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "苦",
+   "pinyin": "kǔ",
+   "han_viet": "khổ",
+   "meaning": "đắng",
+   "pos": "tính từ",
+   "example": {
+    "hanzi": "这个咖啡很苦。",
+    "pinyin": "Zhège kāfēi hěn kǔ.",
+    "meaning": "Cà phê này rất đắng."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "别",
+   "pinyin": "bié",
+   "han_viet": "biệt",
+   "meaning": "đừng",
+   "pos": "phó từ",
+   "example": {
+    "hanzi": "别忘了！",
+    "pinyin": "Bié wàng le!",
+    "meaning": "Đừng quên nhé!"
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "怕",
+   "pinyin": "pà",
+   "han_viet": "phạ",
+   "meaning": "sợ, ngại",
+   "pos": "động từ",
+   "example": {
+    "hanzi": "我不怕辣。",
+    "pinyin": "Wǒ bú pà là.",
+    "meaning": "Tôi không sợ cay."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "别客气",
+   "pinyin": "bié kèqi",
+   "han_viet": "biệt khách khí",
+   "meaning": "đừng khách sáo",
+   "pos": "cụm từ",
+   "example": {
+    "hanzi": "别客气，请喝茶。",
+    "pinyin": "Bié kèqi, qǐng hē chá.",
+    "meaning": "Đừng khách sáo, mời uống trà."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "辛苦",
+   "pinyin": "xīnkǔ",
+   "han_viet": "tân khổ",
+   "meaning": "vất vả",
+   "pos": "tính từ",
+   "example": {
+    "hanzi": "今天辛苦了！",
+    "pinyin": "Jīntiān xīnkǔ le!",
+    "meaning": "Hôm nay vất vả rồi!"
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "麻婆豆腐",
+   "pinyin": "mápó dòufu",
+   "han_viet": "ma bà đậu hủ",
+   "meaning": "đậu phụ Ma Bà",
+   "pos": "danh từ",
+   "example": {
+    "hanzi": "麻婆豆腐有点儿辣。",
+    "pinyin": "Mápó dòufu yǒudiǎnr là.",
+    "meaning": "Đậu phụ Ma Bà hơi cay."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "糖醋鱼",
+   "pinyin": "tángcùyú",
+   "han_viet": "đường thố ngư",
+   "meaning": "cá sốt chua ngọt",
+   "pos": "danh từ",
+   "example": {
+    "hanzi": "糖醋鱼又酸又甜。",
+    "pinyin": "Tángcùyú yòu suān yòu tián.",
+    "meaning": "Cá sốt chua ngọt vừa chua vừa ngọt."
+   },
+   "correction": ""
+  }
+ ],
+ "characters": [],
+ "dialogue": {
+  "setting": "Gọi điện rủ bạn đi sở thú cuối tuần và đổi giờ hẹn",
+  "lines": [
+   {
+    "role": "A",
+    "hanzi": "喂，你这个周末有空吗？",
+    "pinyin": "Wèi, nǐ zhège zhōumò yǒu kòng ma?",
+    "meaning": "A lô, cuối tuần này bạn rảnh không?"
+   },
+   {
+    "role": "B",
+    "hanzi": "星期六上午我有课。",
+    "pinyin": "Xīngqīliù shàngwǔ wǒ yǒu kè.",
+    "meaning": "Sáng thứ Bảy mình có lớp."
+   },
+   {
+    "role": "A",
+    "hanzi": "星期天下午可以吗？",
+    "pinyin": "Xīngqītiān xiàwǔ kěyǐ ma?",
+    "meaning": "Chiều Chủ nhật được không?"
+   },
+   {
+    "role": "B",
+    "hanzi": "可以！你想去哪里？",
+    "pinyin": "Kěyǐ! Nǐ xiǎng qù nǎlǐ?",
+    "meaning": "Được! Bạn muốn đi đâu?"
+   },
+   {
+    "role": "A",
+    "hanzi": "我们去动物园看熊猫吧！",
+    "pinyin": "Wǒmen qù dòngwùyuán kàn xióngmāo ba!",
+    "meaning": "Mình đi sở thú xem gấu trúc nhé!"
+   },
+   {
+    "role": "B",
+    "hanzi": "好！三点在门口见吧！",
+    "pinyin": "Hǎo! Sān diǎn zài ménkǒu jiàn ba!",
+    "meaning": "Ok! 3 giờ gặp ở cổng nhé!"
+   }
+  ],
+  "extra_words": [],
+  "notes": [
+   "可以 kěyǐ: hai thanh 3 liền nhau → đọc kéyǐ",
+   "哪里 nǎlǐ: hai thanh 3 → đọc nálǐ (khẩu ngữ hay đọc nǎli)",
+   "喂 khi nghe điện thoại thường đọc wéi (thanh 2) cho mềm",
+   "星期 xīngqī, 去 qù: q bật hơi mạnh, khác x (xīng) – người Việt hay đọc lẫn",
+   "熊猫 xióngmāo: x đọc gần 'x' tiếng Việt nhưng môi dẹt, không phải 's'",
+   "上午 shàngwǔ: sh uốn lưỡi, khác s",
+   "我们 wǒmen: 们 đọc thanh nhẹ"
+  ]
+ }
+}

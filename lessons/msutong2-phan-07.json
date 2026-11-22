@@ -1,0 +1,269 @@
+{
+ "topic": "MSUTONG 2 · Phần 7: 记得、忘、告诉…",
+ "vocab": [
+  {
+   "hanzi": "记得",
+   "pinyin": "jìde",
+   "han_viet": "ký đắc",
+   "meaning": "nhớ",
+   "pos": "động từ",
+   "example": {
+    "hanzi": "你记得我吗？",
+    "pinyin": "Nǐ jìde wǒ ma?",
+    "meaning": "Bạn còn nhớ tôi không?"
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "忘",
+   "pinyin": "wàng",
+   "han_viet": "vong",
+   "meaning": "quên",
+   "pos": "động từ",
+   "example": {
+    "hanzi": "我忘了他的名字。",
+    "pinyin": "Wǒ wàng le tā de míngzi.",
+    "meaning": "Tôi quên tên anh ấy rồi."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "告诉",
+   "pinyin": "gàosu",
+   "han_viet": "cáo tố",
+   "meaning": "nói cho biết",
+   "pos": "động từ",
+   "example": {
+    "hanzi": "请告诉我你的号码。",
+    "pinyin": "Qǐng gàosu wǒ nǐ de hàomǎ.",
+    "meaning": "Hãy cho tôi biết số của bạn."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "自己",
+   "pinyin": "zìjǐ",
+   "han_viet": "tự kỷ",
+   "meaning": "tự mình",
+   "pos": "đại từ",
+   "example": {
+    "hanzi": "我自己去。",
+    "pinyin": "Wǒ zìjǐ qù.",
+    "meaning": "Tôi tự đi."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "多长时间",
+   "pinyin": "duō cháng shíjiān",
+   "han_viet": "đa trường thời gian",
+   "meaning": "bao lâu",
+   "pos": "cụm từ để hỏi",
+   "example": {
+    "hanzi": "你学了多长时间？",
+    "pinyin": "Nǐ xué le duō cháng shíjiān?",
+    "meaning": "Bạn đã học bao lâu?"
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "小时",
+   "pinyin": "xiǎoshí",
+   "han_viet": "tiểu thời",
+   "meaning": "giờ, tiếng",
+   "pos": "danh từ",
+   "example": {
+    "hanzi": "我睡了八个小时。",
+    "pinyin": "Wǒ shuì le bā ge xiǎoshí.",
+    "meaning": "Tôi đã ngủ tám tiếng."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "买",
+   "pinyin": "mǎi",
+   "han_viet": "mãi",
+   "meaning": "mua",
+   "pos": "động từ",
+   "example": {
+    "hanzi": "我想买一双鞋。",
+    "pinyin": "Wǒ xiǎng mǎi yì shuāng xié.",
+    "meaning": "Tôi muốn mua một đôi giày."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "分钟",
+   "pinyin": "fēnzhōng",
+   "han_viet": "phân chung",
+   "meaning": "phút",
+   "pos": "danh từ",
+   "example": {
+    "hanzi": "请等五分钟。",
+    "pinyin": "Qǐng děng wǔ fēnzhōng.",
+    "meaning": "Xin đợi năm phút."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "卖",
+   "pinyin": "mài",
+   "han_viet": "mại",
+   "meaning": "bán",
+   "pos": "động từ",
+   "example": {
+    "hanzi": "这里卖水果吗？",
+    "pinyin": "Zhèlǐ mài shuǐguǒ ma?",
+    "meaning": "Ở đây có bán trái cây không?"
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "微信",
+   "pinyin": "Wēixìn",
+   "han_viet": "vi tín",
+   "meaning": "WeChat",
+   "pos": "danh từ",
+   "example": {
+    "hanzi": "我们加微信吧。",
+    "pinyin": "Wǒmen jiā Wēixìn ba.",
+    "meaning": "Mình kết bạn WeChat nhé."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "听说",
+   "pinyin": "tīngshuō",
+   "han_viet": "thính thuyết",
+   "meaning": "nghe nói",
+   "pos": "động từ",
+   "example": {
+    "hanzi": "听说那里很好玩儿。",
+    "pinyin": "Tīngshuō nàlǐ hěn hǎowánr.",
+    "meaning": "Nghe nói ở đó rất vui."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "法国",
+   "pinyin": "Fǎguó",
+   "han_viet": "pháp quốc",
+   "meaning": "nước Pháp",
+   "pos": "danh từ riêng",
+   "example": {
+    "hanzi": "他是法国人。",
+    "pinyin": "Tā shì Fǎguó rén.",
+    "meaning": "Anh ấy là người Pháp."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "有意思",
+   "pinyin": "yǒu yìsi",
+   "han_viet": "hữu ý tứ",
+   "meaning": "thú vị",
+   "pos": "tính từ",
+   "example": {
+    "hanzi": "这本书很有意思。",
+    "pinyin": "Zhè běn shū hěn yǒu yìsi.",
+    "meaning": "Cuốn sách này rất thú vị."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "照片",
+   "pinyin": "zhàopiàn",
+   "han_viet": "chiếu phiến",
+   "meaning": "bức ảnh",
+   "pos": "danh từ",
+   "example": {
+    "hanzi": "这张照片真漂亮。",
+    "pinyin": "Zhè zhāng zhàopiàn zhēn piàoliang.",
+    "meaning": "Bức ảnh này đẹp thật."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "没意思",
+   "pinyin": "méi yìsi",
+   "han_viet": "một ý tứ",
+   "meaning": "không thú vị",
+   "pos": "tính từ",
+   "example": {
+    "hanzi": "这个电影没意思。",
+    "pinyin": "Zhège diànyǐng méi yìsi.",
+    "meaning": "Bộ phim này chán."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "左右",
+   "pinyin": "zuǒyòu",
+   "han_viet": "tả hữu",
+   "meaning": "khoảng, xấp xỉ",
+   "pos": "danh từ",
+   "example": {
+    "hanzi": "坐车一个小时左右。",
+    "pinyin": "Zuò chē yí ge xiǎoshí zuǒyòu.",
+    "meaning": "Đi xe khoảng một tiếng."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "当然",
+   "pinyin": "dāngrán",
+   "han_viet": "đương nhiên",
+   "meaning": "đương nhiên",
+   "pos": "phó từ",
+   "example": {
+    "hanzi": "当然可以！",
+    "pinyin": "Dāngrán kěyǐ!",
+    "meaning": "Đương nhiên là được!"
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "骑自行车",
+   "pinyin": "qí zìxíngchē",
+   "han_viet": "kỵ tự hành xa",
+   "meaning": "đi xe đạp",
+   "pos": "cụm động từ",
+   "example": {
+    "hanzi": "我骑自行车上班。",
+    "pinyin": "Wǒ qí zìxíngchē shàngbān.",
+    "meaning": "Tôi đi xe đạp đi làm."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "最近",
+   "pinyin": "zuìjìn",
+   "han_viet": "tối cận",
+   "meaning": "gần đây",
+   "pos": "danh từ",
+   "example": {
+    "hanzi": "你最近忙吗？",
+    "pinyin": "Nǐ zuìjìn máng ma?",
+    "meaning": "Dạo này bạn bận không?"
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "时间",
+   "pinyin": "shíjiān",
+   "han_viet": "thời gian",
+   "meaning": "thời gian",
+   "pos": "danh từ",
+   "example": {
+    "hanzi": "我没有时间。",
+    "pinyin": "Wǒ méiyǒu shíjiān.",
+    "meaning": "Tôi không có thời gian."
+   },
+   "correction": ""
+  }
+ ],
+ "characters": [],
+ "dialogue": {
+  "lines": []
+ }
+}

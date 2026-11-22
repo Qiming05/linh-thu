@@ -1,0 +1,17 @@
+{
+  "name": "Linh Thú Hán Tự",
+  "short_name": "Linh Thú",
+  "description": "RPG học tiếng Trung: mỗi bài học là một vùng đất mới.",
+  "lang": "vi",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#1b1f2e",
+  "theme_color": "#1b1f2e",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

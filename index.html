@@ -1,0 +1,1580 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Linh Thú Hán Tự</title>
+<meta name="description" content="RPG học tiếng Trung cho người Việt: mỗi bài học là một vùng đất mới.">
+<meta name="theme-color" content="#1b1f2e">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Linh Thú">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700&family=Noto+Serif+SC:wght@600;900&display=swap">
+<script src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.5.0/dist/hanzi-writer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/pinyin-pro@3.26.0/dist/index.js"></script>
+<style>
+:root{--ink:#1b1f2e;--panel:#262b40;--panel2:#2f3552;--line:#3c4466;--paper:#f6eedc;--muted:#a9b0cf;--gold:#f4b23f;--red:#e9503f;--jade:#3cc88f;--blue:#6aa8ff;
+  --f-han:"Noto Serif SC","Songti SC","SimSun","Microsoft YaHei",serif}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ink);color:var(--paper);font:15px/1.45 "Be Vietnam Pro",system-ui,sans-serif}
+.wrap{max-width:900px;margin:0 auto;padding:14px max(14px,env(safe-area-inset-right)) 40px max(14px,env(safe-area-inset-left))}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.han{font-family:var(--f-han);font-weight:600}
+header{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;justify-content:space-between;margin-bottom:10px}
+header h1{margin:0;font-size:21px}
+header h1 small{display:block;font-size:12.5px;color:var(--muted);font-weight:400}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:4px 10px;font-size:12.5px;font-variant-numeric:tabular-nums}
+.chip b{color:var(--gold)}
+.toolbar{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.tb{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:6px 12px;font-size:13.5px}
+.tb:hover{border-color:var(--gold)}
+.screen{position:relative;border-radius:10px;overflow:hidden;border:2px solid var(--line);background:#000;aspect-ratio:22/15}
+.stage{position:relative;width:100%;height:100%}
+#ov{position:absolute;inset:0;pointer-events:none}#ov>*{pointer-events:auto}
+canvas{display:block;width:100%;height:100%;image-rendering:pixelated;image-rendering:crisp-edges}
+.zlabel{position:absolute;left:8px;top:8px;background:rgba(20,24,40,.82);border-radius:6px;padding:3px 10px;font-size:13px;pointer-events:none}
+.dlg{position:absolute;left:10px;right:10px;bottom:10px;background:rgba(20,24,40,.96);border:2px solid var(--gold);border-radius:10px;padding:10px 14px;cursor:pointer;max-height:70%;overflow:auto}
+.dlg .who{color:var(--gold);font-weight:700}
+.dlg .zh{font-size:22px}
+.dlg .py{color:var(--muted);font-size:13px}
+ruby{ruby-position:over}rt{font-family:system-ui,"Segoe UI",sans-serif;font-size:max(10px,.42em);font-weight:500;opacity:.85;letter-spacing:0;font-style:normal}.opt rt,.tile rt{opacity:.75}
+.dlg .zh ruby{ruby-position:over;margin:0 1px}.dlg .zh rt{font-family:system-ui,"Segoe UI",sans-serif;font-size:13px;font-weight:500;color:#ffd98a;letter-spacing:0}.dlg .zh{line-height:2.1}
+.dlg .vi.hide{display:none}.dlg .vbtn{font-size:12px;padding:2px 8px;margin-top:4px}
+body.nopy .py{display:none!important}.vibig{font-size:22px;font-weight:700;margin:6px 0;line-height:1.3}
+.dlg .more{float:right;color:var(--gold);font-size:12px}
+.row{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.btn{background:var(--gold);color:#271c05;border:0;border-radius:8px;padding:8px 14px;font-weight:700}
+.btn.ghost{background:transparent;color:var(--paper);border:1px solid var(--line)}
+.btn:disabled{opacity:.45;cursor:default}
+.say{background:var(--panel2);border:1px solid var(--line);border-radius:999px;padding:2px 9px;font-size:12px}
+.sheet{position:absolute;inset:0;background:rgba(18,21,36,.97);padding:14px;overflow:auto}
+.sheet h3{margin:0 0 8px;font-size:18px}
+.sheet .x{position:absolute;right:10px;top:10px}
+.muted{color:var(--muted);font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.mc{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:8px;text-align:center;font-size:12.5px}
+.mc img{width:72px;height:72px;image-rendering:pixelated}
+.mc.lead{border-color:var(--gold)} .mc.locked img{filter:brightness(0) opacity(.35)}
+.mc .nm{font-weight:700;font-size:13.5px}
+.bar{height:6px;background:#0b0e1d;border-radius:4px;overflow:hidden;margin-top:4px}
+.bar i{display:block;height:100%;background:var(--jade)}
+.tag{display:inline-block;border-radius:5px;padding:0 6px;font-size:11px;font-weight:700}
+.tag.sleep{background:#556;color:#dde}.tag.evo{background:var(--gold);color:#271c05}.tag.due{background:var(--red);color:#fff}
+.words{display:grid;gap:6px}
+.w{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:6px 10px}
+.w .h{font-size:26px}
+.w .ex{color:var(--muted);font-size:12.5px}
+.list{display:grid;gap:6px}
+.li{display:flex;gap:10px;align-items:center;justify-content:space-between;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:8px 10px}
+.li .t{min-width:0}
+.li small{display:block;color:var(--muted)}
+/* battle */
+.battle{position:absolute;inset:0;display:flex;flex-direction:column;background:linear-gradient(#9fd3f0 0 50%,#8ccf6a 50%)}
+.battle.boss{background:linear-gradient(#5a4a7a 0 50%,#8a6a4a 50%)}
+.bf{position:relative;flex:1;min-height:0}
+.pad{position:absolute;width:30%;height:10%;border-radius:50%;background:rgba(40,80,30,.35)}
+.spr{position:absolute;image-rendering:pixelated;height:62%;aspect-ratio:1}
+.spr.tiny{height:36%}#eS.tiny{top:12%!important;right:14%!important}#pS.tiny{left:13%!important;bottom:9%!important}
+.card{position:absolute;background:rgba(20,24,40,.92);border:1px solid var(--line);border-radius:8px;padding:5px 10px;min-width:150px;max-width:48%;font-size:12.5px}
+.card b{font-size:13.5px}
+.hp{height:7px;background:#0b0e1d;border-radius:4px;overflow:hidden;margin-top:3px}
+.hp i{display:block;height:100%;background:var(--jade);transition:width .35s}
+.bp{background:rgba(20,24,40,.97);border-top:2px solid var(--gold);padding:8px 12px;max-height:58%;overflow:auto}
+.bp.tall{max-height:86%}
+.qa{color:var(--muted);font-size:12.5px}
+.qb .big{font-size:32px;line-height:1.2}.qb .mid{font-size:19px;font-weight:600}.qb .sent{font-size:21px}
+.blank{display:inline-block;min-width:2em;border-bottom:3px solid var(--gold)}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:6px}
+.opt{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:7px 10px;text-align:left;min-height:42px}
+.opt.hz{font-family:var(--f-han);font-size:21px}.optpy{display:block;font-family:system-ui,"Segoe UI",sans-serif;font-size:13px;font-weight:400;opacity:.8}
+.opt.ok{border-color:var(--jade);background:rgba(60,200,143,.2)}.opt.no{border-color:var(--red);background:rgba(233,80,63,.2)}
+.slots,.bank{display:flex;flex-wrap:wrap;gap:6px;min-height:46px;padding:6px;border-radius:8px;margin-top:6px}
+.slots{background:#0b0e1d;border:1px dashed var(--line)}.slots.good{border:1px solid var(--jade)}.slots.bad{border:1px solid var(--red)}
+.tile{font-family:var(--f-han);font-size:20px;padding:4px 12px;border-radius:8px;background:var(--panel2);border:1px solid var(--line);border-bottom-width:3px}
+.tile.used{visibility:hidden}
+.wbox{display:flex;justify-content:center;margin:6px 0}
+.wpad{position:relative;background:#f6eedc;border-radius:6px;background-image:linear-gradient(rgba(233,80,63,.35) 1px,transparent 1px),linear-gradient(90deg,rgba(233,80,63,.35) 1px,transparent 1px);background-size:50% 50%;background-position:center;border:2px solid var(--red);touch-action:none}
+.fair{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+.tfbig{font-size:52px;text-align:center;line-height:1.1}
+.tfbtns{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.tfbtns button{border:0;border-radius:10px;padding:14px;font-weight:800;font-size:18px}
+.mgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.mcard{aspect-ratio:4/3;border-radius:8px;border:1px solid var(--line);background:var(--panel2);display:grid;place-items:center;padding:4px;font-size:13px;text-align:center}
+.mcard.han{font-size:24px}.mcard.open{background:var(--ink);border-color:var(--gold)}.mcard.done{background:rgba(60,200,143,.2);border-color:var(--jade)}
+.tin{display:flex;gap:8px;margin-top:6px}
+.tin input{flex:1;min-width:0;background:#0b0e1d;border:1px solid var(--line);border-radius:8px;color:var(--paper);padding:8px 10px;font:inherit;font-size:17px}
+.tbar{height:4px;background:#0b0e1d;border-radius:3px;overflow:hidden;margin-bottom:6px}.tbar i{display:block;height:100%;background:var(--gold);transform-origin:left}
+.res{margin-top:6px;font-size:13.5px}
+.hit{animation:hit .4s}@keyframes hit{25%,75%{transform:translateX(-6px);filter:brightness(2)}50%{transform:translateX(6px)}}
+.gone{transition:.5s;opacity:0;transform:scale(.3)}
+.float{position:absolute;font-weight:800;font-size:22px;color:#fff;text-shadow:0 2px 0 #000;animation:up .9s forwards;pointer-events:none}
+@keyframes up{to{transform:translateY(-30px);opacity:0}}
+/* controls */
+.ctl{display:flex;justify-content:space-between;align-items:center;margin-top:12px;gap:12px}
+.dpad{display:grid;grid-template-columns:repeat(3,46px);grid-template-rows:repeat(3,46px);gap:4px}
+.dpad button{background:var(--panel);border:1px solid var(--line);border-radius:9px;touch-action:none;user-select:none}
+.dpad .u{grid-area:1/2}.dpad .l{grid-area:2/1}.dpad .r{grid-area:2/3}.dpad .d{grid-area:3/2}
+.abtn{width:62px;height:62px;border-radius:50%;background:var(--red);border:0;color:#fff;font-weight:800;font-size:22px;box-shadow:0 4px 0 #8f2519;touch-action:none}
+.help{color:var(--muted);font-size:12.5px;margin-top:10px}
+kbd{background:var(--panel);border:1px solid var(--line);border-radius:4px;padding:0 5px;font:inherit}
+.credit{color:var(--muted);font-size:11.5px;margin-top:8px}
+/* big mode: the game fills the window (and the screen when fullscreen is allowed) */
+body.full{overflow:hidden}
+body.full .wrap{max-width:none;height:100vh;height:100dvh;padding:6px 10px;display:flex;flex-direction:column}
+body.full header{margin-bottom:4px}body.full header h1 small,body.full .help,body.full .credit{display:none}
+body.full header h1{font-size:16px}body.full .chip{padding:2px 8px;font-size:12px}
+body.full .toolbar{margin-bottom:6px}body.full .tb{padding:4px 10px}
+body.full .screen{flex:1 1 auto;min-height:0;aspect-ratio:auto;width:100%;display:flex;align-items:center;justify-content:center;background:#05070d}
+body.full .screen>.stage{position:relative;width:min(100%,calc((100dvh - var(--chrome,120px)) * 22 / 15));height:auto;aspect-ratio:22/15}
+body.full .ctl{margin-top:6px}
+/* phones: one swipeable row for stats and one for buttons, so the map gets the space */
+@media (max-width:640px){
+  .wrap{padding-top:max(8px,env(safe-area-inset-top))}
+  header{gap:6px;margin-bottom:6px}header h1{font-size:18px}header h1 small{display:none}
+  .chips,.toolbar{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;width:100%}
+  .chips::-webkit-scrollbar,.toolbar::-webkit-scrollbar{display:none}
+  .chip,.tb{flex:0 0 auto;white-space:nowrap}.tb{padding:6px 10px}
+  .toolbar{margin-bottom:8px}
+}
+@media (hover:none){.help{display:none}}
+@media (max-width:560px){.opts{grid-template-columns:1fr}.card{min-width:120px}}
+@media (hover:hover) and (pointer:fine){.ctl{display:none}}
+.el{display:inline-block;border-radius:5px;padding:0 5px;font-size:11px;font-weight:700;background:var(--c);color:#fff;white-space:nowrap}
+.elf{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 10px}.ef{border:1px solid var(--line);background:var(--panel);color:inherit;border-radius:999px;padding:3px 10px;font:inherit;font-size:12.5px;cursor:pointer}.ef.on{background:var(--c,var(--gold));color:#fff;border-color:transparent}
+.dex{display:grid;grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:8px}
+.dx{position:relative;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 4px 6px;text-align:center;color:inherit;font:inherit;font-size:12px;cursor:pointer}
+.dx img{width:64px;height:64px;image-rendering:pixelated}.dx.locked img,.sil{filter:brightness(0) opacity(.35)!important}
+.dx .no,.mh .no{position:absolute;left:6px;top:3px;font-size:10.5px;opacity:.6;font-variant-numeric:tabular-nums}.mh .no{position:static}
+.dx .sh{position:absolute;right:6px;top:2px}.dx .nm{font-weight:700;font-size:12.5px;line-height:1.2}.big2{font-size:20px}
+.mh{display:inline-flex;gap:6px;align-items:center;font-size:13px;font-weight:400;margin-left:6px}
+.mon1{text-align:center}.mon1 img{width:128px;height:128px;image-rendering:pixelated}
+.tiers{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}.tr{text-align:center;width:31%;min-width:90px}.tr img{width:96px;height:96px;image-rendering:pixelated}.tr small{display:block;font-size:11px;opacity:.8}.tr.off img{filter:brightness(0) opacity(.25)}
+.stats{display:grid;gap:4px;margin:8px 0}.stat{display:grid;grid-template-columns:44px 1fr 32px;gap:8px;align-items:center;font-size:12.5px}.stat .bar{margin:0}.stat b{text-align:right}
+.moves{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:6px}.mv{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:5px 6px;text-align:left;color:inherit;font:inherit;cursor:pointer}.mv .han{font-size:18px;display:block}.mv small{display:block;font-size:11px;opacity:.8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.mv .bar{margin-top:3px}
+.orb{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff9 0 18%,transparent 19%),radial-gradient(circle at 50% 55%,var(--c),color-mix(in srgb,var(--c) 55%,#000));color:#fff;font:700 12px/1 serif;box-shadow:0 0 0 2px #0003;vertical-align:middle;text-shadow:0 1px 1px #0006}
+.orb.big{width:40px;height:40px;font-size:20px}.orbs{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:6px;margin:6px 0}.orbb{color:inherit;font:inherit;cursor:pointer}
+.orbfx{position:absolute;right:20%;top:22%;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 35% 30%,#fffa 0 18%,transparent 19%),radial-gradient(circle at 50% 55%,var(--c),color-mix(in srgb,var(--c) 55%,#000));color:#fff;font:700 17px serif;animation:orbin .45s ease-out,orbshake .5s .55s 3;box-shadow:0 0 12px var(--c)}
+.orbfx.caught{animation:none;box-shadow:0 0 26px 8px #ffe48a}
+@keyframes orbin{from{transform:translate(-220%,180%) scale(.5)}to{transform:none}}
+@keyframes orbshake{0%,100%{transform:rotate(0)}30%{transform:rotate(-24deg)}70%{transform:rotate(24deg)}}
+.spr.sealed{scale:.1;opacity:0;transition:scale .35s,opacity .35s}
+.mc[disabled]{opacity:.45;cursor:not-allowed}
+@media (prefers-reduced-motion:reduce){.orbfx{animation:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Linh Thú Hán Tự <small id="sub">Mỗi bài học là một vùng đất mới</small></h1>
+    <div class="chips">
+      <span class="chip">Chuỗi <b id="cStreak">0</b> ngày</span>
+      <span class="chip">Đến hạn <b id="cDue">0</b> từ</span>
+      <span class="chip">Hôm nay <b id="cToday">0</b> câu</span>
+      <span class="chip">Huy hiệu <b id="cBadge">0</b></span>
+      <span class="chip">Tiền <b id="cCoin">0</b> · Trà <b id="cTea">0</b></span>
+      <span class="chip">Châu <b id="cOrb">0</b> · Tinh thạch <b id="cShard">0</b></span>
+    </div>
+  </header>
+  <div class="toolbar">
+    <button class="tb" id="bTeam" type="button">Đội hình</button>
+    <button class="tb" id="bDex" type="button">Sổ Linh Thú</button>
+    <button class="tb" id="bLessons" type="button">Bài học</button>
+    <button class="tb" id="bHome" type="button">Về làng</button>
+    <button class="tb" id="bSave" type="button" title="Sao lưu hoặc khôi phục tiến trình (chuyển sang điện thoại, máy khác)">💾 Tiến trình</button>
+    <button class="tb" id="bFull" type="button" title="Phóng game to hết màn hình (phím F11 của trình duyệt cũng được)">⛶ Toàn màn hình</button>
+    <button class="tb" id="bSnd" type="button">Âm thanh: Bật</button>
+    <button class="tb" id="bVi" type="button" title="Ẩn/hiện bản dịch tiếng Việt trong lời thoại NPC">Tiếng Việt: Hiện</button>
+    <button class="tb" id="bPy" type="button" title="Ẩn/hiện phiên âm pinyin bên cạnh chữ Hán">Pinyin: Hiện</button>
+    <button class="tb" id="bWr" type="button" title="Khi bắt linh thú, rèn châu: viết chữ Hán hay gõ pinyin theo nghĩa tiếng Việt">Bắt bằng: Gõ pinyin</button>
+  </div>
+  <div class="screen" id="screen"><div class="stage" id="stage"><canvas id="cv" width="352" height="240"></canvas><div class="zlabel" id="zl"></div><div id="ov"></div></div></div>
+  <div class="ctl">
+    <div class="dpad"><button class="u" data-dir="up" aria-label="Lên">▲</button><button class="l" data-dir="left" aria-label="Trái">◀</button><button class="r" data-dir="right" aria-label="Phải">▶</button><button class="d" data-dir="down" aria-label="Xuống">▼</button></div>
+    <button class="abtn" id="aBtn" aria-label="Nói chuyện">A</button>
+  </div>
+  <p class="help">Đi: <kbd>↑↓←→</kbd>/<kbd>WASD</kbd> · Nói chuyện: <kbd>Space</kbd> · Chọn đáp án: <kbd>1–4</kbd>. Đứng trước NPC rồi bấm Space. Đi vào bụi cỏ để gặp linh thú.</p>
+  <input type="file" id="fileIn" accept=".json,application/json" multiple hidden>
+  <p class="credit">Hình ảnh: Kenney (kenney.nl) và isaiah658 (OpenGameArt), giấy phép CC0.</p>
+</div>
+<script>
+/* =============== utils =============== */
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const shuffle = a => { a = [...a]; for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+const pick = a => a[Math.floor(Math.random() * a.length)];
+const norm = s => String(s).normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/v/g, 'u').replace(/[^a-z]/g, '');
+/* pinyin shown only when the toggle is on; writing mode off = type pinyin from the Vietnamese meaning */
+const PY = s => s ? `<span class="py">${esc(s)}</span>` : '';
+const wantWrite = () => S.writeMode === true && !!window.HanziWriter;
+const pyOk = (v, w) => { const x = norm(v), a = norm(w.p); return !!x && (x === a || (w.h.endsWith('儿') && x === a.replace(/r$/, ''))); };
+/* writing pads undo the big-mode zoom so pen positions line up; returns the real pixel size */
+const padFit = (id, size) => { const z = parseFloat(OV.style.zoom) || 1, el = document.getElementById(id); el.style.zoom = 1 / z; el.style.width = el.style.height = Math.round(size * z) + 'px'; return Math.round(size * z); };
+const pyInput = id => `<form class="tin" id="${id}f"><input id="${id}i" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Pinyin" placeholder="gõ pinyin, không cần dấu"><button class="btn">OK</button></form>`;
+const DAY = 864e5, STEPS = [1, 3, 7, 30];
+const dayKey = (t = Date.now()) => { const d = new Date(t); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); };
+const weekKey = (t = Date.now()) => { const d = new Date(t); d.setHours(0, 0, 0, 0); d.setDate(d.getDate() + 3 - (d.getDay() + 6) % 7); const w1 = new Date(d.getFullYear(), 0, 4); return d.getFullYear() + '-W' + (1 + Math.round(((d - w1) / DAY - 3 + (w1.getDay() + 6) % 7) / 7)); };
+function rng(seed) { let s = seed * 9301 + 49297; return () => { s = (s * 9301 + 49297) % 233280; return s / 233280; }; }
+
+/* =============== save =============== */
+const KEY = 'lthn-v1';
+const fresh = () => ({ lessons: [], cards: {}, intro: {}, owned: [], team: [], days: {}, badges: [], cleared: {}, coins: 0, items: { tea: 0 }, fairBest: {}, ans: {}, written: {}, shiny: [], where: { map: 'village', x: 10, y: 8, dir: 'down' }, nextMon: 1, sound: true, started: false });
+let S;
+try { S = Object.assign(fresh(), JSON.parse(localStorage.getItem(KEY) || '{}')); } catch (e) { S = fresh(); }
+const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) { toast('Bộ nhớ trình duyệt đầy, tiến trình chưa được lưu.'); } hud(); };
+
+/* =============== words & SRS =============== */
+let WORDS = new Map(); // hanzi -> word (with lessonId)
+function indexWords() { WORDS = new Map(); for (const L of S.lessons) for (const w of L.vocab) if (!WORDS.has(w.h)) WORDS.set(w.h, { ...w, lid: L.id }); }
+const lessonWords = L => [...new Set(L.vocab.map(w => w.h))].map(h => WORDS.get(h)).filter(Boolean);
+const card = h => S.cards[h];
+const isDue = h => { const c = card(h); return c && c.due <= Date.now(); };
+const isNew = h => !card(h) && S.intro[h];
+function nextState(c, g, now = Date.now()) {
+  c = c ? { ...c } : { step: 0, interval: 0, ease: 2.5, reps: 0, lapses: 0 };
+  if (g === 0) { c.step = 0; c.lapses++; c.ease = Math.max(1.3, c.ease - .2); c.interval = 0; c.reps++; c.due = now + 6e5; return c; }
+  let days;
+  if (g === 1) { days = c.step >= 4 ? Math.max(1, Math.round(c.interval * 1.2)) : (c.step > 0 ? STEPS[c.step - 1] : 1); c.ease = Math.max(1.3, c.ease - .15); }
+  else if (g === 2) { days = c.step < 4 ? STEPS[c.step] : Math.round(c.interval * c.ease); c.step++; }
+  else { const s = Math.min(c.step + 1, 4); days = s < 4 ? STEPS[s] : Math.round(Math.max(c.interval, 30) * c.ease * 1.3); c.step = s + 1; c.ease += .15; }
+  c.interval = days; c.reps++; const m = new Date(now); m.setHours(0, 0, 0, 0); c.due = m.getTime() + days * DAY; return c;
+}
+/* grade only when the word is new or due; a wrong answer always counts */
+function grade(h, g) {
+  const t = today(); t.answers++; if (g > 0) t.correct++;
+  let counted = false;
+  if (g === 0 || isNew(h) || isDue(h)) { S.cards[h] = nextState(card(h), g); counted = true; if (g > 0) t.reviews++; }
+  save(); return counted;
+}
+function today() { const k = dayKey(); return S.days[k] || (S.days[k] = { answers: 0, correct: 0, reviews: 0 }); }
+function streak() { let n = 0, t = Date.now(); if (!(S.days[dayKey(t)]?.answers >= 10)) t -= DAY; while (S.days[dayKey(t)]?.answers >= 10) { n++; t -= DAY; } return n; }
+const learned = () => [...WORDS.keys()].filter(h => S.intro[h] || card(h));
+const dueWords = () => learned().filter(h => isDue(h));
+function mastery(hs) { const ls = hs.filter(h => S.intro[h] || card(h)); if (!ls.length) return 0; return ls.reduce((a, h) => a + Math.min(card(h)?.step || 0, 5) / 5, 0) / hs.length; }
+function pickWord(pool) {
+  const due = pool.filter(w => isDue(w.h)), nw = pool.filter(w => isNew(w.h)), r = Math.random();
+  if (due.length && r < .6) return pick(due);
+  if (nw.length && r < .85) return pick(nw);
+  return pick(pool);
+}
+
+/* =============== species =============== */
+/* Ngũ hành: element of a creature comes from the radical of its character */
+const ELEM = {
+  thuy: { n: 'Thủy', g: '水', c: '#3a86d9', rad: '氵 冫 雨 鱼 酉', hint: 'nước, mưa, băng, cá' },
+  moc: { n: 'Mộc', g: '木', c: '#3f9d4a', rad: '木 艹 竹 禾 米 饣 纟 衤 巾', hint: 'cây, cỏ, tre, lúa gạo, món ăn, vải' },
+  hoa: { n: 'Hỏa', g: '火', c: '#e0592a', rad: '火 灬 日 礻', hint: 'lửa, mặt trời, thời gian, lễ cúng' },
+  kim: { n: 'Kim', g: '金', c: '#b8901c', rad: '钅 刂 刀 戈 贝 车', hint: 'kim loại, dao, tiền, xe' },
+  tho: { n: 'Thổ', g: '土', c: '#9a6b3f', rad: '土 石 山 阝 辶 彳 走 足 瓦', hint: 'đất, đá, núi, đường đi, gốm' },
+  nhan: { n: 'Nhân', g: '人', c: '#8a63c9', rad: '亻 口 讠 心 忄 扌 目', hint: 'người, miệng, lời nói, tim, tay' },
+};
+const EL_ORDER = ['thuy', 'moc', 'hoa', 'kim', 'tho', 'nhan'];
+const BEATS = { thuy: 'hoa', hoa: 'kim', kim: 'moc', moc: 'tho', tho: 'thuy' };
+const typeMul = (a, d) => BEATS[a] === d ? 1.5 : BEATS[d] === a ? .7 : 1;
+const EL_CHARS = {
+  thuy: '水河海洗澡游泳汤酒没沙法活渴港湖清江汉满演济消流浪漂涼凉温湿派注油深治浅汽决冷冰冻况准净冬雨雪雷零需霜露鱼鲸漫滑汁泪沟沉泡波洲浴酸醋醒配',
+  moc: '木林森树桌椅杯板校样机条松根楼检极材朵李杨村东果来本末梦橙桃 花草茶菜药节英苹萝蓝艺若苦莓蔬菊荷落菌葡萄芽茂葱 笔第等答筷算简篮签笑管箱竹篇籍 禾种秋科租积称程稍香 红经给绿练级约纸线组结终细绍累续 衬衫裤被袜裙 饭饿饺馆饱饮饼 米粉精糖类 帮帽带布师希常',
+  hoa: '火灯烧烤炒烟炸炎烦炼熊热点照黑然熟煮蒸 日早时明星昨春晚晴暖暑景晨普最是易旧显昏晒暗 票视社礼祝福 辣',
+  kim: '金钱铁钟银错铅锅钢钥镜针 别到刚刻利划刷剩剧前 我战或成 贵费货购贝赛账败财质 车辆转较轻输 买卖 分切',
+  tho: '土地场城块坐坏址在堂墙增坚 石研破础碗确码 山岛岸岁峰 郊都那院阳阴附除险队阿 这进还送近远过道边运连选通遍迎适迟逛 起超越趣赶 跑跳路踢跟距 行很往得街 瓶鞋',
+};
+const EL_WORDS = { thuy: /nước|sông|biển|mưa|cá|rượu|uống|tắm|bơi|lạnh|tuyết|băng/, moc: /cây|hoa|trà|rau|bút|trái cây|giấy|sách|gỗ|áo|quần|vải/, hoa: /lửa|nóng|nắng|mặt trời|ngày|buổi|giờ|đèn|nướng|cay/, kim: /tiền|vàng|bạc|sắt|dao|máy|xe|đắt|rẻ|giá/, tho: /đất|núi|đá|thành phố|đường|nơi|đi|chạy|nhảy|vườn/ };
+function elemOf(ch, meaning = '') {
+  for (const el of EL_ORDER.slice(0, 5)) if (EL_CHARS[el].includes(ch)) return el;
+  const m = meaning.toLowerCase();
+  for (const el of EL_ORDER.slice(0, 5)) if (EL_WORDS[el].test(m)) return el;
+  return 'nhan';
+}
+/* which of the 56 creature drawings suit each element */
+const SPR_EL = {
+  thuy: [3, 5, 11, 19, 20, 27, 30, 38, 47, 49, 54],
+  moc: [4, 6, 7, 8, 14, 15, 17, 26, 28, 37, 46, 50, 52, 55],
+  hoa: [9, 12, 18, 22, 29, 34, 36, 40, 48, 56],
+  kim: [1, 2, 13, 25, 31, 33, 45, 53],
+  tho: [10, 21, 23, 35, 41, 42, 43, 44],
+  nhan: [16, 24, 32, 39, 51, 9, 29, 23, 10, 37],
+};
+/* Kenney Tiny Creatures (CC0), stored as 1000 + tile index; people and undead left out */
+const TINY_EL = {
+  thuy: [46, 49, 56, 59, 60, 61, 62, 63, 64, 70, 71, 72, 89, 31, 147, 148, 149, 173, 174],
+  moc: [7, 8, 13, 34, 40, 110, 112, 113, 114, 115, 116, 122, 140, 141, 145, 146],
+  hoa: [45, 55, 33, 38, 39, 79, 78, 102, 103, 104, 106, 156, 157, 159],
+  kim: [23, 24, 32, 80, 81, 82, 117, 127, 128, 93, 94, 142, 89],
+  tho: [47, 57, 50, 54, 83, 84, 87, 100, 101, 126, 133, 137, 143, 144, 154, 158, 160, 161, 162, 163, 166, 170, 171],
+  nhan: [48, 58, 130, 131, 132, 134, 135, 136, 30, 51, 52, 150, 151, 152, 153, 164, 165, 167, 175, 176, 177, 178, 179],
+};
+for (const el in TINY_EL) SPR_EL[el] = [...SPR_EL[el], ...TINY_EL[el].map(i => 1000 + i)];
+const isTiny = n => (spById(n)?.spr || n) >= 1000;
+const TINY_URL = {};
+function tinyURL(i) {
+  if (TINY_URL[i]) return TINY_URL[i];
+  if (!IMG.crea) return '';
+  const c = document.createElement('canvas'); c.width = c.height = 16;
+  c.getContext('2d').drawImage(IMG.crea, (i % 10) * 16, Math.floor(i / 10) * 16, 16, 16, 0, 0, 16, 16);
+  return TINY_URL[i] = c.toDataURL();
+}
+const STARTERS = [{ n: 18, spr: 18, name: 'Viêm Hồ', g: '炎', el: 'hoa', hue: 0 }, { n: 30, spr: 30, name: 'Thủy Kình', g: '鲸', el: 'thuy', hue: 0 }, { n: 5, spr: 5, name: 'Mộc Long', g: '龙', el: 'moc', hue: 270 }];
+const RESERVED = new Set(STARTERS.map(s => s.n));
+function pickSprite(el, extra = []) {
+  const use = {}; [...allSpecies(), ...extra].forEach(s => { if (s.spr) use[s.spr] = (use[s.spr] || 0) + 1; });
+  const pool = SPR_EL[el], min = Math.min(...pool.map(n => use[n] || 0));
+  const spr = pick(pool.filter(n => (use[n] || 0) === min));
+  return { spr, hue: (min * 67) % 360 }; // same drawing reused -> new colour
+}
+function newId() {
+  const used = new Set(allSpecies().map(s => s.n));
+  while (RESERVED.has(S.nextMon) || used.has(S.nextMon)) S.nextMon++;
+  return S.nextMon++;
+}
+function speciesChars(L, exclude = new Set(), max = 3) {
+  const chars = [], seen = new Set(exclude), text = L.vocab.map(w => w.h).join('');
+  const meanOf = g => (L.vocab.find(w => w.h === g) || L.vocab.find(w => w.h.includes(g)))?.m || '';
+  for (const c of (L.characters || [])) if (c.char && text.includes(c.char) && !seen.has(c.char)) { seen.add(c.char); chars.push({ g: c.char, hv: c.han_viet }); }
+  for (const w of L.vocab) { if (chars.length >= max) break; if ([...w.h].length === 1 && !seen.has(w.h)) { seen.add(w.h); chars.push({ g: w.h, hv: w.v }); } }
+  for (const w of L.vocab) { if (chars.length >= max) break; const g = [...w.h][0]; if (!seen.has(g)) { seen.add(g); chars.push({ g, hv: (w.v || '').split(/\s+/)[0] }); } }
+  for (const w of L.vocab) for (const g of w.h) { if (chars.length >= max) break; if (/\p{Script=Han}/u.test(g) && !seen.has(g)) { seen.add(g); chars.push({ g, hv: '' }); } }
+  return chars.slice(0, max).map(c => ({ ...c, m: meanOf(c.g) }));
+}
+const SUFFIX = ['Linh', 'Thú', 'Vương'];
+const spName = (c, k) => { const hv = (c.hv || '').replace(/\(.*\)/, '').trim(); return (hv ? hv[0].toUpperCase() + hv.slice(1) : c.g) + ' ' + SUFFIX[k]; };
+function assignSpecies(L) {
+  L.species = [];
+  speciesChars(L, new Set(allSpecies().map(s => s.g))).forEach((c, k) => { const el = elemOf(c.g, c.m); L.species.push({ n: newId(), g: c.g, el, ...pickSprite(el, L.species), name: spName(c, k) }); });
+}
+/* older saves: species had only n (= drawing number) */
+function migrateSpecies() {
+  let ch = false;
+  /* split parts used to copy the whole file's character list, so every zone got the same 3 characters */
+  const used = new Set(STARTERS.map(s => s.g));
+  S.lessons.forEach(L => {
+    const text = L.vocab.map(w => w.h).join('');
+    if ((L.characters || []).some(c => !text.includes(c.char))) { L.characters = L.characters.filter(c => text.includes(c.char)); ch = true; }
+    L.species?.forEach((s, k) => {
+      if (text.includes(s.g) && !used.has(s.g)) { used.add(s.g); return; }
+      const want = speciesChars(L, new Set([...used, ...L.species.map(o => o.g).filter(g => g !== s.g)]), 1)[0];
+      if (!want) return;
+      s.g = want.g; s.name = spName(want, k); s.el = elemOf(s.g, want.m); used.add(s.g);
+      if (!S.owned.includes(s.n)) Object.assign(s, pickSprite(s.el, []));
+      ch = true;
+    });
+  });
+  if (S.elV !== 2) { // element tables grew: recompute, redraw creatures not caught yet
+    S.lessons.forEach(L => (L.species || []).forEach(s => { const el = elemOf(s.g, (L.vocab.find(w => w.h.includes(s.g)) || {}).m); if (el !== s.el) { s.el = el; if (!S.owned.includes(s.n)) Object.assign(s, pickSprite(el, [])); } }));
+    S.elV = 2; ch = true;
+  }
+  if (S.elV === 2) {
+    const free = S.lessons.flatMap(L => L.species || []).filter(s => !S.owned.includes(s.n));
+    free.forEach(s => { s.spr = 0; });
+    free.forEach(s => Object.assign(s, pickSprite(s.el)));
+    S.elV = 3; ch = true;
+  }
+  S.lessons.forEach(L => (L.species || []).forEach(s => {
+    if (!s.spr) { s.spr = ((s.n - 1) % 56) + 1; s.hue = s.hue || 0; ch = true; }
+    if (!s.el) { s.el = elemOf(s.g, (L.vocab.find(w => w.h.includes(s.g)) || {}).m); ch = true; }
+  }));
+  if (ch) save();
+}
+function allSpecies() { const out = STARTERS.map(s => ({ ...s, lid: null })); S.lessons.forEach(L => (L.species || []).forEach(s => out.push({ ...s, lid: L.id }))); return out; }
+const spById = n => allSpecies().find(s => s.n === n);
+function monWords(m) { if (m.lid == null) return [...WORDS.keys()]; const L = S.lessons.find(l => l.id === m.lid); return L ? lessonWords(L).map(w => w.h) : []; }
+const clamp = (v, a = 0, b = 1) => Math.max(a, Math.min(b, v));
+/* power comes from real study: accuracy -> Công, on-time reviews -> Thủ, answer speed -> Tốc */
+function monStats(m) {
+  const sp = spById(m.n), hs = monWords(m), ma = mastery(hs), ls = hs.filter(h => S.intro[h] || card(h));
+  const due = ls.filter(isDue).length;
+  const A = hs.map(h => S.ans[h]).filter(Boolean), tn = A.reduce((a, x) => a + x.n, 0), tc = A.reduce((a, x) => a + x.c, 0);
+  const acc = tn ? tc / tn : .5, rt = A.length ? A.reduce((a, x) => a + x.rt, 0) / A.length : 10;
+  const tier = ma >= .95 && sp && S.written[[...sp.g][0]] ? 2 : ma >= .8 ? 1 : 0;
+  const lvl = 3 + Math.floor(ma * 20) + (tier === 2 ? 3 : 0);
+  return { lvl, ma, tier, evo: tier >= 1, el: sp?.el || 'nhan', sleepy: ls.length >= 3 && due / ls.length >= .3, due,
+    atk: 10 + Math.round(acc * 40), def: 10 + Math.round(40 * (ls.length ? 1 - due / ls.length : .5)), spd: 10 + Math.round(40 * clamp((11 - rt) / 8)),
+    maxHp: 60 + lvl * 5 + (tier === 2 ? 15 : 0) };
+}
+function track(h, ok, secs) {
+  const a = S.ans[h] || (S.ans[h] = { c: 0, n: 0, rt: 10 });
+  a.n++; if (ok) { a.c++; a.rt = Math.round((a.rt * .7 + Math.min(secs, 20) * .3) * 10) / 10; }
+}
+const sprite = (n, side, evo) => { const spr = spById(n)?.spr || n; return spr >= 1000 ? tinyURL(spr - 1000) : `sprites/m${spr}_${side}${evo ? '_alt' : ''}.png`; };
+function monFilter(n, shiny, tier) {
+  const s = spById(n), f = [];
+  const tinyEvo = (s?.spr || 0) >= 1000 && tier >= 1;
+  const hue = ((s?.hue || 0) + (shiny ? 150 : 0) + (tinyEvo ? 40 : 0)) % 360;
+  if (hue) f.push(`hue-rotate(${hue}deg)`);
+  if (tinyEvo && !shiny) f.push('saturate(1.35)');
+  if (shiny) f.push('saturate(1.6) brightness(1.08)');
+  if (tier === 2) f.push('drop-shadow(0 0 4px #ffd34d) drop-shadow(0 0 2px #fff4c2)');
+  return f.join(' ');
+}
+const elChip = el => `<span class="el" style="--c:${ELEM[el].c}">${ELEM[el].g} ${ELEM[el].n}</span>`;
+const isShiny = n => S.shiny.includes(n);
+
+/* =============== lessons import =============== */
+function normLesson(raw, title) {
+  const vocab = (raw.vocab || []).filter(v => v && v.hanzi).map(v => ({ h: String(v.hanzi).trim(), p: v.pinyin || '', v: v.han_viet || '', m: v.meaning || '', eh: v.example?.hanzi || '', ep: v.example?.pinyin || '', em: v.example?.meaning || '' }));
+  const dialogue = (raw.dialogue?.lines || []).map(l => ({ role: l.role, zh: l.hanzi, py: l.pinyin, vi: l.meaning }));
+  return { id: 'L' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6), title: raw.topic || title, createdAt: Date.now(), vocab, characters: raw.characters || [], dialogue, grammar: raw.grammar || [] };
+}
+function addLesson(raw, title) {
+  const L = normLesson(raw, title);
+  if (!L.vocab.length) { toast(`"${title}" không có phần vocab, bỏ qua.`); return null; }
+  assignSpecies(L); S.lessons.push(L); indexWords(); save(); return L;
+}
+$('#fileIn').onchange = async e => {
+  const files = [...e.target.files]; e.target.value = '';
+  const big = [];
+  let added = 0;
+  for (const f of files) {
+    try {
+      const raw = JSON.parse(await f.text());
+      if ((raw.vocab || []).length > 40) big.push({ raw, name: f.name.replace(/\.json$/i, '') });
+      else if (addLesson(raw, f.name.replace(/\.json$/i, ''))) added++;
+    } catch (err) { toast(`Không đọc được ${f.name}: file phải là JSON bài học.`); }
+  }
+  if (big.length) { askSplit(big, added); return; }
+  afterImport(added);
+};
+function askSplit(big, added) {
+  const b = big.shift(), n = b.raw.vocab.length;
+  sheet(`<h3>File lớn: ${esc(b.name)}</h3><p>File có <b>${n} từ</b>. Mỗi vùng đất nên có khoảng 15–25 từ. Bạn muốn chia thế nào?</p>
+    <div class="row"><button class="btn" data-k="20">Chia thành ${Math.ceil(n / 20)} bài, mỗi bài 20 từ</button><button class="btn ghost" data-k="0">Giữ nguyên 1 bài</button></div>`, sh => {
+    sh.querySelectorAll('[data-k]').forEach(x => x.onclick = () => {
+      const k = +x.dataset.k;
+      if (!k) { if (addLesson(b.raw, b.name)) added++; }
+      else for (let i = 0; i < n; i += k) { const part = { ...b.raw, characters: (b.raw.characters || []).filter(c => b.raw.vocab.slice(i, i + k).some(v => String(v.hanzi).includes(c.char))), topic: `${b.raw.topic ? b.raw.topic.slice(0, 40) : b.name} · Phần ${i / k + 1}`, vocab: b.raw.vocab.slice(i, i + k) }; part.dialogue = i + k >= n ? b.raw.dialogue : null; if (addLesson(part, b.name)) added++; }
+      closeSheet(); if (big.length) askSplit(big, added); else afterImport(added);
+    });
+  });
+}
+function afterImport(added) {
+  if (!added) return;
+  toast(`Đã thêm ${added} bài. Mỗi bài là một vùng đất mới.`);
+  if (!S.team.length) setTimeout(chooseStarter, 400);
+  else openLessons();
+}
+
+/* =============== maps =============== */
+const W = 22, H = 15, T = 16;
+const TREES = [16, 4, 15, 3, 28, 27];
+function blankMap(fill) { return Array.from({ length: H }, () => Array(W).fill(fill)); }
+function border(m, tree, r) { for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) if (x === 0 || y === 0 || x === W - 1 || y === H - 1) m[y][x] = { t: 'tree', i: r() < .25 ? TREES[(TREES.indexOf(tree) + 1) % TREES.length] : tree }; }
+function rect(m, x0, y0, x1, y1, cell) { for (let y = y0; y <= y1; y++) for (let x = x0; x <= x1; x++) m[y][x] = { ...cell }; }
+function path(m, pts) { for (let k = 0; k < pts.length - 1; k++) { let [x, y] = pts[k]; const [x1, y1] = pts[k + 1]; while (x !== x1 || y !== y1) { if (m[y][x].t === 'g') m[y][x] = { t: 'path' }; if (x !== x1) x += Math.sign(x1 - x); else y += Math.sign(y1 - y); } if (m[y][x].t === 'g') m[y][x] = { t: 'path' }; } }
+const HOUSE = { red: [[52, 53, 54], [64, 67, 66], [72, 85, 75]], blue: [[48, 49, 50], [60, 63, 62], [76, 89, 79]], temple: [[52, 53, 54], [64, 67, 66], [88, 89, 88]] };
+
+function buildVillage() {
+  const r = rng(7), m = blankMap({ t: 'g' }); border(m, 16, r);
+  const houses = [{ x: 2, y: 2, k: 'blue' }, { x: 9, y: 2, k: 'red' }, { x: 16, y: 2, k: 'temple' }];
+  rect(m, 1, 10, 7, 13, { t: 'grass', zone: 'review' });
+  path(m, [[3, 5], [3, 6], [17, 6], [17, 5]]); path(m, [[10, 5], [10, 6]]); path(m, [[10, 6], [10, 13]]);
+  const props = [{ x: 14, y: 9, i: 104, n: 'well' }, { x: 12, y: 8, i: 83, n: 'sign' }, { x: 18, y: 11, i: 94 }, { x: 19, y: 11, i: 94 }, { x: 15, y: 12, i: 92 }, { x: 12, y: 12, i: 129 }];
+  for (const [x, y] of [[13, 3], [6, 9], [16, 10], [20, 8], [8, 12]]) if (m[y][x].t === 'g') m[y][x] = { t: 'g', deco: 2 };
+  m[12][17] = { t: 'tree', i: 5 }; m[13][20] = { t: 'tree', i: 15 };
+  const npcs = [
+    { x: 4, y: 5, s: 84, name: 'Thầy Vương', fn: talkTeacher },
+    { x: 11, y: 5, s: 100, name: 'Bà quán trà', fn: talkTea },
+    { x: 18, y: 5, s: 96, name: 'Người giữ đền', fn: talkTemple },
+    { x: 11, y: 8, s: 112, name: 'Người dẫn đường', fn: talkGuide },
+    { x: 6, y: 8, s: 86, name: 'Chủ tiệm', fn: talkShop },
+    { x: 16, y: 8, s: 87, name: 'Người mở hội chợ', fn: talkFair },
+    { x: 13, y: 12, s: 99, name: 'Thợ rèn', fn: talkSmith },
+  ];
+  return { id: 'village', name: 'Làng Tân Thủ', m, houses, props, npcs, exit: null, wild: [] };
+}
+/* zone look follows the lesson topic */
+const THEMES = [
+  { k: 'cho', n: 'Khu chợ', zh: '市场', kw: /买|卖|钱|商场|衣服|便宜|贵|东西|衬衫|鞋|号|颜色|试|穿/g },
+  { k: 'truong', n: 'Sân trường', zh: '学校', kw: /课|考试|图书馆|学|老师|准备|难|容易|笔|起床|睡觉|作业/g },
+  { k: 'congvien', n: 'Công viên', zh: '公园', kw: /公园|博物馆|动物|风景|旅行|参观|照片|拍|熊猫|郊区|门票|空气/g },
+  { k: 'quan', n: 'Phố ẩm thực', zh: '美食街', kw: /菜|饭|酒|吃|甜|辣|酸|苦|味道|饿|鱼|烤鸭|沙拉|水果|豆腐|尝|茶/g },
+  { k: 'nhac', n: 'Quảng trường', zh: '广场', kw: /音乐|唱|舞|篮球|电影|电视|歌|好听|周末|比赛|玩/g },
+  { k: 'pho', n: 'Phố điện thoại', zh: '街道', kw: /手机|电话|电脑|号码|微信|电|告诉|说|问题/g },
+];
+function themeOf(L) {
+  const txt = L.vocab.map(w => w.h).join(' ') + ' ' + (L.title || '');
+  let best = null, bs = 0;
+  for (const t of THEMES) { const sc = (txt.match(t.kw) || []).length; if (sc > bs) { bs = sc; best = t; } }
+  return best || { k: 'rung', n: 'Rừng', zh: '森林' };
+}
+function decorateZone(m, L, r, houses, npcs) {
+  const th = themeOf(L), props = [];
+  const near = (x, y, f) => [[0, 0], [1, 0], [-1, 0], [0, 1], [0, -1]].some(([a, b]) => f(m[y + b]?.[x + a], x + a, y + b));
+  const inHouse = (x, y, pad) => houses.some(h => x >= h.x - pad && x < h.x + 3 + pad && y >= h.y - pad && y < h.y + 4 + pad);
+  const blocked = (x, y) => props.some(p => Math.abs(p.x - x) <= 1 && Math.abs(p.y - y) <= 1);
+  const free = (x, y, opt = {}) => x > 1 && y > 1 && x < W - 2 && y < H - 2 && m[y][x].t === 'g' && !m[y][x].deco
+    && !near(x, y, c => c && (c.t === 'path' || c.t === 'exit' || (opt.noGrass && c.t === 'grass')))
+    && !inHouse(x, y, 1) && !npcs.some(n => Math.abs(n.x - x) + Math.abs(n.y - y) <= 1) && !(x === 11 && y >= H - 3) && (opt.touch || !blocked(x, y));
+  const cells = () => { const out = []; for (let y = 2; y < H - 2; y++) for (let x = 2; x < W - 2; x++) out.push([x, y]); return out.sort(() => r() - .5); };
+  const place = (ids, n, opt) => { let k = 0; for (const [x, y] of cells()) { if (k >= n) break; if (free(x, y, opt)) { props.push({ x, y, i: ids[k % ids.length] }); k++; } } };
+  const deco = (id, n) => { let k = 0; for (const [x, y] of cells()) { if (k >= n) break; if (m[y][x].t === 'g' && !m[y][x].deco && !inHouse(x, y, 0)) { m[y][x] = { ...m[y][x], deco: id }; k++; } } };
+  const ground = (id, x0, y0, x1, y1) => { for (let y = y0; y <= y1; y++) for (let x = x0; x <= x1; x++) if (m[y]?.[x]?.t === 'g') m[y][x] = { ...m[y][x], gr: id }; };
+  const fence = (len, n) => { // horizontal fence runs, away from grass so nothing gets sealed in
+    let k = 0;
+    for (const [x, y] of cells()) {
+      if (k >= n) break;
+      let ok = true; for (let d = 0; d < len; d++) if (!free(x + d, y, { noGrass: true, touch: d > 0 }) || blocked(x + d, y) && d === 0) { ok = false; break; }
+      if (!ok) continue;
+      for (let d = 0; d < len; d++) props.push({ x: x + d, y, i: d === 0 ? 44 : d === len - 1 ? 46 : 45 });
+      k++;
+    }
+  };
+  if (th.k === 'cho') { ground(25, 6, 7, 16, 12); place([107, 130, 131, 93, 57, 92, 107], 9); }
+  else if (th.k === 'truong') { ground(25, 5, 7, 17, 9); fence(5, 2); place([95, 57, 83, 115], 4); }
+  else if (th.k === 'congvien') { deco(2, 14); fence(4, 2); place([5, 16, 4, 5, 83], 8); }
+  else if (th.k === 'quan') { place([107, 131, 92, 94, 106, 130, 107], 9); deco(29, 6); }
+  else if (th.k === 'nhac') { ground(25, 7, 7, 15, 12); deco(2, 10); place([128, 95, 128, 57], 5); }
+  else if (th.k === 'pho') { place([128, 57, 128, 107, 128], 6); }
+  else place([5, 15, 16, 4], 8);
+  return { th, props };
+}
+function buildZone(L) {
+  const idx = S.lessons.indexOf(L), r = rng(idx + 11), tpl = idx % 3, tree = TREES[idx % TREES.length];
+  const m = blankMap({ t: 'g' }); border(m, tree, r);
+  let house, patches;
+  if (tpl === 0) { house = { x: 3, y: 2 }; patches = [[14, 1, 20, 5], [1, 10, 7, 13]]; }
+  else if (tpl === 1) { house = { x: 15, y: 2 }; patches = [[1, 1, 7, 5], [13, 10, 20, 13]]; }
+  else { house = { x: 9, y: 2 }; patches = [[1, 5, 5, 12], [16, 5, 20, 12]]; }
+  house.k = idx % 2 ? 'blue' : 'red';
+  patches.forEach(p => rect(m, p[0], p[1], p[2], p[3], { t: 'grass', zone: L.id }));
+  const dx = house.x + 1, dy = house.y + 3;
+  m[H - 1][11] = { t: 'exit' };
+  path(m, [[dx, dy], [dx, 8], [11, 8], [11, H - 2]]);
+  for (let k = 0; k < 7; k++) { const x = 1 + Math.floor(r() * 20), y = 1 + Math.floor(r() * 13); if (m[y][x].t === 'g') m[y][x] = { t: 'g', deco: r() < .5 ? 2 : 29 }; }
+  for (let k = 0; k < 4; k++) { const x = 2 + Math.floor(r() * 18), y = 6 + Math.floor(r() * 3); if (m[y][x].t === 'g' && x !== 11 && Math.abs(x - dx) > 1) m[y][x] = { t: 'tree', i: 5 }; }
+  const npcs = [
+    { x: house.x + 3, y: house.y + 3, s: 84, name: 'Thầy giáo vùng', fn: () => talkZoneTeacher(L) },
+    { x: 13, y: 10, s: pick([85, 88, 98, 99]), name: 'Dân làng', fn: () => talkVillager(L) },
+    { x: 9, y: 11, s: 97, name: 'Trưởng vùng', fn: () => talkZoneBoss(L) },
+  ];
+  npcs.forEach(n => { if (m[n.y][n.x].t !== 'g' && m[n.y][n.x].t !== 'path') m[n.y][n.x] = { t: 'g' }; });
+  const dz = decorateZone(m, L, r, [house], npcs);
+  const wild = [];
+  patches.forEach(p => { for (let k = 0; k < 2; k++) wild.push({ x: p[0] + Math.floor(r() * (p[2] - p[0] + 1)), y: p[1] + Math.floor(r() * (p[3] - p[1] + 1)), sp: L.species[(k + wild.length) % L.species.length], icon: [45, 46, 113, 26, 140, 150][(idx + wild.length) % 6] }); });
+  wild.forEach(w => { if (w.sp.spr >= 1000) w.icon = w.sp.spr - 1000; });
+  return { id: L.id, name: `${dz.th.n} ${dz.th.zh} · ${L.title}`, theme: dz.th, m, houses: [house], props: dz.props, npcs, exit: { x: 11, y: H - 1 }, wild, lesson: L };
+}
+let MAP = null;
+function enterMap(id, x, y) {
+  if (id === 'village') MAP = buildVillage();
+  else { const L = S.lessons.find(l => l.id === id); if (!L) return enterMap('village', 10, 8); MAP = buildZone(L); }
+  if (MAP.id === 'village') MAP.wild = villageWild();
+  if (MAP.id !== 'village' && solidAt(x, y)) { x = 11; y = H - 2; } // a prop may now stand on an old save spot
+  P.x = P.fx = x; P.y = P.fy = y; P.t = 1; P.moving = false;
+  S.where = { map: MAP.id, x, y, dir: P.dir }; save();
+  $('#zl').textContent = MAP.name;
+}
+function villageWild() {
+  const due = dueWords(); if (!due.length) return [];
+  const sps = [...new Set(due.map(h => WORDS.get(h)?.lid))].map(lid => S.lessons.find(l => l.id === lid)).filter(Boolean).flatMap(L => L.species || []);
+  if (!sps.length) return [];
+  return [0, 1, 2].map(k => ({ x: 2 + k * 2, y: 10 + (k % 2) * 2, sp: pick(sps), icon: [45, 46, 113][k] }));
+}
+const solidAt = (x, y) => {
+  if (x < 0 || y < 0 || x >= W || y >= H) return true;
+  const c = MAP.m[y][x]; if (c.t === 'tree') return true;
+  if (MAP.houses.some(h => x >= h.x && x < h.x + 3 && y >= h.y && y < h.y + 3)) return true;
+  if (MAP.props.some(p => p.x === x && p.y === y)) return true;
+  if (MAP.npcs.some(n => n.x === x && n.y === y)) return true;
+  return false;
+};
+
+/* =============== player & input =============== */
+const P = { x: 10, y: 8, fx: 10, fy: 8, t: 1, dir: S.where?.dir || 'down', moving: false };
+let mode = 'map';
+const held = new Set();
+const KEYS = { ArrowUp: 'up', KeyW: 'up', ArrowDown: 'down', KeyS: 'down', ArrowLeft: 'left', KeyA: 'left', ArrowRight: 'right', KeyD: 'right' };
+const D = { up: [0, -1], down: [0, 1], left: [-1, 0], right: [1, 0] };
+addEventListener('keydown', e => {
+  if (e.target.tagName === 'INPUT') return;
+  if (KEYS[e.code] && mode === 'map') { held.add(KEYS[e.code]); e.preventDefault(); }
+  if ((e.code === 'Space' || e.code === 'Enter') && (mode === 'map' || mode === 'dlg')) { e.preventDefault(); pressA(); }
+  if (mode === 'battle' && /^Digit[1-4]$/.test(e.code)) { const b = document.querySelectorAll('.opt')[+e.code.slice(5) - 1]; if (b && !b.disabled) b.click(); }
+});
+addEventListener('keyup', e => { if (KEYS[e.code]) held.delete(KEYS[e.code]); });
+document.querySelectorAll('[data-dir]').forEach(b => {
+  b.addEventListener('pointerdown', e => { e.preventDefault(); if (mode === 'map') held.add(b.dataset.dir); });
+  ['pointerup', 'pointerleave', 'pointercancel'].forEach(ev => b.addEventListener(ev, () => held.delete(b.dataset.dir)));
+});
+$('#aBtn').onclick = pressA;
+function pressA() {
+  if (mode === 'dlg') { dlgNext(); return; }
+  if (mode !== 'map' || P.moving) return;
+  const [dx, dy] = D[P.dir], tx = P.x + dx, ty = P.y + dy;
+  const n = MAP.npcs.find(n => n.x === tx && n.y === ty); if (n) { n.fn(n); return; }
+  const pr = MAP.props.find(p => p.x === tx && p.y === ty);
+  if (pr?.n === 'sign') dialog([{ who: 'Bảng chỉ đường', zh: '新手村', py: 'Xīnshǒu cūn', vi: 'Làng Tân Thủ. Nhà mái xanh: Thầy Vương (nạp bài mới). Mái đỏ: quán trà (hồi máu, nhiệm vụ). Đền phía đông: thử thách cuối tuần. Bụi cỏ phía tây nam: từ cần ôn. Chủ tiệm bán trà sâm và Linh Châu, hội chợ có trò chơi kiếm tiền, thợ rèn (phía nam giếng) rèn châu từ tinh thạch.' }]);
+  if (pr?.n === 'well') dialog([{ who: '', vi: 'Giếng nước trong vắt. Bạn thấy tỉnh táo hơn.' }]);
+}
+function tryMove(dir) {
+  P.dir = dir; const [dx, dy] = D[dir], tx = P.x + dx, ty = P.y + dy;
+  if (MAP.exit && tx === MAP.exit.x && ty === MAP.exit.y) { enterMap('village', 10, 12); return; }
+  if (solidAt(tx, ty)) return;
+  const c = MAP.m[ty][tx];
+  if (c.t === 'grass' && c.zone !== 'review' && MAP.lesson && !lessonWords(MAP.lesson).some(w => S.intro[w.h])) { held.clear(); dialog([{ who: 'Thầy giáo vùng', zh: '等一下！', py: 'Děng yíxià!', vi: 'Đợi đã! Con chưa học từ của vùng này. Lại đây học với ta trước nhé.' }]); return; }
+  if (c.t === 'grass' && !S.team.length) { held.clear(); dialog([{ who: '', vi: 'Bạn chưa có linh thú nào. Hãy gặp Thầy Vương ở làng.' }]); return; }
+  P.fx = P.x; P.fy = P.y; P.x = tx; P.y = ty; P.t = 0; P.moving = true;
+}
+function arrived() {
+  S.where = { map: MAP.id, x: P.x, y: P.y, dir: P.dir };
+  const c = MAP.m[P.y][P.x];
+  if (c.t !== 'grass') return;
+  const w = MAP.wild.find(w => Math.abs(w.x - P.x) + Math.abs(w.y - P.y) <= 1);
+  if (w || Math.random() < .08) { held.clear(); wildBattle(w, c.zone); }
+}
+
+/* =============== rendering =============== */
+const IMG = {};
+const load = (k, src) => new Promise(r => { const i = new Image(); i.onload = () => { IMG[k] = i; r(); }; i.onerror = () => r(); i.src = src; });
+const cv = $('#cv'), cx = cv.getContext('2d'); cx.imageSmoothingEnabled = false;
+const town = (i, x, y) => IMG.town && cx.drawImage(IMG.town, (i % 12) * 16, Math.floor(i / 12) * 16, 16, 16, x, y, 16, 16);
+const dung = (i, x, y, flip) => { if (!IMG.dung) return; cx.save(); if (flip) { cx.translate(x + 16, y); cx.scale(-1, 1); x = 0; y = 0; } cx.drawImage(IMG.dung, (i % 12) * 17, Math.floor(i / 12) * 17, 16, 16, x, y, 16, 16); cx.restore(); };
+const crea = (i, x, y) => IMG.crea && cx.drawImage(IMG.crea, (i % 10) * 16, Math.floor(i / 10) * 16, 16, 16, x, y, 16, 16);
+let last = performance.now(), wt = 0;
+function frame(t) {
+  const dt = Math.min(50, t - last); last = t;
+  if (MAP) {
+    if (P.moving) { P.t += dt / 150; if (P.t >= 1) { P.t = 1; P.moving = false; arrived(); } }
+    if (!P.moving && mode === 'map' && held.size) tryMove([...held].pop());
+    wt += dt; if (wt > 900 && mode === 'map') { wt = 0; MAP.wild.forEach(wander); }
+    for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
+      const c = MAP.m[y][x], X = x * T, Y = y * T;
+      town(c.gr ?? 0, X, Y);
+      if (c.t === 'path' || c.t === 'exit') town(43, X, Y);
+      if (c.t === 'grass') town(c.zone === 'review' ? 1 : 17, X, Y);
+      if (c.t === 'grass' && c.zone === 'review') town(17, X, Y);
+      if (c.deco) town(c.deco, X, Y);
+      if (c.t === 'tree') town(c.i, X, Y);
+    }
+    MAP.houses.forEach(h => HOUSE[h.k].forEach((r, dy) => r.forEach((i, dx) => town(i, (h.x + dx) * T, (h.y + dy) * T))));
+    MAP.props.forEach(p => town(p.i, p.x * T, p.y * T));
+    MAP.wild.forEach(w => crea(w.icon, w.x * T, w.y * T + (Math.sin(t / 220 + w.x) > 0 ? -1 : 0)));
+    MAP.npcs.forEach(n => dung(n.s, n.x * T, n.y * T));
+    const px = (P.fx + (P.x - P.fx) * P.t) * T, py = (P.fy + (P.y - P.fy) * P.t) * T;
+    dung(98, Math.round(px), Math.round(py) - (P.moving && P.t < .5 ? 1 : 0), P.dir === 'left');
+  }
+  requestAnimationFrame(frame);
+}
+function wander(w) {
+  const d = pick(Object.values(D)), nx = w.x + d[0], ny = w.y + d[1];
+  if (Math.random() < .5 && MAP.m[ny]?.[nx]?.t === 'grass' && !MAP.wild.some(o => o !== w && o.x === nx && o.y === ny) && !(nx === P.x && ny === P.y)) { w.x = nx; w.y = ny; }
+}
+
+/* =============== UI: dialog / sheet / toast =============== */
+const OV = $('#ov');
+let DQ = [], DDone = null;
+function speak(t, force) { if ((!S.sound && !force) || !('speechSynthesis' in window)) return; try { speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(t); u.lang = 'zh-CN'; u.rate = .85; speechSynthesis.speak(u); } catch (e) { } }
+document.addEventListener('click', e => { const b = e.target.closest('[data-say]'); if (b) { e.stopPropagation(); speak(b.dataset.say, true); } }, true);
+/* pinyin above every character of NPC speech (pinyin-pro), whether the words were studied or not */
+const RUBY = new Map();
+function rubyZh(zh) {
+  const L = window.pinyinPro; if (!L || !zh) return '';
+  if (RUBY.has(zh)) return RUBY.get(zh);
+  let out = '';
+  try { for (const c of L.pinyin(zh, { type: 'all' })) out += c.isZh ? `<ruby>${esc(c.origin)}<rt class="py">${esc(c.pinyin)}</rt></ruby>` : esc(c.origin); }
+  catch (e) { out = ''; }
+  RUBY.set(zh, out); return out;
+}
+/* every piece of Chinese on screen gets pinyin above it (skip [data-nopy] where pinyin is the answer) */
+const HAN_RE = /\p{Script=Han}/u;
+function annotate(root) {
+  if (!window.pinyinPro || !root) return;
+  const skip = n => n.parentElement?.closest('ruby,rt,script,style,textarea,input,select,svg,[data-nopy],.wpad');
+  const tw = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, { acceptNode: n => HAN_RE.test(n.data) && !skip(n) ? 1 : 3 });
+  const list = []; while (tw.nextNode()) list.push(tw.currentNode);
+  for (const n of list) { const html = rubyZh(n.data); if (!html) continue; const t = document.createElement('template'); t.innerHTML = html; n.replaceWith(t.content); }
+}
+let annQ = false;
+new MutationObserver(ms => { if (annQ) return; annQ = true; queueMicrotask(() => { annQ = false; annotate(document.body); }); }).observe(document.body, { childList: true, subtree: true, characterData: true });
+function dialog(pages, done) { mode = 'dlg'; held.clear(); DQ = [...pages]; DDone = done || null; dlgShow(); }
+function dlgShow() {
+  const p = DQ[0];
+  const hideVi = S.showVi === false && p.zh && p.vi;
+  OV.innerHTML = `<div class="dlg" id="dl">${p.who ? `<div class="who">${esc(p.who)}</div>` : ''}${p.zh ? `<div class="zh han">${rubyZh(p.zh) || esc(p.zh)} <button class="say" data-say="${esc(p.zh)}">nghe</button></div>${rubyZh(p.zh) ? '' : PY(p.py)}` : ''}<div class="vi ${hideVi ? 'hide' : ''}">${p.vi || ''}</div>${hideVi ? '<button class="btn ghost vbtn" data-vi="1">Xem nghĩa tiếng Việt</button>' : ''}
+    ${p.choices ? `<div class="row">${p.choices.map((c, i) => `<button class="btn ${i ? 'ghost' : ''}" data-c="${i}">${esc(c.label)}</button>`).join('')}</div>` : '<span class="more">▼ tiếp</span>'}</div>`;
+  if (p.zh) speak(p.zh);
+  $('#dl').onclick = e => {
+    const c = e.target.closest('[data-c]');
+    if (c) { const ch = DQ[0].choices[+c.dataset.c]; DQ = []; OV.innerHTML = ''; mode = 'map'; ch.run?.(); return; }
+    if (e.target.closest('[data-vi]')) { $('#dl .vi').classList.remove('hide'); e.target.remove(); return; }
+    if (!DQ[0].choices && !e.target.closest('[data-say]')) dlgNext();
+  };
+}
+function dlgNext() { if (DQ[0]?.choices) return; DQ.shift(); if (DQ.length) dlgShow(); else { OV.innerHTML = ''; mode = 'map'; const f = DDone; DDone = null; f?.(); } }
+let sheetPrev = 'map';
+function sheet(html, bind) {
+  sheetPrev = mode === 'sheet' ? sheetPrev : mode; mode = 'sheet'; held.clear();
+  OV.querySelector('.sheet')?.remove();
+  const el = document.createElement('div'); el.className = 'sheet'; el.innerHTML = `<button class="btn ghost x" type="button">Đóng</button>${html}`;
+  OV.appendChild(el); el.querySelector('.x').onclick = closeSheet; bind?.(el); return el;
+}
+function closeSheet() { OV.querySelector('.sheet')?.remove(); mode = sheetPrev === 'sheet' ? 'map' : sheetPrev; if (mode === 'dlg') mode = 'map'; }
+let toastT;
+function toast(msg) { let t = $('#toast'); if (!t) { t = document.createElement('div'); t.id = 'toast'; t.style.cssText = 'position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:#f6eedc;color:#1b1f2e;padding:8px 14px;border-radius:8px;font-size:14px;z-index:9;max-width:90vw'; document.body.appendChild(t); } t.textContent = msg; t.hidden = false; clearTimeout(toastT); toastT = setTimeout(() => t.hidden = true, 3500); }
+function hud() {
+  $('#cStreak').textContent = streak(); $('#cDue').textContent = dueWords().length;
+  $('#cToday').textContent = today().answers; $('#cBadge').textContent = S.badges.length;
+  $('#cCoin').textContent = S.coins || 0; $('#cTea').textContent = S.items?.tea || 0;
+  $('#cOrb').textContent = ORBS.map(o => S.items[o.k] || 0).join('/'); $('#cOrb').title = ORBS.map(o => o.n).join(' / '); $('#cShard').textContent = S.items.shard || 0;
+  $('#bSnd').textContent = 'Âm thanh: ' + (S.sound ? 'Bật' : 'Tắt');
+  document.body.classList.toggle('nopy', S.showPy === false);
+  $('#bVi').textContent = 'Tiếng Việt: ' + (S.showVi === false ? 'Ẩn' : 'Hiện');
+  $('#bPy').textContent = 'Pinyin: ' + (S.showPy === false ? 'Ẩn' : 'Hiện');
+  $('#bWr').textContent = 'Bắt bằng: ' + (S.writeMode === true ? 'Viết chữ' : 'Gõ pinyin');
+}
+
+/* =============== NPC scripts =============== */
+function talkTeacher() {
+  if (!S.lessons.length) {
+    dialog([{ who: 'Thầy Vương', zh: '你好！欢迎！', py: 'Nǐ hǎo! Huānyíng!', vi: 'Chào con! Mỗi bài con học ở lớp sẽ mở ra một vùng đất mới. Hãy đưa ta file bài học (JSON) để bắt đầu.',
+      choices: [{ label: 'Nạp file bài học', run: () => $('#fileIn').click() }, { label: 'Để sau' }] }]);
+    return;
+  }
+  if (!S.team.length) { chooseStarter(); return; }
+  dialog([{ who: 'Thầy Vương', zh: '今天学了什么？', py: 'Jīntiān xué le shénme?', vi: `Hôm nay con học gì? Con đã có ${S.lessons.length} bài, ${learned().length} từ đã học.`,
+    choices: [{ label: 'Nạp bài mới', run: () => $('#fileIn').click() }, { label: 'Xem các bài', run: openLessons }, { label: 'Thôi' }] }]);
+}
+function talkTea() {
+  const t = today(), due = dueWords().length;
+  dialog([{ who: 'Bà quán trà', zh: '欢迎！喝茶吗？', py: 'Huānyíng! Hē chá ma?', vi: 'Uống chén trà nào. Bà đã chữa lành cho cả đội rồi.' },
+  { who: 'Bảng nhiệm vụ hôm nay', vi: `• Trả lời 10 câu để giữ chuỗi ngày học: <b>${Math.min(t.answers, 10)}/10</b>${t.answers >= 10 ? ' ✓' : ''}<br>• Ôn từ đến hạn: còn <b>${due}</b> từ${due ? ' (vào bụi cỏ ôn tập ở góc tây nam làng, hoặc vùng của bài đó)' : ' ✓'}<br>• Đã ôn đúng hôm nay: <b>${t.reviews}</b> từ<br>• Chuỗi hiện tại: <b>${streak()}</b> ngày` }],
+    () => { S.team.forEach(m => m.hp = monStats(m).maxHp); save(); });
+}
+function weekLessons() { const wk = S.lessons.filter(l => Date.now() - l.createdAt < 7 * DAY); return wk.length >= 2 ? wk : S.lessons.slice(-3); }
+function talkTemple() {
+  const wk = weekKey();
+  if (S.badges.includes(wk)) { dialog([{ who: 'Người giữ đền', zh: '你真行！', py: 'Nǐ zhēn xíng!', vi: 'Con đã nhận huy hiệu tuần này. Học thêm bài mới rồi tuần sau quay lại nhé.' }]); return; }
+  const ls = weekLessons();
+  if (!ls.length || !S.team.length) { dialog([{ who: 'Người giữ đền', vi: 'Đền thử thách cuối tuần. Hãy học vài bài và có linh thú trước đã.' }]); return; }
+  dialog([{ who: 'Người giữ đền', zh: '你准备好了吗？', py: 'Nǐ zhǔnbèi hǎo le ma?', vi: `Thử thách tuần ${wk}: 3 linh thú, câu hỏi trộn từ ${ls.length} bài (${ls.map(l => esc(l.title)).join(', ')}). Thắng để nhận huy hiệu tuần.`,
+    choices: [{ label: 'Thách đấu', run: () => templeBattle(ls, wk) }, { label: 'Để sau' }] }]);
+}
+function talkGuide() {
+  if (!S.lessons.length) { dialog([{ who: 'Người dẫn đường', vi: 'Chưa có vùng đất nào. Hãy nạp bài học ở nhà Thầy Vương.' }]); return; }
+  openLessons();
+}
+/* ---- shop: buy tea by saying the right phrase ---- */
+const SHOP_Q = [
+  { vi: 'Bạn muốn hỏi giá món đồ.', a: '这个多少钱？', py: 'Zhège duōshao qián?', w: ['现在几点？', '你去哪儿？', '你叫什么名字？'] },
+  { vi: 'Bạn muốn mua món này.', a: '我要这个。', py: 'Wǒ yào zhège.', w: ['我不要了。', '我在等你。', '我很忙。'] },
+  { vi: 'Bạn thấy đắt quá.', a: '太贵了！', py: 'Tài guì le!', w: ['太好了！', '太累了！', '太小了！'] },
+  { vi: 'Bạn muốn xin bớt giá.', a: '便宜一点儿吧。', py: 'Piányi yìdiǎnr ba.', w: ['慢一点儿吧。', '快一点儿吧。', '大一点儿吧。'] },
+  { vi: 'Bạn muốn hỏi có thể thử không.', a: '我可以试一下吗？', py: 'Wǒ kěyǐ shì yíxià ma?', w: ['我可以走了吗？', '我可以喝茶吗？', '你可以帮我吗？'] },
+  { vi: 'Bạn muốn hỏi có cỡ lớn không.', a: '有大号的吗？', py: 'Yǒu dà hào de ma?', w: ['有小猫吗？', '有时间吗？', '有中文书吗？'] },
+  { vi: 'Bạn muốn cảm ơn người bán.', a: '谢谢！', py: 'Xièxie!', w: ['对不起！', '没关系！', '再见！'] },
+];
+/* =============== Linh Châu: capture orbs =============== */
+const ORBS = [
+  { k: 'b1', n: 'Linh Châu', zh: '灵珠', py: 'líng zhū', c: '#4fb3a9', rate: .45, price: 15, info: 'châu thường' },
+  { k: 'b2', n: 'Ngọc Châu', zh: '玉珠', py: 'yù zhū', c: '#4f7fe0', rate: .7, price: 35, info: 'châu tốt' },
+  { k: 'b3', n: 'Vương Châu', zh: '王珠', py: 'wáng zhū', c: '#e0a51c', rate: .95, price: 0, info: 'chỉ rèn được, gần như chắc chắn bắt được' },
+];
+const orbIcon = (o, big) => `<span class="orb ${big ? 'big' : ''}" style="--c:${o.c}">${o.zh[0]}</span>`;
+const orbCount = () => ORBS.reduce((a, o) => a + (S.items[o.k] || 0), 0);
+function ensureItems() {
+  if (S.items.b1 == null) { S.items.b1 = 5; S.items.b2 = 0; S.items.b3 = 0; } // starter gift
+  if (S.items.shard == null) S.items.shard = 0;
+}
+const canCatch = f => B.capture && (!S.owned.includes(f.n) || (f.shiny && !isShiny(f.n)));
+function orbChance(f, o, spell) {
+  return clamp(o.rate * (1.15 - .85 * f.hp / f.max) + (spell ? .3 : 0) - (f.shiny ? .1 : 0), .05, .99);
+}
+/* choose an orb; ko = the creature is already knocked out (last chance) */
+function orbMenu(f, ko) {
+  const have = ORBS.filter(o => S.items[o.k] > 0);
+  if (!have.length) {
+    if (ko) end(`${esc(f.name)} kiệt sức nhưng bạn <b>hết châu</b>, nó chạy mất. Mua châu ở tiệm hoặc rèn ở lò rèn. +5 tiền${B.dropMsg || ''}`);
+    else menu('Bạn hết châu rồi. Mua ở tiệm hoặc rèn ở lò rèn trong làng.');
+    return;
+  }
+  $('#bp').innerHTML = `<div>${ko ? `<b>${esc(f.name)}</b> kiệt sức rồi! Ném châu ngay để bắt (cơ hội cuối).` : `Ném châu vào <b>${esc(f.name)}</b>. Máu càng thấp càng dễ bắt.`}</div>
+    <div class="orbs">${have.map(o => `<button class="mc orbb" data-k="${o.k}">${orbIcon(o)}<div class="nm">${o.n} <span class="han">${o.zh}</span></div><small>Còn ${S.items[o.k]} · tỉ lệ ~${Math.round(orbChance(f, o, false) * 100)}%</small></button>`).join('')}</div>
+    <div class="row"><button class="btn ghost" id="onone">${ko ? 'Thả đi' : 'Quay lại'}</button></div>`;
+  $('#bp').querySelectorAll('[data-k]').forEach(b => b.onclick = () => throwOrb(f, ORBS.find(o => o.k === b.dataset.k), ko));
+  $('#onone').onclick = () => ko ? end(`Bạn thả ${esc(f.name)} đi. +5 tiền${B.dropMsg || ''}`) : menu('Chọn hành động.');
+}
+function throwOrb(f, o, ko) {
+  B.busy = true;
+  $('#bp').innerHTML = `<div>${orbIcon(o)} Chuẩn bị ném <b>${o.n}</b>. Niệm chú bằng cách <b>viết chữ <span class="han">${esc([...f.g][0])}</span></b> để châu mạnh hơn (+30%)?</div>
+    <div class="row"><button class="btn" id="ospell">Niệm chú (viết chữ)</button><button class="btn ghost" id="ogo">Ném luôn (~${Math.round(orbChance(f, o, false) * 100)}%)</button></div>`;
+  $('#ospell').onclick = () => writeCapture(f, ok => resolveOrb(f, o, ko, ok), true);
+  $('#ogo').onclick = () => resolveOrb(f, o, ko, false);
+}
+function resolveOrb(f, o, ko, spell) {
+  S.items[o.k]--; save();
+  $('#bp').classList.remove('tall');
+  const p = orbChance(f, o, spell), ok = Math.random() < p;
+  const bf = $('#bf'), fx = document.createElement('div');
+  fx.className = 'orbfx'; fx.style.setProperty('--c', o.c); fx.textContent = o.zh[0]; bf.appendChild(fx);
+  $('#eS').classList.add('sealed');
+  $('#bp').innerHTML = `<div>${spell ? 'Chú đã niệm! ' : ''}Ném ${o.n}… (tỉ lệ ${Math.round(p * 100)}%)</div>`;
+  setTimeout(() => {
+    if (ok) {
+      fx.classList.add('caught');
+      const newSp = !S.owned.includes(f.n);
+      if (f.shiny && !isShiny(f.n)) S.shiny.push(f.n);
+      if (newSp) { S.owned.push(f.n); const m = { n: f.n, lid: f.lid }; m.hp = monStats(m).maxHp; S.team.push(m); }
+      if (B.wildRef && MAP.wild.includes(B.wildRef)) MAP.wild.splice(MAP.wild.indexOf(B.wildRef), 1);
+      if (!ko) S.coins += 5;
+      save();
+      end(`✨ Bắt được ${f.shiny ? 'bản <b>màu lạ</b> của ' : ''}<b>${esc(f.name)}</b> <span class="han">${esc(f.g)}</span> bằng ${o.n}! ${newSp ? 'Nó đã vào đội và Sổ Linh Thú.' : 'Sổ Linh Thú đã ghi bản màu lạ.'} +5 tiền${B.dropMsg || ''}`);
+      return;
+    }
+    fx.remove(); $('#eS').classList.remove('sealed');
+    if (ko) { end(`${esc(f.name)} phá vỡ ${o.n} và chạy mất! Lần sau đánh nó yếu hơn hoặc niệm chú trước khi ném. +5 tiền${B.dropMsg || ''}`); return; }
+    $('#bp').innerHTML = `<div>${esc(f.name)} phá vỡ ${o.n}!</div>`;
+    setTimeout(hitMe, 900);
+  }, 2000);
+}
+
+/* =============== numbers in Chinese (shop haggling) =============== */
+const ZH_DIG = '零一二三四五六七八九';
+function numZh(n) {
+  if (n < 10) return ZH_DIG[n];
+  if (n < 20) return '十' + (n % 10 ? ZH_DIG[n % 10] : '');
+  return ZH_DIG[Math.floor(n / 10)] + '十' + (n % 10 ? ZH_DIG[n % 10] : '');
+}
+/* sometimes the shopkeeper offers a special price, said aloud in Chinese */
+function haggle(price, done) {
+  const deal = Math.max(1, Math.round(price * (.55 + Math.random() * .3)));
+  const near = new Set([deal]);
+  for (const d of shuffle([1, 2, 10, -1, -2, -10, 3, 11, -11, 20])) { const x = deal + d; if (x > 0 && x < 100) near.add(x); if (near.size >= 4) break; }
+  const opts = shuffle([...near]), say = numZh(deal) + '块';
+  sheet(`<h3>Mặc cả · nghe giá</h3><p>Chủ tiệm cười: «Hôm nay ta bán giá đặc biệt, nghe ta nói giá nhé!» Bấm loa nếu muốn nghe lại.</p>
+    <p><button class="say" data-say="${say}">🔊 nghe giá</button></p>
+    <div class="opts">${opts.map((v, i) => `<button class="opt" data-i="${i}">${v} tiền</button>`).join('')}</div><div class="res" id="hr"></div>`, el => {
+    setTimeout(() => speak(say, true), 300);
+    el.querySelector('.opts').onclick = e => {
+      const b = e.target.closest('.opt'); if (!b) return;
+      const ok = opts[+b.dataset.i] === deal;
+      el.querySelectorAll('.opt').forEach((x, i) => { x.disabled = true; if (opts[i] === deal) x.classList.add('ok'); });
+      if (!ok) b.classList.add('no');
+      el.querySelector('#hr').innerHTML = `${ok ? `✓ Đúng! Chỉ ${deal} tiền.` : `✗ Ông ấy nói <b class="han">${say}</b> (${deal}). Nghe sai nên trả giá gốc ${price} tiền.`}<div class="row"><button class="btn" id="hgo">Tiếp</button></div>`;
+      el.querySelector('#hgo').onclick = () => done(ok ? deal : price);
+    };
+  });
+}
+/* ---- shop: tea and orbs; you must say the right phrase, and sometimes haggle ---- */
+const SHOP_ITEMS = [
+  { k: 'tea', n: 'Trà sâm', zh: '人参茶', price: 10, info: 'hồi một nửa máu trong trận' },
+  { k: 'b1', n: 'Linh Châu', zh: '灵珠', price: 15, info: 'châu thường để bắt linh thú' },
+  { k: 'b2', n: 'Ngọc Châu', zh: '玉珠', price: 35, info: 'châu tốt, dễ bắt hơn' },
+];
+function talkShop() {
+  sheet(`<h3>Tiệm tạp hoá</h3><p>Chủ tiệm: <span class="han">欢迎光临！</span> <i>Huānyíng guānglín!</i> Ở tiệm ta phải nói tiếng Trung mới mua được. Thỉnh thoảng ta bán giá đặc biệt, nghe kỹ nhé!</p>
+    <p class="muted">Bạn có ${S.coins} tiền · trà ${S.items.tea} · ${ORBS.map(o => `${o.n} ${S.items[o.k] || 0}`).join(' · ')}</p>
+    <div class="fair">${SHOP_ITEMS.map(it => `<button class="mc" data-k="${it.k}" ${S.coins < it.price ? 'disabled' : ''}>${it.k === 'tea' ? '<div style="font-size:26px">🍵</div>' : orbIcon(ORBS.find(o => o.k === it.k), true)}<div class="nm">${it.n} <span class="han">${it.zh}</span></div><small class="muted">${it.info}</small><br><b>${it.price} tiền</b></button>`).join('')}</div>
+    <p class="muted">Vương Châu không bán. Hãy gặp thợ rèn.</p>`, el => {
+    el.querySelectorAll('[data-k]').forEach(b => b.onclick = () => shopBuy(SHOP_ITEMS.find(i => i.k === b.dataset.k)));
+  });
+}
+function shopBuy(it) {
+  const q = pick(SHOP_Q), opts = shuffle([q.a, ...q.w]);
+  sheet(`<h3>Mua ${it.n}</h3><p>${esc(q.vi)} Bạn nói gì?</p><div class="opts">${opts.map((o, i) => `<button class="opt hz" data-i="${i}">${esc(o)}</button>`).join('')}</div><div class="res" id="sr"></div>`, el => {
+    el.querySelector('.opts').onclick = e => {
+      const b = e.target.closest('.opt'); if (!b) return;
+      const ok = opts[+b.dataset.i] === q.a;
+      el.querySelectorAll('.opt').forEach((x, i) => { x.disabled = true; if (opts[i] === q.a) x.classList.add('ok'); });
+      if (!ok) b.classList.add('no');
+      speak(q.a);
+      const pay = price => { S.coins -= price; S.items[it.k] = (S.items[it.k] || 0) + 1; save(); toast(`Đã mua 1 ${it.n} (${price} tiền). Còn ${S.coins} tiền.`); talkShop(); };
+      el.querySelector('#sr').innerHTML = `${ok ? '✓ Chủ tiệm hiểu rồi.' : '✗ Chủ tiệm không hiểu. Câu đúng là:'} <b class="han">${esc(q.a)}</b> ${esc(q.py)}
+        <div class="row"><button class="btn" id="go">${ok ? 'Tiếp' : 'Thử lại'}</button><button class="btn ghost" id="done">Rời tiệm</button></div>`;
+      el.querySelector('#go').onclick = () => { if (!ok) return shopBuy(it); if (Math.random() < .4) haggle(it.price, pay); else pay(it.price); };
+      el.querySelector('#done').onclick = closeSheet;
+    };
+  });
+}
+
+/* =============== blacksmith: forge orbs from crystals + a mini game =============== */
+const RECIPES = [
+  { k: 'b1', out: 2, shard: 1, coin: 0, game: 'build', gn: 'Ghép từ', gi: 'Ghép các chữ thành từ đúng nghĩa (3 lượt, cần đúng 2).' },
+  { k: 'b2', out: 1, shard: 2, coin: 10, game: 'elem', gn: 'Tôi luyện theo bộ thủ', gi: 'Nhìn chữ, đoán hệ Ngũ hành theo bộ thủ (5 lượt, cần đúng 4).' },
+  { k: 'b3', out: 1, shard: 4, coin: 30, game: 'stroke', gn: 'Rèn nét', gi: 'Viết đúng thứ tự nét 2 chữ, mỗi nét là một nhát búa.' },
+];
+function talkSmith() {
+  const pool = fairPool();
+  if (pool.length < 6) { dialog([{ who: 'Thợ rèn', zh: '你好！', py: 'Nǐ hǎo!', vi: 'Lò rèn cần người đã học ít nhất 6 từ. Học một vùng đất rồi quay lại nhé.' }]); return; }
+  sheet(`<h3>Lò rèn châu</h3><p>Thợ rèn: <span class="han">我来帮你打珠子。</span> <i class="py">Wǒ lái bāng nǐ dǎ zhūzi.</i> Mang <b>tinh thạch 晶石</b> tới đây. Tinh thạch rơi ra khi bạn hạ linh thú hoang (50%) và thắng Trưởng vùng (+2).</p>
+    <p class="muted">Bạn có ${S.items.shard} tinh thạch · ${S.coins} tiền. Rèn hỏng thì không mất nguyên liệu.</p>
+    <div class="fair">${RECIPES.map((r, i) => { const o = ORBS.find(x => x.k === r.k), can = S.items.shard >= r.shard && S.coins >= r.coin;
+      return `<button class="mc" data-i="${i}" ${can ? '' : 'disabled'}>${orbIcon(o, true)}<div class="nm">${r.out} × ${o.n} <span class="han">${o.zh}</span></div><small>${r.shard} tinh thạch${r.coin ? ` + ${r.coin} tiền` : ''}</small><br><small class="muted">Thử thách: <b>${r.game === 'stroke' && !wantWrite() ? 'Gọi tên kim loại' : r.gn}</b>. ${r.game === 'stroke' && !wantWrite() ? 'Đọc nghĩa tiếng Việt, gõ pinyin (3 lượt, cần đúng 2).' : r.gi}</small></button>`; }).join('')}</div>`, el => {
+    el.querySelectorAll('[data-i]').forEach(b => b.onclick = () => forge(RECIPES[+b.dataset.i]));
+  });
+}
+function forge(r) {
+  const o = ORBS.find(x => x.k === r.k);
+  const finish = ok => {
+    if (ok) { S.items.shard -= r.shard; S.coins -= r.coin; S.items[r.k] += r.out; save(); }
+    sheet(`<h3>${ok ? 'Rèn thành công!' : 'Lò nguội mất rồi…'}</h3><div style="text-align:center">${orbIcon(o, true)}</div>
+      <p>${ok ? `Bạn nhận <b>${r.out} ${o.n}</b>. Đang có ${S.items[r.k]}.` : 'Chưa đạt thử thách. Nguyên liệu vẫn còn nguyên, thử lại nhé.'}</p>
+      <div class="row"><button class="btn" id="fa">Về lò rèn</button><button class="btn ghost" id="fx">Rời đi</button></div>`, el => {
+      el.querySelector('#fa').onclick = talkSmith; el.querySelector('#fx').onclick = closeSheet;
+    });
+  };
+  if (r.game === 'build') gameBuild(finish); else if (r.game === 'elem') gameElem(finish); else gameStroke(finish);
+}
+/* mini: build a word from its characters */
+function gameBuild(done) {
+  const words = shuffle(fairPool().filter(w => [...w.h].length >= 2 && [...w.h].length <= 4));
+  if (words.length < 3) { toast('Cần học thêm vài từ có 2 chữ trở lên.'); done(false); return; }
+  let round = 0, score = 0;
+  const allCh = [...new Set(fairPool().flatMap(w => [...w.h]))];
+  const next = () => {
+    if (round >= 3) { done(score >= 2); return; }
+    const w = words[round], need = [...w.h];
+    const bank = shuffle([...need, ...shuffle(allCh.filter(c => !need.includes(c))).slice(0, 3)]);
+    const placed = [];
+    const el = sheet(`<h3>Ghép từ · lượt ${round + 1}/3</h3><p>Nghĩa: <b>${esc(w.m)}</b> <span class="muted">${PY(w.p)}</span></p>
+      <div class="slots" id="gs"></div><div class="bank" id="gb"></div><div class="row"><button class="btn ghost" id="gc">Xoá</button></div><div class="res" id="gr"></div>`);
+    const draw = () => {
+      el.querySelector('#gs').innerHTML = placed.map(i => `<button class="tile han">${esc(bank[i])}</button>`).join('') || '<span class="muted">Bấm chữ theo đúng thứ tự</span>';
+      el.querySelector('#gb').innerHTML = bank.map((c, i) => `<button class="tile han ${placed.includes(i) ? 'used' : ''}" data-i="${i}">${esc(c)}</button>`).join('');
+    };
+    draw();
+    el.querySelector('#gc').onclick = () => { placed.length = 0; draw(); };
+    el.querySelector('#gb').onclick = e => {
+      const b = e.target.closest('[data-i]'); if (!b || placed.includes(+b.dataset.i) || placed.length >= need.length) return;
+      placed.push(+b.dataset.i); draw();
+      if (placed.length < need.length) return;
+      const ok = placed.map(i => bank[i]).join('') === w.h; if (ok) score++;
+      speak(w.h);
+      el.querySelector('#gs').classList.add(ok ? 'good' : 'bad');
+      el.querySelector('#gr').innerHTML = `${ok ? '✓ Keng! Một nhát búa đẹp.' : '✗ Chưa đúng.'} <b class="han">${esc(w.h)}</b> ${esc(w.p)}`;
+      round++; setTimeout(next, ok ? 1000 : 1800);
+    };
+  };
+  next();
+}
+/* mini: guess the element (radical family) of a character */
+function gameElem(done) {
+  const known = new Set(fairPool().flatMap(w => [...w.h]));
+  const tagged = EL_ORDER.slice(0, 5).flatMap(el => [...EL_CHARS[el]].filter(c => c.trim()).map(c => ({ c, el })));
+  let qs = shuffle(tagged.filter(t => known.has(t.c)));
+  if (qs.length < 5) qs = [...qs, ...shuffle(tagged.filter(t => !known.has(t.c)))];
+  qs = qs.slice(0, 5);
+  let round = 0, score = 0;
+  const next = () => {
+    if (round >= qs.length) { done(score >= 4); return; }
+    const q = qs[round], w = WORDS.get(q.c) || [...WORDS.values()].find(x => x.h.includes(q.c));
+    const el = sheet(`<h3>Tôi luyện · lượt ${round + 1}/5</h3><p>Chữ này thuộc hệ nào? Nhìn <b>bộ thủ</b> của nó.</p>
+      <div class="big han" style="text-align:center">${esc(q.c)}</div>${w ? `<p class="muted" style="text-align:center">trong từ ${esc(w.h)} · ${esc(w.m)}</p>` : ''}
+      <div class="elf">${EL_ORDER.slice(0, 5).map(k => `<button class="ef" data-e="${k}" style="--c:${ELEM[k].c}">${ELEM[k].g} ${ELEM[k].n}</button>`).join('')}</div><div class="res" id="er"></div>`);
+    el.querySelector('.elf').onclick = e => {
+      const b = e.target.closest('[data-e]'); if (!b || el.dataset.done) return; el.dataset.done = 1;
+      const ok = b.dataset.e === q.el; if (ok) score++;
+      el.querySelectorAll('[data-e]').forEach(x => { if (x.dataset.e === q.el) x.classList.add('on'); });
+      el.querySelector('#er').innerHTML = `${ok ? '✓ Chuẩn!' : '✗ Chưa đúng.'} <b class="han">${esc(q.c)}</b> thuộc hệ ${elChip(q.el)}: bộ thủ hệ này là <span class="han">${ELEM[q.el].rad}</span> (${ELEM[q.el].hint}).`;
+      round++; setTimeout(next, ok ? 1300 : 2600);
+    };
+  };
+  next();
+}
+/* mini: write characters stroke by stroke (each stroke is a hammer blow) */
+function gameStroke(done) {
+  if (!wantWrite()) { gamePyForge(done); return; }
+  const chars = shuffle([...new Set(fairPool().flatMap(w => [...w.h]))].filter(c => /\p{Script=Han}/u.test(c))).slice(0, 5);
+  if (!window.HanziWriter || chars.length < 2) { toast('Cần có mạng để tải dữ liệu nét chữ.'); done(false); return; }
+  let k = 0, got = 0;
+  const one = () => {
+    if (got >= 2) { done(true); return; }
+    if (k >= chars.length) { done(false); return; }
+    const ch = chars[k], w = WORDS.get(ch) || [...WORDS.values()].find(x => x.h.includes(ch));
+    const el = sheet(`<h3>Rèn nét · chữ ${got + 1}/2</h3>${w ? `<div class="vibig" style="font-size:18px">Nghĩa: «${esc(w.m)}» <span class="han">${esc(w.h)}</span> ${PY(w.p)}</div>` : ''}<p>Viết chữ <b class="han">${esc(ch)}</b> theo đúng thứ tự nét. Sai 3 lần một nét sẽ có gợi ý.</p>
+      <div class="wbox"><div class="wpad" id="spad" style="width:220px;height:220px"></div></div>
+      <div class="row"><button class="btn ghost" id="sa">Xem nét mẫu</button><button class="btn ghost" id="sq">Bỏ cuộc</button></div><div class="res" id="sst" aria-live="polite"></div>`);
+    let wr;
+    const px = padFit('spad', 220);
+    try { wr = HanziWriter.create('spad', ch, { width: px, height: px, padding: 12, showCharacter: false, showOutline: true, strokeColor: '#1b1f2e', outlineColor: 'rgba(27,31,46,.18)', drawingColor: '#c0392b', drawingWidth: 6, onLoadCharDataError: () => { el.querySelector('#sst').textContent = 'Chưa có dữ liệu nét cho chữ này, đổi chữ khác.'; k++; setTimeout(one, 900); } }); }
+    catch (e) { done(false); return; }
+    const quiz = () => wr.quiz({ showHintAfterMisses: 3,
+      onMistake: () => el.querySelector('#sst').textContent = 'Nét lệch rồi, thử lại.',
+      onCorrectStroke: d => el.querySelector('#sst').textContent = `Keng! Nhát ${d.strokeNum + 1}/${d.strokeNum + 1 + d.strokesRemaining}`,
+      onComplete: () => { S.written[ch] = true; save(); speak(ch); k++; got++; setTimeout(one, 900); } });
+    quiz();
+    el.querySelector('#sa').onclick = () => { wr.cancelQuiz(); wr.animateCharacter({ onComplete: () => { wr.hideCharacter(); quiz(); } }); };
+    el.querySelector('#sq').onclick = () => { wr.cancelQuiz(); done(false); };
+  };
+  one();
+}
+/* mini (no-writing mode): read the Vietnamese meaning, type the pinyin; each right answer is a hammer blow */
+function gamePyForge(done) {
+  const words = shuffle(fairPool()).slice(0, 3);
+  if (words.length < 3) { toast('Cần học thêm từ.'); done(false); return; }
+  let k = 0, got = 0;
+  const one = () => {
+    if (got >= 2) { done(true); return; }
+    if (k >= 3) { done(false); return; }
+    const w = words[k];
+    const el = sheet(`<h3>Gọi tên kim loại · lượt ${k + 1}/3 <small class="muted">cần đúng 2</small></h3><p>Thợ rèn đọc nghĩa, bạn gõ <b>pinyin</b> (không cần dấu):</p>
+      <div class="vibig">«${esc(w.m)}»</div>${pyInput('g')}<div class="res" id="gpr" aria-live="polite"></div>`);
+    const inp = el.querySelector('#gi'); inp.focus();
+    el.querySelector('#gf').onsubmit = e => {
+      e.preventDefault(); if (inp.disabled) return; inp.disabled = true;
+      const ok = pyOk(inp.value, w); track(w.h, ok, 8); speak(w.h);
+      el.querySelector('#gpr').innerHTML = `${ok ? '✓ Keng! Một nhát búa đẹp.' : '✗ Chưa đúng.'} <b class="han">${esc(w.h)}</b> ${esc(w.p)}`;
+      k++; if (ok) got++; setTimeout(one, 1300);
+    };
+  };
+  one();
+}
+/* ---- village fair: quick games that earn coins ---- */
+function fairPool() { return learned().map(h => WORDS.get(h)).filter(Boolean); }
+function talkFair() {
+  const pool = fairPool();
+  if (pool.length < 6) { dialog([{ who: 'Người mở hội chợ', zh: '欢迎！', py: 'Huānyíng!', vi: 'Hội chợ chỉ mở cho người đã học ít nhất 6 từ. Hãy học một vùng đất trước nhé.' }]); return; }
+  sheet(`<h3>Hội chợ làng</h3><p class="muted">Chơi bằng các từ bạn đã học (${pool.length} từ) để kiếm tiền mua trà. Hội chợ không thay đổi lịch ôn.</p>
+    <div class="fair">
+      <button class="mc" id="fTF"><div class="nm">Đúng hay Sai</div><small class="muted">30 giây. Chữ này có nghĩa như vậy không? Mỗi câu đúng +1 tiền.</small><br><small>Kỷ lục: ${S.fairBest.tf || 0}</small></button>
+      <button class="mc" id="fMem"><div class="nm">Lật thẻ</div><small class="muted">Tìm 6 cặp chữ Hán – nghĩa. Càng ít lượt càng nhiều tiền.</small><br><small>Kỷ lục: ${S.fairBest.mem ? S.fairBest.mem + ' lượt' : 'chưa có'}</small></button>
+      <button class="mc" id="fRain"><div class="nm">Bắt chữ rơi</div><small class="muted">Nghe máy đọc, chọn đúng chữ trước khi rơi xuống đất. 3 mạng.</small><br><small>Kỷ lục: ${S.fairBest.rain || 0}</small></button>
+    </div>`, el => {
+    el.querySelector('#fTF').onclick = () => fairTF(pool);
+    el.querySelector('#fMem').onclick = () => fairMemory(pool);
+    el.querySelector('#fRain').onclick = () => fairListen(pool);
+  });
+}
+function fairEnd(name, key, score, coins, better) {
+  const isBest = better(score, S.fairBest[key]); if (isBest) S.fairBest[key] = score;
+  S.coins += coins; save();
+  sheet(`<h3>${name}</h3><p style="font-size:20px">Kết quả: <b>${score}</b>${isBest ? ' · kỷ lục mới!' : ''}</p><p>+${coins} tiền (đang có ${S.coins}).</p><div class="row"><button class="btn" id="fa">Chơi trò khác</button><button class="btn ghost" id="fx">Rời hội chợ</button></div>`, el => {
+    el.querySelector('#fa').onclick = talkFair; el.querySelector('#fx').onclick = closeSheet;
+  });
+}
+function fairTF(pool) {
+  let score = 0, cur, t0 = performance.now(), lock = false, timer;
+  const el = sheet(`<h3>Đúng hay Sai</h3><div class="tbar"><i id="ft"></i></div><div id="fc"></div>
+    <div class="tfbtns"><button id="fno" style="background:var(--red);color:#fff">✗ Sai (←)</button><button id="fyes" style="background:var(--jade);color:#06281a">✓ Đúng (→)</button></div><p class="muted" id="fs">Điểm: 0</p>`);
+  const next = () => {
+    const w = pick(pool), truth = Math.random() < .5, shown = truth ? w.m : (others(w, 1, 'm', pool)[0] || w).m;
+    cur = { w, truth: truth || shown === w.m }; lock = false;
+    el.querySelector('#fc').innerHTML = `<div class="tfbig han">${esc(w.h)}</div><p style="text-align:center;font-size:19px">= ${esc(shown)} ?</p>`;
+  };
+  const answer = v => {
+    if (lock || !cur) return; lock = true; const ok = v === cur.truth; today().answers++;
+    if (ok) score++;
+    el.querySelector('#fs').innerHTML = `Điểm: ${score}${ok ? '' : ` · <span style="color:var(--red)">${esc(cur.w.h)} = ${esc(cur.w.m)}</span>`}`;
+    setTimeout(next, ok ? 200 : 900);
+  };
+  el.querySelector('#fno').onclick = () => answer(false); el.querySelector('#fyes').onclick = () => answer(true);
+  const key = e => { if (e.key === 'ArrowLeft') answer(false); if (e.key === 'ArrowRight') answer(true); };
+  addEventListener('keydown', key);
+  const stop = () => { clearInterval(timer); removeEventListener('keydown', key); };
+  el.querySelector('.x').onclick = () => { stop(); closeSheet(); };
+  timer = setInterval(() => { const r = 1 - (performance.now() - t0) / 30000; const ft = el.querySelector('#ft'); if (!ft || !el.isConnected) return stop(); ft.style.transform = `scaleX(${Math.max(0, r)})`; if (r <= 0) { stop(); fairEnd('Đúng hay Sai', 'tf', score, score, (a, b) => a > (b || 0)); } }, 100);
+  next();
+}
+function fairMemory(pool) {
+  const ws = [], seen = new Set();
+  for (const w of shuffle(pool)) { if (seen.has(w.m)) continue; seen.add(w.m); ws.push(w); if (ws.length === 6) break; }
+  const cards = shuffle(ws.flatMap(w => [{ w, s: 'h' }, { w, s: 'm' }]));
+  let first = null, busy = false, found = 0, moves = 0;
+  const el = sheet(`<h3>Lật thẻ</h3><p class="muted" id="mm">Lượt: 0 · Tìm ${ws.length} cặp</p><div class="mgrid">${cards.map((c, i) => `<button class="mcard" data-i="${i}">?</button>`).join('')}</div>`);
+  const els = [...el.querySelectorAll('.mcard')];
+  el.querySelector('.mgrid').onclick = e => {
+    const b = e.target.closest('.mcard'); if (!b || busy) return; const i = +b.dataset.i, c = cards[i];
+    if (b.classList.contains('open') || b.classList.contains('done')) return;
+    b.classList.add('open'); if (c.s === 'h') { b.classList.add('han'); speak(c.w.h); } b.textContent = c.s === 'h' ? c.w.h : c.w.m;
+    if (first === null) { first = i; return; }
+    moves++; el.querySelector('#mm').textContent = `Lượt: ${moves} · Tìm ${ws.length} cặp`;
+    const a = cards[first], ea = els[first];
+    if (a.w === c.w) { ea.classList.replace('open', 'done'); b.classList.replace('open', 'done'); first = null; found++;
+      if (found === ws.length) setTimeout(() => fairEnd('Lật thẻ', 'mem', moves, Math.max(3, 24 - moves), (x, y) => !y || x < y), 700); }
+    else { busy = true; setTimeout(() => { [ea, b].forEach(x => { x.classList.remove('open', 'han'); x.textContent = '?'; }); first = null; busy = false; }, 800); }
+  };
+}
+function fairListen(pool) {
+  let lives = 3, score = 0, alive = true;
+  const el = sheet(`<h3>Bắt chữ rơi</h3><p class="muted" id="ls">Mạng: ♥♥♥ · Điểm: 0</p><div class="tbar"><i id="lt"></i></div><p><button class="say" id="lrep">nghe lại</button> Chọn chữ vừa nghe:</p><div class="opts" id="lo"></div>`);
+  el.querySelector('.x').onclick = () => { alive = false; closeSheet(); };
+  const round = () => {
+    if (!alive || !el.isConnected) return;
+    const w = pick(pool), opts = shuffle([w, ...others(w, 3, 'h', pool)]), lim = Math.max(3500, 8000 - score * 300), t0 = performance.now();
+    let done = false; speak(w.h, true);
+    el.querySelector('#lrep').onclick = () => speak(w.h, true);
+    el.querySelector('#lo').innerHTML = opts.map((o, i) => `<button class="opt hz" data-i="${i}">${esc(o.h)}</button>`).join('');
+    const tm = setInterval(() => { const r = 1 - (performance.now() - t0) / lim, lt = el.querySelector('#lt'); if (!lt) return clearInterval(tm); lt.style.transform = `scaleX(${Math.max(0, r)})`; if (r <= 0) res(-1); }, 60);
+    const res = i => {
+      if (done) return; done = true; clearInterval(tm); today().answers++;
+      const ok = i >= 0 && opts[i] === w;
+      el.querySelectorAll('#lo .opt').forEach((b, k) => { b.disabled = true; if (opts[k] === w) b.classList.add('ok'); else if (k === i) b.classList.add('no'); });
+      if (ok) score++; else lives--;
+      el.querySelector('#ls').textContent = `Mạng: ${'♥'.repeat(lives)} · Điểm: ${score}${ok ? '' : ` · ${w.h} ${w.p} – ${w.m}`}`;
+      if (lives <= 0) { alive = false; setTimeout(() => fairEnd('Bắt chữ rơi', 'rain', score, score * 2, (a, b) => a > (b || 0)), 1200); return; }
+      setTimeout(round, ok ? 500 : 1500);
+    };
+    el.querySelector('#lo').onclick = e => { const b = e.target.closest('.opt'); if (b) res(+b.dataset.i); };
+  };
+  round();
+}
+function talkZoneTeacher(L) {
+  const ws = lessonWords(L), fresh = ws.filter(w => !S.intro[w.h]).length;
+  sheet(`<h3>Học từ: ${esc(L.title)}</h3><p class="muted">${ws.length} từ. Bấm chữ để nghe. Học xong bấm nút ở cuối, linh thú của vùng sẽ xuất hiện trong bụi cỏ.</p>
+    <div class="words">${ws.map(w => `<div class="w"><button class="say h han" data-say="${esc(w.h)}" style="font-size:26px;border:0;background:none">${esc(w.h)}</button><div><b class="py">${esc(w.p)} · </b>${esc(w.m)} <span class="muted">HV: ${esc(w.v)}</span>${w.eh ? `<div class="ex"><span class="han">${esc(w.eh)}</span> ${PY(w.ep)} – ${esc(w.em)}</div>` : ''}</div>${cardTag(w.h)}</div>`).join('')}</div>
+    <div class="row"><button class="btn" id="learnDone">${fresh ? 'Đã học xong, cho linh thú xuất hiện' : 'Đóng'}</button></div>`, el => {
+    el.querySelector('#learnDone').onclick = () => { ws.forEach(w => S.intro[w.h] = S.intro[w.h] || Date.now()); save(); closeSheet(); if (fresh) dialog([{ who: 'Thầy giáo vùng', zh: '太好了！', py: 'Tài hǎo le!', vi: 'Tốt lắm! Giờ vào bụi cỏ bắt 3 linh thú của vùng. Khi đã sẵn sàng, thách đấu Trưởng vùng để hoàn thành bài.' }]); };
+  });
+}
+function cardTag(h) { const c = card(h); if (!c) return S.intro[h] ? '<span class="tag sleep">mới</span>' : ''; if (c.due <= Date.now()) return '<span class="tag due">đến hạn</span>'; return `<span class="muted">${c.interval ? c.interval + ' ngày' : '10 phút'}</span>`; }
+function talkVillager(L) {
+  const lines = L.dialogue?.length ? L.dialogue : lessonWords(L).filter(w => w.eh).slice(0, 4).map(w => ({ zh: w.eh, py: w.ep, vi: w.em }));
+  dialog(lines.slice(0, 6).map(l => ({ who: l.role ? `Dân làng (vai ${l.role})` : 'Dân làng', zh: l.zh, py: l.py, vi: l.vi })));
+}
+function talkZoneBoss(L) {
+  if (!lessonWords(L).some(w => S.intro[w.h])) { dialog([{ who: 'Trưởng vùng', vi: 'Hãy học từ với thầy giáo vùng trước rồi quay lại thách đấu ta.' }]); return; }
+  const done = S.cleared[L.id];
+  dialog([{ who: 'Trưởng vùng', zh: '来比赛吧！', py: 'Lái bǐsài ba!', vi: done ? 'Con đã thắng ta rồi. Muốn đấu lại để ôn bài không?' : 'Thắng ta để hoàn thành vùng này. Câu hỏi lấy từ toàn bộ bài học!',
+    choices: [{ label: 'Thách đấu', run: () => zoneBossBattle(L) }, { label: 'Để sau' }] }]);
+}
+
+/* =============== sheets =============== */
+function chooseStarter() {
+  sheet(`<h3>Chọn linh thú đầu tiên</h3><p class="muted">Linh thú khởi đầu gắn với <b>toàn bộ</b> từ bạn đã học: bạn càng nhớ nhiều từ, nó càng mạnh.</p>
+    <div class="grid">${STARTERS.map(s => `<button class="mc" data-n="${s.n}"><img src="${sprite(s.n, 'front')}" style="filter:${monFilter(s.n)}" alt=""><div class="nm">${s.name} <span class="han">${s.g}</span></div>${elChip(s.el)}</button>`).join('')}</div>`, el => {
+    el.querySelectorAll('[data-n]').forEach(b => b.onclick = () => {
+      const s = STARTERS.find(s => s.n === +b.dataset.n);
+      S.owned.push(s.n); const m = { n: s.n, lid: null }; m.hp = monStats(m).maxHp; S.team.push(m); save(); closeSheet();
+      dialog([{ who: 'Thầy Vương', zh: '太好了！', py: 'Tài hǎo le!', vi: `${s.name} sẽ đi cùng con. Nói chuyện với Người dẫn đường để đến vùng đất của bài học.` }]);
+    });
+  });
+}
+function openLessons() {
+  if (!S.lessons.length) { sheet(`<h3>Bài học</h3><p>Chưa có bài nào.</p><div class="row"><button class="btn" id="imp">Nạp file bài học</button></div>`, el => el.querySelector('#imp').onclick = () => $('#fileIn').click()); return; }
+  sheet(`<h3>Các vùng đất (${S.lessons.length} bài)</h3><p class="muted">Mỗi tuần 3 bài mới = 3 vùng mới. Cuối tuần vào Đền ở làng để nhận huy hiệu.</p>
+    <div class="list">${S.lessons.map((L, i) => { const hs = lessonWords(L).map(w => w.h), ma = mastery(hs), due = hs.filter(isDue).length;
+      return `<div class="li"><div class="t"><b>${i + 1}. ${esc(L.title)}</b>${S.cleared[L.id] ? ' <span class="tag evo">✓ hoàn thành</span>' : ''}${due ? ` <span class="tag due">${due} đến hạn</span>` : ''}<small>${themeOf(L).n} · ${hs.length} từ · thuộc ${Math.round(ma * 100)}% · nạp ${new Date(L.createdAt).toLocaleDateString('vi-VN')}</small><div class="bar"><i style="width:${ma * 100}%"></i></div></div><button class="btn" data-go="${L.id}">Đến vùng</button></div>`; }).join('')}</div>
+    <div class="row"><button class="btn ghost" id="imp">Nạp thêm bài</button><button class="btn ghost" id="reset">Xoá toàn bộ tiến trình</button></div>`, el => {
+    el.querySelectorAll('[data-go]').forEach(b => b.onclick = () => { closeSheet(); enterMap(b.dataset.go, 11, H - 2); });
+    el.querySelector('#imp').onclick = () => $('#fileIn').click();
+    el.querySelector('#reset').onclick = e => { const b = e.target; if (b.dataset.sure) { S = fresh(); indexWords(); save(); closeSheet(); enterMap('village', 10, 8); toast('Đã xoá tiến trình.'); } else { b.dataset.sure = 1; b.textContent = 'Bấm lần nữa để xoá hẳn'; } };
+  });
+}
+function monCard(m, i) {
+  const s = spById(m.n), st = monStats(m);
+  return `<button class="mc ${i === 0 ? 'lead' : ''}" data-i="${i}"><img src="${sprite(m.n, 'front', st.evo)}" style="filter:${monFilter(m.n, isShiny(m.n), st.tier)}" alt=""><div class="nm">${isShiny(m.n) ? '✨' : ''}${esc(s?.name)} <span class="han">${esc(s?.g)}</span></div>
+    ${elChip(st.el)} Cấp ${st.lvl} · HP ${Math.max(0, m.hp)}/${st.maxHp}<div class="bar"><i style="width:${st.ma * 100}%"></i></div><small class="muted">thuộc ${Math.round(st.ma * 100)}% · Công ${st.atk} · Thủ ${st.def} · Tốc ${st.spd}</small><br>
+    ${['', '<span class="tag evo">tiến hoá</span> ', '<span class="tag evo">✦ thăng hoa</span> '][st.tier]}${st.sleepy ? `<span class="tag sleep">buồn ngủ · ${st.due} từ đến hạn</span>` : ''}${i === 0 ? ' <span class="tag evo">đi đầu</span>' : ''}</button>`;
+}
+function openTeam(onPick) {
+  if (!S.team.length) { sheet('<h3>Đội hình</h3><p>Chưa có linh thú. Gặp Thầy Vương ở làng.</p>'); return; }
+  sheet(`<h3>${onPick ? 'Chọn linh thú ra trận' : 'Đội hình'}</h3><p class="muted">Cấp = mức bạn nhớ các từ gắn với linh thú. <b>Công</b> tăng khi trả lời đúng, <b>Thủ</b> khi ôn đúng hạn, <b>Tốc</b> khi trả lời nhanh. Thuộc 80% thì <b>tiến hoá</b>; thuộc hết và viết đúng chữ của nó thì <b>thăng hoa</b>.${onPick ? '' : ' Bấm một linh thú để cho nó đi đầu.'}</p>
+    <div class="grid">${S.team.map(monCard).join('')}</div>`, el => {
+    el.querySelectorAll('[data-i]').forEach(b => b.onclick = () => {
+      const i = +b.dataset.i;
+      if (onPick) { if (S.team[i].hp <= 0) return; closeSheet(); onPick(i); return; }
+      const [m] = S.team.splice(i, 1); S.team.unshift(m); save(); openTeam();
+    });
+    if (onPick) el.querySelector('.x').remove();
+  });
+}
+let dexFilter = 'all';
+function openDex() {
+  const all = allSpecies(), shown = all.map((s, i) => ({ s, i })).filter(x => dexFilter === 'all' || x.s.el === dexFilter);
+  const cnt = el => all.filter(s => s.el === el), own = list => list.filter(s => S.owned.includes(s.n)).length;
+  sheet(`<h3>Sổ Linh Thú · ${S.owned.length}/${all.length} <small class="muted">✨ màu lạ ${S.shiny.length}</small></h3>
+    <p class="muted">Mỗi bài học thêm 3 linh thú. Hệ lấy theo <b>bộ thủ</b> của chữ: thấy bộ 氵 là hệ Thủy, bộ 木 艹 là hệ Mộc… Bấm vào linh thú để xem chi tiết.</p>
+    <div class="elf"><button class="ef ${dexFilter === 'all' ? 'on' : ''}" data-f="all">Tất cả ${own(all)}/${all.length}</button>${EL_ORDER.map(el => `<button class="ef ${dexFilter === el ? 'on' : ''}" data-f="${el}" style="--c:${ELEM[el].c}">${ELEM[el].g} ${ELEM[el].n} ${own(cnt(el))}/${cnt(el).length}</button>`).join('')}</div>
+    <div class="dex">${shown.map(({ s, i }) => { const o = S.owned.includes(s.n), st = o ? monStats({ n: s.n, lid: s.lid }) : null;
+      return `<button class="dx ${o ? '' : 'locked'}" data-n="${s.n}"><span class="no">#${String(i + 1).padStart(3, '0')}</span>${o && isShiny(s.n) ? '<span class="sh">✨</span>' : ''}
+        <img src="${sprite(s.n, 'front', st?.evo)}" style="filter:${o ? monFilter(s.n, isShiny(s.n), st.tier) : ''}" alt=""><div class="nm">${o ? esc(s.name) : '???'}</div><div class="han big2">${esc(s.g)}</div>${elChip(s.el)}</button>`; }).join('') || '<p class="muted">Chưa có linh thú hệ này.</p>'}</div>`, el => {
+    el.querySelectorAll('[data-f]').forEach(b => b.onclick = () => { dexFilter = b.dataset.f; openDex(); });
+    el.querySelectorAll('[data-n]').forEach(b => b.onclick = () => openMon(+b.dataset.n));
+  });
+}
+function openMon(n) {
+  const all = allSpecies(), i = all.findIndex(s => s.n === n), s = all[i], o = S.owned.includes(n), L = S.lessons.find(l => l.id === s.lid);
+  const E = ELEM[s.el], beats = BEATS[s.el], beatenBy = Object.keys(BEATS).find(k => BEATS[k] === s.el);
+  const rel = s.el === 'nhan' ? 'Hệ Nhân trung tính: không khắc ai, cũng không bị ai khắc.' : `Khắc ${elChip(beats)} (gây ×1.5) · bị ${elChip(beatenBy)} khắc (nhận ×1.5).`;
+  const head = `<div class="mh"><span class="no">#${String(i + 1).padStart(3, '0')}</span> ${elChip(s.el)} <span class="han big2">${esc(s.g)}</span></div>`;
+  const where = L ? `Bụi cỏ vùng <b>${esc(L.title)}</b>` : 'Linh thú khởi đầu, chọn ở chỗ Thầy Vương';
+  const radNote = `<p class="muted">Vì sao hệ ${E.n}? Bộ thủ hệ ${E.n}: <span class="han">${E.rad}</span> (${E.hint}).</p>`;
+  if (!o) {
+    sheet(`<h3>??? ${head}</h3><div class="mon1"><img src="${sprite(n, 'front')}" class="sil" alt=""></div>
+      <p>Chưa bắt. Tìm ở: ${where}. Làm nó yếu đi rồi <b>ném Linh Châu</b> để bắt.</p>${radNote}<p>${rel}</p>
+      <div class="row"><button class="btn ghost" id="back">← Về Sổ</button></div>`, el => el.querySelector('#back').onclick = openDex);
+    return;
+  }
+  const m = S.team.find(x => x.n === n) || { n, lid: s.lid }, st = monStats(m), ch = [...s.g][0], sh = isShiny(n);
+  const ws = monWords(m).map(h => WORDS.get(h)).filter(Boolean);
+  const bar = (lab, v, max = 50) => `<div class="stat"><span>${lab}</span><div class="bar"><i style="width:${clamp(v / max) * 100}%"></i></div><b>${v}</b></div>`;
+  const tiers = [['Gốc', false, 0, true], ['Tiến hoá · thuộc 80%', true, 1, st.tier >= 1], ['Thăng hoa · thuộc hết + viết chữ', true, 2, st.tier >= 2]];
+  sheet(`<h3>${sh ? '✨' : ''}${esc(s.name)} ${head}</h3>
+    <div class="tiers">${tiers.map(([lab, evo, t, ok]) => `<div class="tr ${ok ? '' : 'off'}"><img src="${sprite(n, 'front', evo)}" style="filter:${ok ? monFilter(n, sh, t) : ''}" alt=""><small>${lab}</small></div>`).join('')}</div>
+    <div class="stats">${bar('Cấp', st.lvl, 26)}${bar('Công', st.atk)}${bar('Thủ', st.def)}${bar('Tốc', st.spd)}${bar('HP', st.maxHp, 200)}</div>
+    <p class="muted">Công = tỉ lệ trả lời đúng · Thủ = ôn đúng hạn (${st.due} từ đang đến hạn) · Tốc = trả lời nhanh, giúp né đòn.</p>
+    <p>${rel}</p>${radNote}
+    <p>Nơi gặp: ${where}.</p>
+    <h4>Chiêu thức (${ws.length} từ) <small class="muted">từ càng thuộc thì chiêu càng mạnh</small></h4>
+    <div class="moves">${ws.slice(0, 40).map(w => { const p = Math.min(card(w.h)?.step || 0, 5) / 5; return `<button class="mv" data-say="${esc(w.h)}"><span class="han">${esc(w.h)}</span><small>${esc(w.m)}</small><div class="bar"><i style="width:${p * 100}%"></i></div></button>`; }).join('')}${ws.length > 40 ? `<span class="muted">… và ${ws.length - 40} từ nữa</span>` : ''}</div>
+    <div class="row">${S.written[ch] ? `<span class="tag evo">Đã viết đúng chữ ${esc(ch)}</span>` : `<button class="btn" id="pw">${wantWrite() ? `Luyện viết chữ ${esc(ch)}` : `Gọi tên chữ ${esc(ch)} bằng pinyin`} (cần để thăng hoa)</button>`}<button class="btn ghost" id="back">← Về Sổ</button></div>`, el => {
+    el.querySelector('#back').onclick = openDex;
+    const pw = el.querySelector('#pw'); if (pw) pw.onclick = () => practiceWrite(ch, () => openMon(n));
+  });
+}
+function practiceWrite(ch, after) {
+  const w = WORDS.get(ch) || [...WORDS.values()].find(x => x.h.includes(ch));
+  if (!wantWrite() && w) {
+    const el = sheet(`<h3>Gọi tên <span class="han" data-nopy>${esc(w.h)}</span></h3><p>Gõ <b>pinyin</b> của từ có nghĩa (không cần dấu):</p><div class="vibig">«${esc(w.m)}»</div>${pyInput('pp')}
+      <div class="row"><button class="btn ghost" id="pb">← Quay lại</button></div><div class="res" id="pst" aria-live="polite"></div>`);
+    const inp = el.querySelector('#ppi'); inp.focus(); el.querySelector('#pb').onclick = after;
+    el.querySelector('#ppf').onsubmit = e => { e.preventDefault(); const ok = pyOk(inp.value, w); track(w.h, ok, 8); speak(w.h);
+      el.querySelector('#pst').innerHTML = ok ? `✓ Đúng! <b class="han">${esc(w.h)}</b> ${esc(w.p)}` : `✗ Chưa đúng, thử lại. Gợi ý: ${esc(w.p[0] || '')}…`;
+      if (ok) { S.written[ch] = true; save(); toast(`Đã gọi đúng tên chữ ${ch}.`); setTimeout(after, 1200); } };
+    return;
+  }
+  if (!window.HanziWriter) { toast('Cần có mạng để tải dữ liệu nét chữ.'); return; }
+  sheet(`<h3>Luyện viết <span class="han">${esc(ch)}</span></h3>${w ? `<div class="vibig" style="font-size:18px">Nghĩa: «${esc(w.m)}» ${PY(w.p)}</div>` : ''}<p class="muted">Viết từng nét theo đúng thứ tự. Sai 3 lần sẽ có gợi ý.</p>
+    <div class="wbox"><div class="wpad" id="ppad" style="width:220px;height:220px"></div></div>
+    <div class="row"><button class="btn ghost" id="pa">Xem nét mẫu</button><button class="btn ghost" id="pb">← Quay lại</button></div><div class="res" id="pst" aria-live="polite"></div>`, el => {
+    const px = padFit('ppad', 220);
+    const wr = HanziWriter.create('ppad', ch, { width: px, height: px, padding: 12, showCharacter: false, showOutline: true, strokeColor: '#1b1f2e', outlineColor: 'rgba(27,31,46,.18)', drawingColor: '#c0392b', drawingWidth: 6, onLoadCharDataError: () => { el.querySelector('#pst').textContent = 'Chưa có dữ liệu nét cho chữ này.'; } });
+    const quiz = () => wr.quiz({ showHintAfterMisses: 3, onMistake: () => el.querySelector('#pst').textContent = 'Nét chưa đúng, thử lại.',
+      onCorrectStroke: d => el.querySelector('#pst').textContent = `Đúng nét ${d.strokeNum + 1}/${d.strokeNum + 1 + d.strokesRemaining}`,
+      onComplete: s => { S.written[ch] = true; save(); speak(ch); el.querySelector('#pst').textContent = `Viết xong! (${s.totalMistakes} lần sai)`; toast(`Đã viết đúng chữ ${ch}.`); setTimeout(after, 1100); } });
+    quiz();
+    el.querySelector('#pa').onclick = () => { wr.cancelQuiz(); wr.animateCharacter({ onComplete: () => { wr.hideCharacter(); quiz(); } }); };
+    el.querySelector('#pb').onclick = after;
+  });
+}
+$('#bTeam').onclick = () => mode === 'map' && openTeam();
+$('#bDex').onclick = () => mode === 'map' && openDex();
+$('#bLessons').onclick = () => mode === 'map' && openLessons();
+$('#bHome').onclick = () => { if (mode === 'map') enterMap('village', 10, 8); };
+$('#bSnd').onclick = () => { S.sound = !S.sound; save(); };
+/* progress lives in this browser only: back it up to a file / code and restore it on another device */
+const SAVE_APP = 'linh-thu-han-tu';
+function saveSummary(d) { return `${(d.lessons || []).length} bài · ${(d.owned || []).length} linh thú · ${d.coins || 0} tiền · ${Object.keys(d.cards || {}).length} thẻ ôn`; }
+function backupText() { S.lastBackup = Date.now(); save(); return JSON.stringify({ app: SAVE_APP, v: 1, at: S.lastBackup, save: S }); }
+function readBackup(txt) {
+  let o; try { o = JSON.parse(String(txt).trim()); } catch (e) { throw new Error('File hoặc mã không đọc được (không phải JSON).'); }
+  const d = o && o.app === SAVE_APP ? o.save : o;
+  if (!d || !Array.isArray(d.lessons) || typeof d.cards !== 'object') throw new Error('Đây không phải file tiến trình của Linh Thú Hán Tự.');
+  return { d, at: o.at };
+}
+function openSave() {
+  const last = S.lastBackup ? new Date(S.lastBackup).toLocaleString('vi-VN') : 'chưa bao giờ';
+  const el = sheet(`<h3>💾 Tiến trình</h3>
+    <p>Tiến trình chỉ lưu trong <b>trình duyệt này</b>. Muốn chơi tiếp trên điện thoại hay máy khác: sao lưu ở đây, rồi mở game ở máy kia và bấm <b>Khôi phục</b>.</p>
+    <p class="muted">Hiện có: ${saveSummary(S)} · Sao lưu gần nhất: ${esc(last)}</p>
+    <h4>Sao lưu</h4>
+    <div class="row"><button class="btn" id="svDl">Tải file sao lưu</button><button class="btn ghost" id="svCp">Chép mã sao lưu</button></div>
+    <p class="muted">Gửi file hoặc mã cho chính bạn (Zalo, Messenger, email…) để mở trên điện thoại.</p>
+    <h4>Khôi phục</h4>
+    <div class="row"><button class="btn" id="svUp">Chọn file sao lưu</button></div>
+    <textarea id="svTx" rows="3" style="width:100%;margin-top:8px;font:12px monospace;background:var(--panel);color:var(--paper);border:1px solid var(--line);border-radius:8px;padding:6px" placeholder="…hoặc dán mã sao lưu vào đây"></textarea>
+    <div class="row"><button class="btn ghost" id="svPaste">Khôi phục từ mã đã dán</button></div>
+    <input type="file" id="svFile" accept=".json,application/json,text/plain" hidden>
+    <div class="res" id="svSt" aria-live="polite"></div>`);
+  const st = el.querySelector('#svSt');
+  el.querySelector('#svDl').onclick = () => {
+    const blob = new Blob([backupText()], { type: 'application/json' }), a = document.createElement('a');
+    a.href = URL.createObjectURL(blob); a.download = `linh-thu-tien-trinh-${dayKey()}.json`; document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(a.href), 4000); st.textContent = '✓ Đã tạo file sao lưu (xem trong mục Tải về).';
+  };
+  el.querySelector('#svCp').onclick = async () => {
+    const t = backupText();
+    try { await navigator.clipboard.writeText(t); st.textContent = '✓ Đã chép mã. Dán vào tin nhắn gửi cho chính bạn.'; }
+    catch (e) { el.querySelector('#svTx').value = t; el.querySelector('#svTx').select(); st.textContent = 'Trình duyệt không cho chép tự động: mã đã hiện trong ô bên dưới, hãy tự chép.'; }
+  };
+  const restore = txt => {
+    let r; try { r = readBackup(txt); } catch (e) { st.innerHTML = `<span style="color:var(--red)">✗ ${esc(e.message)}</span>`; return; }
+    const when = r.at ? new Date(r.at).toLocaleString('vi-VN') : 'không rõ';
+    st.innerHTML = `Bản sao lưu (${esc(when)}): <b>${esc(saveSummary(r.d))}</b><br>Tiến trình hiện tại sẽ bị thay bằng bản này.
+      <div class="row"><button class="btn" id="svOk">Thay tiến trình</button><button class="btn ghost" id="svNo">Huỷ</button></div>`;
+    st.querySelector('#svNo').onclick = () => { st.textContent = ''; };
+    st.querySelector('#svOk').onclick = () => {
+      try { localStorage.setItem(KEY + '-truoc-khoi-phuc', JSON.stringify(S)); localStorage.setItem(KEY, JSON.stringify(r.d)); }
+      catch (e) { st.textContent = 'Không ghi được vào bộ nhớ trình duyệt.'; return; }
+      location.reload();
+    };
+  };
+  const fi = el.querySelector('#svFile');
+  el.querySelector('#svUp').onclick = () => fi.click();
+  fi.onchange = () => { const f = fi.files[0]; if (!f) return; f.text().then(restore); fi.value = ''; };
+  el.querySelector('#svPaste').onclick = () => restore(el.querySelector('#svTx').value);
+}
+$('#bSave').onclick = () => mode === 'map' && openSave();
+/* big mode: the overlay (dialogs, battle, sheets) is zoomed so text grows with the picture */
+function fitBig() {
+  const big = document.body.classList.contains('full'), st = $('#stage');
+  if (big) { const used = $('#screen').getBoundingClientRect().top + ($('.ctl').offsetHeight ? $('.ctl').offsetHeight + 12 : 0) + 10; document.documentElement.style.setProperty('--chrome', used + 'px'); }
+  const z = big ? Math.max(1, Math.min(2.4, st.clientWidth / 720)) : 1;
+  OV.style.zoom = z; $('#zl').style.zoom = z;
+  $('#bFull').textContent = big ? '✕ Thu nhỏ' : '⛶ Toàn màn hình';
+}
+function setBig(on) {
+  document.body.classList.toggle('full', on); S.big = on; save();
+  try { if (on && !document.fullscreenElement) document.documentElement.requestFullscreen?.().catch(() => {}); else if (!on && document.fullscreenElement) document.exitFullscreen?.(); } catch (e) {}
+  requestAnimationFrame(fitBig);
+}
+$('#bFull').onclick = () => setBig(!document.body.classList.contains('full'));
+addEventListener('resize', () => requestAnimationFrame(fitBig));
+document.addEventListener('fullscreenchange', () => requestAnimationFrame(fitBig));
+if (S.big) { document.body.classList.add('full'); requestAnimationFrame(fitBig); }
+/* installable app + offline play (needs https or localhost) */
+if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
+$('#bVi').onclick = () => { S.showVi = S.showVi === false; save(); toast(S.showVi ? 'Lời thoại NPC hiện kèm tiếng Việt.' : 'Đã ẩn tiếng Việt trong lời thoại. Bấm "Xem nghĩa" khi cần.'); if (mode === 'dlg' && DQ.length) dlgShow(); };
+$('#bPy').onclick = () => { S.showPy = S.showPy === false; save(); toast(S.showPy ? 'Hiện pinyin bên cạnh chữ Hán.' : 'Đã ẩn pinyin. Câu hỏi gõ pinyin vẫn còn để bạn tự nhớ.'); };
+$('#bWr').onclick = () => { S.writeMode = S.writeMode !== true; save(); toast(S.writeMode ? 'Bắt linh thú và rèn châu bằng cách viết chữ Hán (có nghĩa tiếng Việt kèm theo).' : 'Bắt linh thú và rèn châu bằng cách đọc nghĩa tiếng Việt rồi gõ pinyin.'); };
+
+/* =============== questions =============== */
+function others(w, n, key, pool) {
+  const out = [], seenM = new Set(w.m.split(/[,;]\s*/)), seen = new Set([w[key]]);
+  for (const x of [...shuffle(pool), ...shuffle([...WORDS.values()])]) {
+    if (x.h === w.h || seen.has(x[key]) || x.m.split(/[,;]\s*/).some(m => seenM.has(m))) continue;
+    if (key === 'h' && norm(x.p) === norm(w.p)) continue;
+    seen.add(x[key]); out.push(x); if (out.length >= n) break;
+  }
+  return out;
+}
+/* tone variants: change the tone mark of one syllable */
+const TONES = { a: 'āáǎà', e: 'ēéěè', i: 'īíǐì', o: 'ōóǒò', u: 'ūúǔù', 'ü': 'ǖǘǚǜ' };
+const TONE_OF = {}; for (const [b, s] of Object.entries(TONES)) [...s].forEach((c, i) => TONE_OF[c] = { b, t: i });
+function retone(p) {
+  const ch = [...p], idx = ch.map((c, i) => TONE_OF[c.toLowerCase()] ? i : -1).filter(i => i >= 0);
+  if (!idx.length) return null;
+  const k = pick(idx), c = ch[k], info = TONE_OF[c.toLowerCase()];
+  let nt; do nt = Math.floor(Math.random() * 4); while (nt === info.t);
+  let nc = [...TONES[info.b]][nt]; if (c !== c.toLowerCase()) nc = nc.toUpperCase();
+  ch[k] = nc; return ch.join('');
+}
+function toneOpts(p) { const set = new Set([p]); let n = 0; while (set.size < 4 && n++ < 40) { let v = retone(p); if (v && Math.random() < .4) v = retone(v) || v; if (v) set.add(v); } return set.size >= 3 ? [...set] : null; }
+/* split an example sentence into tiles, keeping known words whole */
+function tokenize(sent, target) {
+  const s = String(sent).replace(/[，。？！、：；“”‘’…,.?!\s]/g, ''), dict = [...WORDS.keys()].filter(h => h.length >= 2).sort((a, b) => b.length - a.length), out = [];
+  let i = 0; while (i < s.length) { let m = s.startsWith(target, i) ? target : dict.find(d => s.startsWith(d, i)); if (!m) m = s[i]; out.push(m); i += m.length; }
+  return out;
+}
+function makeQ(pool) {
+  const w = pickWord(pool), step = card(w.h)?.step || 0;
+  const types = step === 0 ? ['h2m', 'h2m', 'm2h'] : step === 1 ? ['h2m', 'm2h', 'p2h', 'tone'] : step === 2 ? ['m2h', 'tone', 'listen', 'fill', 'order'] : ['type', 'fill', 'listen', 'type', 'order', 'tone'];
+  let t = pick(types);
+  if (t === 'order') { const toks = w.eh ? tokenize(w.eh, w.h) : []; if (toks.length >= 3 && toks.length <= 8) return { w, t, ask: `Xếp thành câu đúng · <i>${esc(w.em)}</i>`, body: '', opts: null, toks }; t = 'fill'; }
+  if (t === 'tone') { const o = toneOpts(w.p); if (o) return { w, t, ask: 'Chọn phiên âm đúng (chú ý dấu thanh):', body: `<div class="big han">${esc(w.h)}</div><div class="muted">${esc(w.m)}</div>`, opts: shuffle(o).map(x => ({ label: x, ok: x === w.p })) }; t = 'p2h'; }
+  if (t === 'fill' && !(w.eh && w.eh.includes(w.h))) t = 'p2h';
+  if (t === 'listen' && !S.sound) t = 'p2h';
+  const hOpts = (noPy) => shuffle([w, ...others(w, 3, 'h', pool)]).map(x => ({ label: x.h, ok: x === w, hz: true, py: noPy ? '' : x.p }));
+  if (t === 'h2m') return { w, t, ask: 'Từ này nghĩa là gì?', body: `<div class="big han">${esc(w.h)}</div><div class="mid">${PY(w.p)}</div>`, opts: shuffle([w, ...others(w, 3, 'm', pool)]).map(x => ({ label: x.m, ok: x === w })) };
+  if (t === 'm2h') return { w, t, ask: 'Chọn chữ Hán có nghĩa:', body: `<div class="mid">${esc(w.m)}</div>`, opts: hOpts() };
+  if (t === 'p2h') return { w, t, ask: 'Pinyin này là chữ nào?', body: `<div class="mid">${esc(w.p)}</div>`, opts: hOpts(true) };
+  if (t === 'listen') { setTimeout(() => speak(w.h, true), 250); return { w, t, ask: 'Nghe và chọn chữ đúng:', body: `<button class="say" data-say="${esc(w.h)}">nghe lại</button>`, opts: hOpts() }; }
+  if (t === 'fill') return { w, t, ask: `Điền chỗ trống · <i>${esc(w.em)}</i>`, body: `<div class="sent han">${esc(w.eh).replace(esc(w.h), '<span class="blank"></span>')}</div>`, opts: hOpts() };
+  return { w, t: 'type', ask: `Gõ pinyin (không cần dấu) · nghĩa: ${esc(w.m)}`, body: `<div class="big han">${esc(w.h)}</div>`, opts: null };
+}
+
+/* =============== battle =============== */
+let B = null;
+function wildBattle(w, zone) {
+  let pool, sp;
+  if (zone === 'review') {
+    const due = dueWords().map(h => WORDS.get(h)).filter(Boolean);
+    pool = due.length >= 4 ? due : learned().map(h => WORDS.get(h));
+    sp = w?.sp || pick(allSpecies().filter(s => s.lid));
+  } else { const L = MAP.lesson; pool = lessonWords(L).filter(x => S.intro[x.h] || card(x.h)); if (pool.length < 4) pool = lessonWords(L); sp = w?.sp || pick(L.species); }
+  if (!pool?.length) return;
+  const lid = sp.lid ?? S.lessons.find(l => (l.species || []).some(s => s.n === sp.n))?.id;
+  const st = monStats({ n: sp.n, lid });
+  const lvl = Math.max(2, st.lvl - 1 + Math.floor(Math.random() * 3));
+  const shiny = Math.random() < (today().correct >= 30 ? 1 / 12 : 1 / 40);
+  startBattle({ foes: [{ n: sp.n, lid, name: sp.name, g: sp.g, lvl, shiny }], pool, wildRef: w, capture: true, title: '' });
+}
+function zoneBossBattle(L) {
+  const ws = lessonWords(L), sp = L.species[2] || L.species[0], lvl = 6 + Math.floor(mastery(ws.map(w => w.h)) * 14);
+  startBattle({ foes: [{ n: sp.n, lid: L.id, name: sp.name, g: sp.g, lvl, boss: true, hpMul: 1.6 }], pool: ws, boss: true, title: 'Trưởng vùng',
+    onWin: () => { const first = !S.cleared[L.id]; S.cleared[L.id] = Date.now(); S.coins += first ? 30 : 10; save(); return first ? `Bạn đã hoàn thành vùng "${esc(L.title)}"! ⭐ +30 tiền` : 'Thắng lại Trưởng vùng. Ôn bài tốt lắm! +10 tiền'; } });
+}
+function templeBattle(ls, wk) {
+  const pool = ls.flatMap(lessonWords), sps = ls.flatMap(l => l.species || []);
+  const foes = shuffle(sps).slice(0, 3).map((s, i) => ({ n: s.n, lid: S.lessons.find(l => (l.species || []).includes(s))?.id, name: s.name, g: s.g, lvl: 10 + i * 2, boss: true, hpMul: 1.3 }));
+  startBattle({ foes, pool, boss: true, title: 'Người giữ đền', onWin: () => { S.badges.push(wk); S.coins += 60; save(); return `Bạn nhận <b>Huy hiệu tuần ${wk}</b>! 🏅 +60 tiền`; } });
+}
+function startBattle(cfg) {
+  const li = S.team.findIndex(m => m.hp > 0);
+  if (li < 0) { dialog([{ who: '', vi: 'Cả đội đã kiệt sức. Hãy về quán trà ở làng để hồi phục.' }]); return; }
+  mode = 'battle'; held.clear();
+  cfg.foes.forEach(f => { f.el = spById(f.n)?.el || 'nhan'; f.max = Math.round((50 + f.lvl * 6) * (f.hpMul || 1)); f.hp = f.max; });
+  B = { ...cfg, fi: 0, me: li, combo: 0, busy: false };
+  OV.innerHTML = `<div class="battle ${cfg.boss ? 'boss' : ''}"><div class="bf" id="bf">
+    <div class="pad" style="right:5%;top:34%"></div><img class="spr" id="eS" alt="" style="right:9%;top:2%">
+    <div class="card" style="left:3%;top:5%" id="eC"></div>
+    <div class="pad" style="left:4%;bottom:2%"></div><img class="spr" id="pS" alt="" style="left:8%;bottom:3%">
+    <div class="card" style="right:3%;bottom:8%" id="pC"></div>
+  </div><div class="bp" id="bp"></div></div>`;
+  draw();
+  const f = foe();
+  const vs = typeMul(monStats(me()).el, f.el), tip = vs > 1 ? ' Hệ của bạn khắc nó!' : vs < 1 ? ' Cẩn thận, hệ của nó khắc bạn.' : '';
+  menu((cfg.boss ? `${cfg.title} cho <b>${esc(f.name)}</b> ra trận!` : `${f.shiny ? '✨ Linh thú <b>màu lạ</b>! ' : ''}<b>${esc(f.name)}</b> <span class="han">${esc(f.g)}</span> hoang dã xuất hiện! (cấp ${f.lvl})`) + tip);
+}
+const foe = () => B.foes[B.fi], me = () => S.team[B.me];
+function draw() {
+  const f = foe(), m = me(), ms = monStats(m), sp = spById(m.n);
+  $('#eS').src = sprite(f.n, 'front'); $('#eS').style.filter = monFilter(f.n, f.shiny, 0); $('#eS').classList.toggle('tiny', isTiny(f.n)); $('#eS').classList.remove('gone');
+  $('#pS').src = sprite(m.n, 'back', ms.evo); $('#pS').style.filter = monFilter(m.n, isShiny(m.n), ms.tier); $('#pS').style.scale = isTiny(m.n) ? '-1 1' : ''; $('#pS').classList.toggle('tiny', isTiny(m.n));
+  $('#eC').innerHTML = `${f.shiny ? '✨' : ''}<b>${esc(f.name)}</b> <span class="han">${esc(f.g)}</span> ${elChip(f.el)} · Cấp ${f.lvl}<div class="hp"><i style="width:${f.hp / f.max * 100}%"></i></div>`;
+  $('#pC').innerHTML = `<b>${esc(sp?.name)}</b> ${elChip(ms.el)} · Cấp ${ms.lvl}${ms.sleepy ? ' <span class="tag sleep">buồn ngủ</span>' : ''}<div class="hp"><i style="width:${Math.max(0, m.hp) / ms.maxHp * 100}%"></i></div><small>HP ${Math.max(0, m.hp)}/${ms.maxHp}</small>`;
+}
+function menu(msg) {
+  B.busy = false;
+  const m = me(), full = m.hp >= monStats(m).maxHp;
+  $('#bp').innerHTML = `<div>${msg}</div><div class="row"><button class="btn" id="bA">Tấn công (trả lời câu hỏi)</button>
+    ${SR ? '<button class="btn ghost" id="bV">Hô to (đọc từ)</button>' : ''}
+    ${canCatch(foe()) ? `<button class="btn ghost" id="bO" ${orbCount() ? '' : 'disabled'}>Ném châu (${orbCount()})</button>` : ''}
+    <button class="btn ghost" id="bT" ${!S.items.tea || full ? 'disabled' : ''}>Uống trà (${S.items.tea || 0})</button>
+    <button class="btn ghost" id="bS" ${S.team.filter(m => m.hp > 0).length < 2 ? 'disabled' : ''}>Đổi linh thú</button>
+    <button class="btn ghost" id="bR" ${B.boss ? 'disabled' : ''}>Chạy</button></div>`;
+  $('#bA').onclick = ask;
+  if (SR) $('#bV').onclick = shoutAttack;
+  $('#bO')?.addEventListener('click', () => orbMenu(foe(), false));
+  $('#bT').onclick = () => { const mx = monStats(m).maxHp; m.hp = Math.min(mx, m.hp + Math.round(mx / 2)); S.items.tea--; save(); draw(); menu('Uống trà sâm, hồi một nửa máu.'); };
+  $('#bS').onclick = () => openTeam(i => { B.me = i; B.combo = 0; draw(); menu(`Lên đi, ${esc(spById(me().n)?.name)}!`); });
+  $('#bR').onclick = () => end('Bạn đã chạy thoát.');
+}
+function ask() {
+  if (B.busy) return; B.busy = true;
+  const q = makeQ(B.pool), t0 = performance.now(), LIM = q.t === 'order' ? 35000 : q.t === 'type' ? 20000 : 15000; let done = false;
+  $('#bp').innerHTML = `<div class="tbar"><i id="qt"></i></div><div class="qa">${q.ask}</div><div class="qb" ${q.t === 'tone' || q.t === 'type' ? 'data-nopy' : ''}>${q.body}</div>
+    ${q.opts ? `<div class="opts" ${q.t === 'p2h' ? 'data-nopy' : ''}>${q.opts.map((o, i) => `<button class="opt ${o.hz ? 'hz' : ''}" data-i="${i}">${i + 1}. ${esc(o.label)}</button>`).join('')}</div>`
+      : q.t === 'order' ? `<div class="slots" id="osl"></div><div class="bank" id="obk"></div><div class="row"><button class="btn" id="ochk" disabled>Kiểm tra</button><button class="btn ghost" id="oclr">Xoá</button></div>`
+      : `<form class="tin" id="tf"><input id="ti" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Pinyin"><button class="btn">Đánh</button></form>`}
+    <div class="res" id="qr"></div>`;
+  const timer = setInterval(() => { const r = 1 - (performance.now() - t0) / LIM, el = $('#qt'); if (!el) return clearInterval(timer); el.style.transform = `scaleX(${Math.max(0, r)})`; if (r <= 0) finish(false, true); }, 60);
+  function finish(ok, timeout) {
+    if (done) return; done = true; clearInterval(timer);
+    const secs = (performance.now() - t0) / 1000, w = q.w;
+    const g = !ok ? 0 : (q.t === 'type' && secs < 8) ? 3 : secs < (q.t === 'order' ? 15 : 7) ? 2 : 1;
+    track(w.h, ok, secs); B.lastW = w;
+    const counted = grade(w.h, g);
+    if (q.opts) document.querySelectorAll('.opt').forEach((b, i) => { b.disabled = true; if (q.opts[i].ok) b.classList.add('ok'); });
+    $('#qr').innerHTML = `${ok ? '✓' : timeout ? '⏰ Hết giờ.' : '✗'} ${q.t === 'order' ? `<b class="han">${esc(w.eh)}</b> · ${esc(w.ep)}<br>` : ''}<b class="han">${esc(w.h)}</b> · ${esc(w.p)} · ${esc(w.m)} <span class="muted">${counted ? `(lịch ôn: ${g === 0 ? 'ôn lại sau 10 phút' : 'gặp lại sau ' + S.cards[w.h].interval + ' ngày'})` : '(chưa đến hạn, không đổi lịch ôn)'}</span>`;
+    speak(w.h);
+    setTimeout(() => ok ? hitFoe() : hitMe(), ok ? 1000 : 2000);
+  }
+  if (q.opts) $('#bp').querySelector('.opts').onclick = e => { const b = e.target.closest('.opt'); if (!b) return; const i = +b.dataset.i; if (!q.opts[i].ok) b.classList.add('no'); finish(q.opts[i].ok); };
+  else if (q.t === 'order') {
+    let bank = shuffle(q.toks.map((t, i) => ({ t, i })));
+    if (bank.map(b => b.t).join('') === q.toks.join('')) bank.push(bank.shift());
+    const placed = [];
+    const drawO = () => {
+      $('#osl').innerHTML = placed.map((p, k) => `<button class="tile" data-k="${k}">${esc(p.t)}</button>`).join('') || '<span class="muted">Bấm các mảnh bên dưới theo đúng thứ tự</span>';
+      $('#obk').innerHTML = bank.map((b, k) => `<button class="tile ${placed.includes(b) ? 'used' : ''}" data-b="${k}">${esc(b.t)}</button>`).join('');
+      $('#ochk').disabled = placed.length < q.toks.length;
+    };
+    $('#obk').onclick = e => { const b = e.target.closest('[data-b]'); if (!b || done) return; const it = bank[+b.dataset.b]; if (!placed.includes(it)) { placed.push(it); drawO(); } };
+    $('#osl').onclick = e => { const b = e.target.closest('[data-k]'); if (!b || done) return; placed.splice(+b.dataset.k, 1); drawO(); };
+    $('#oclr').onclick = () => { if (done) return; placed.length = 0; drawO(); };
+    $('#ochk').onclick = () => { const ok = placed.map(p => p.t).join('') === q.toks.join(''); $('#osl').classList.add(ok ? 'good' : 'bad'); $('#ochk').disabled = $('#oclr').disabled = true; finish(ok); };
+    drawO();
+  }
+  else { $('#ti').focus(); $('#tf').onsubmit = e => { e.preventDefault(); const v = norm($('#ti').value), a = norm(q.w.p); finish(v === a || (q.w.h.endsWith('儿') && v === a.replace(/r$/, ''))); }; }
+}
+function floatAt(id, txt) { const el = $(id), r = el.getBoundingClientRect(), fr = $('#bf').getBoundingClientRect(); const f = document.createElement('div'); f.className = 'float'; f.textContent = txt; f.style.left = (r.left - fr.left + r.width / 2 - 14) + 'px'; f.style.top = (r.top - fr.top + 10) + 'px'; $('#bf').appendChild(f); setTimeout(() => f.remove(), 900); }
+function shake(id) { const el = $(id); el.classList.remove('hit'); void el.offsetWidth; el.classList.add('hit'); }
+function hitFoe() {
+  B.combo++; const ms = monStats(me()), f = foe();
+  const tm = typeMul(ms.el, f.el), w = B.lastW; B.lastW = null;
+  const wp = w ? .85 + Math.min(card(w.h)?.step || 0, 5) * .06 : 1; // a well-known word is a strong move
+  const dmg = Math.round((22 + ms.lvl * 2) * (ms.sleepy ? .6 : 1) * (1 + Math.min(B.combo - 1, 5) * .1) * tm * (.75 + ms.atk / 80) * [1, 1.1, 1.25][ms.tier] * wp * (.9 + Math.random() * .2));
+  f.hp = Math.max(0, f.hp - dmg); shake('#eS'); floatAt('#eS', '-' + dmg); draw();
+  const extra = (tm > 1 ? ' <b>Rất hiệu quả!</b>' : tm < 1 ? ' Không hiệu quả lắm…' : '') + (B.combo > 1 ? ` Combo ×${B.combo}!` : '') + (ms.sleepy ? ' (đang buồn ngủ nên đánh yếu, hãy ôn từ đến hạn)' : '');
+  const mv = w ? `Dùng chiêu <b class="han">「${esc(w.h)}」</b>, g` : 'G';
+  if (f.hp > 0) { menu(`${mv}ây ${dmg} sát thương.${extra}`); return; }
+  $('#eS').classList.add('gone');
+  setTimeout(() => {
+    if (B.fi < B.foes.length - 1) { B.fi++; draw(); menu(`${esc(B.title)} cho <b>${esc(foe().name)}</b> ra trận!`); return; }
+    if (B.boss) { S.items.shard += 2; save(); end(B.onWin() + ' · +2 tinh thạch 晶石'); return; }
+    if (B.wildRef && MAP.wild.includes(B.wildRef)) MAP.wild.splice(MAP.wild.indexOf(B.wildRef), 1);
+    S.coins += 5;
+    B.dropMsg = '';
+    if (Math.random() < .5) { S.items.shard++; B.dropMsg = ' · nhặt được 1 tinh thạch 晶石'; }
+    save();
+    if (canCatch(f)) { orbMenu(f, true); return; }
+    end(`${esc(f.name)} đã gục! +5 tiền${B.dropMsg}`);
+  }, 600);
+}
+/* capture by writing the creature's character (Hanzi Writer); fall back to typing pinyin */
+function writeCapture(f, done, spell) {
+  const ch = [...f.g][0], w = WORDS.get(ch) || [...WORDS.values()].find(x => x.h.includes(ch)) || pick(fairPool().length ? fairPool() : [...WORDS.values()]);
+  let finished = false; const fin = ok => { if (finished) return; finished = true; done(ok); };
+  const typeMode = why => {
+    $('#bp').classList.remove('tall');
+    $('#bp').innerHTML = `<div>${why ? esc(why) + ' ' : ''}${spell ? 'Niệm chú' : esc(f.name) + ' kiệt sức rồi! Gọi tên để bắt'}: gõ <b>pinyin</b> của từ có nghĩa</div>
+      <div class="vibig">«${esc(w?.m || '')}»</div><div class="muted">Chữ Hán: <span class="han" data-nopy>${esc(w?.h || ch)}</span> · không cần gõ dấu thanh</div>
+      ${pyInput('c')}<div class="row">${window.HanziWriter ? '<button class="btn ghost" id="cwr">Viết chữ thay</button>' : ''}<button class="btn ghost" id="cskip">${spell ? 'Ném luôn' : 'Thả đi'}</button></div><div class="res" id="cr"></div>`;
+    $('#ci').focus(); $('#cskip').onclick = () => fin(false);
+    const cw = $('#cwr'); if (cw) cw.onclick = writeMode;
+    $('#cf').onsubmit = e => { e.preventDefault(); const ok = !!w && pyOk($('#ci').value, w); if (w) track(w.h, ok, 8); $('#cr').innerHTML = ok ? `✓ Chính xác! <b class="han">${esc(w.h)}</b> ${esc(w.p)}` : `✗ Đáp án: <b class="han">${esc(w?.h || '')}</b> ${esc(w?.p || '')}`; if (w) speak(w.h); setTimeout(() => fin(ok), 1300); };
+  };
+  if (!wantWrite()) { typeMode(window.HanziWriter || S.writeMode !== true ? '' : 'Không tải được công cụ viết chữ (cần mạng).'); return; }
+  writeMode();
+  function writeMode() {
+  $('#bp').innerHTML = `<div>${spell ? 'Niệm chú:' : esc(f.name) + ' kiệt sức rồi!'} <b>Viết chữ <span class="han">${esc(ch)}</span></b> ${spell ? 'để châu mạnh hơn' : 'để bắt nó'}. Viết sai 3 lần một nét sẽ có gợi ý.</div>
+    ${w ? `<div class="vibig" style="font-size:18px">Nghĩa: «${esc(w.m)}» ${PY(w.p)}</div>` : ''}
+    <div class="wbox"><div class="wpad" id="wpad"></div></div>
+    <div class="row"><button class="btn ghost" id="wanim">Xem nét mẫu</button><button class="btn ghost" id="wtype">Gõ pinyin thay</button><button class="btn ghost" id="wskip">${spell ? 'Ném luôn' : 'Thả đi'}</button></div><div class="res" id="wst" aria-live="polite"></div>`;
+  $('#bp').classList.add('tall');
+  const size = Math.max(150, Math.min(230, $('#bp').clientWidth - 40, $('#screen').clientHeight * .5));
+  const px = padFit('wpad', size);
+  let writer;
+  try {
+    writer = HanziWriter.create('wpad', ch, { width: px, height: px, padding: 12, showCharacter: false, showOutline: true, strokeColor: '#1b1f2e', outlineColor: 'rgba(27,31,46,.18)', drawingColor: '#c0392b', highlightColor: '#3c7bd9', drawingWidth: 6, onLoadCharDataError: () => typeMode('Chưa có dữ liệu nét cho chữ này.') });
+  } catch (e) { typeMode('Không tạo được ô viết.'); return; }
+  const quiz = () => writer.quiz({ showHintAfterMisses: 3,
+    onMistake: () => { $('#wst').textContent = 'Nét chưa đúng, thử lại.'; },
+    onCorrectStroke: d => { $('#wst').textContent = `Đúng nét ${d.strokeNum + 1}/${d.strokeNum + 1 + d.strokesRemaining}`; },
+    onComplete: s => { S.written[ch] = true; $('#wst').textContent = `Viết xong! (${s.totalMistakes} lần sai)`; speak(ch); setTimeout(() => fin(true), 800); } });
+  quiz();
+  $('#wanim').onclick = () => { writer.cancelQuiz(); writer.animateCharacter({ onComplete: () => { writer.hideCharacter(); quiz(); } }); };
+  $('#wtype').onclick = () => { writer.cancelQuiz(); typeMode(''); };
+  $('#wskip').onclick = () => { writer.cancelQuiz(); fin(false); };
+  }
+}
+/* say the word aloud (Chrome speech recognition) */
+const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+function shoutAttack() {
+  if (B.busy || !SR) return; B.busy = true;
+  const w = pickWord(B.pool);
+  $('#bp').innerHTML = `<div class="qa">Đọc to từ này để tung chiêu:</div><div class="qb"><div class="big han">${esc(w.h)}</div><div>${PY(w.p)} · ${esc(w.m)} <button class="say" data-say="${esc(w.h)}">nghe mẫu</button></div></div><div class="res" id="qr">Đang nghe… (cho phép micro nếu trình duyệt hỏi)</div>`;
+  const r = new SR(); r.lang = 'zh-CN'; r.maxAlternatives = 5; r.interimResults = false; let fin = false;
+  const done = (ok, heard) => {
+    if (fin) return; fin = true;
+    $('#qr').innerHTML = ok ? `✓ Nghe được: <span class="han">${esc(heard)}</span>. Chiêu hô to!` : `Chưa nghe rõ ("${esc(heard || '…')}"). Từ đúng: <b class="han">${esc(w.h)}</b> ${esc(w.p)}. Không mất máu, thử lại nhé.`;
+    if (ok) { today().answers++; today().correct++; track(w.h, true, 6); B.lastW = w; save(); setTimeout(hitFoe, 1100); } else setTimeout(() => menu('Chọn cách tấn công.'), 2200);
+  };
+  r.onresult = e => { const alts = [...e.results[0]].map(a => a.transcript.replace(/[\s，。？！,.?!]/g, '')); done(alts.some(a => a.includes(w.h)), alts[0]); };
+  r.onerror = e => { if (fin) return; fin = true; $('#qr').textContent = `Không dùng được micro (${e.error}). Hãy dùng Tấn công thường.`; setTimeout(() => menu('Chọn cách tấn công.'), 1800); };
+  r.onend = () => { if (!fin) done(false, ''); };
+  try { r.start(); } catch (e) { r.onerror({ error: e.message }); }
+}
+function hitMe() {
+  B.combo = 0; const f = foe(), m = me(), ms = monStats(m);
+  if (Math.random() < ms.spd / 200) { menu(`${esc(f.name)} phản đòn nhưng ${esc(spById(m.n)?.name)} <b>né được</b> nhờ Tốc cao!`); return; }
+  const tm = typeMul(f.el, ms.el), dmg = Math.round((14 + f.lvl * 1.5) * tm * (1.25 - ms.def / 80) * (.85 + Math.random() * .3));
+  m.hp = Math.max(0, m.hp - dmg); save(); shake('#pS'); floatAt('#pS', '-' + dmg); draw();
+  if (m.hp > 0) { menu(`${esc(f.name)} phản đòn, gây ${dmg} sát thương!${tm > 1 ? ' (hệ của nó khắc bạn)' : ''}`); return; }
+  if (S.team.some(x => x.hp > 0)) { $('#bp').innerHTML = `<div>${esc(spById(m.n)?.name)} đã kiệt sức.</div>`; setTimeout(() => openTeam(i => { B.me = i; draw(); menu('Tiếp tục chiến đấu!'); }), 900); return; }
+  end('Cả đội đã kiệt sức… Bạn được đưa về quán trà.', () => { S.team.forEach(x => x.hp = monStats(x).maxHp); save(); enterMap('village', 10, 6); });
+}
+function end(msg, after) {
+  $('#bp').innerHTML = `<div>${msg}</div><div class="row"><button class="btn" id="bE">Về bản đồ</button></div>`;
+  $('#bE').onclick = () => { OV.innerHTML = ''; mode = 'map'; B = null; save(); after?.(); };
+}
+
+/* =============== boot =============== */
+indexWords(); ensureItems(); migrateSpecies();
+Promise.all([
+  load('town', 'assets/kenney-tiny-town/tilemap_packed.png'),
+  load('dung', 'assets/kenney-tiny-creatures/Kenney_tiny_dungeon.png'),
+  load('crea', 'assets/kenney-tiny-creatures/tilemap_packed.png'),
+]).then(() => {
+  const wh = S.where || {}; P.dir = wh.dir || 'down';
+  enterMap(wh.map || 'village', wh.x ?? 10, wh.y ?? 8);
+  requestAnimationFrame(frame); hud();
+  if (!S.started) { S.started = true; save(); dialog([{ who: 'Linh Thú Hán Tự', vi: 'Chào mừng đến Làng Tân Thủ! Mỗi bài bạn học ở lớp sẽ mở một vùng đất mới với 3 linh thú mang chữ Hán của bài.' }, { who: '', vi: 'Hãy đến nhà mái xanh gặp <b>Thầy Vương</b> (pháp sư áo tím) và nạp file bài học đầu tiên. Có sẵn 10 bài mẫu trong thư mục <b>game/lessons</b>.' }]); }
+});
+setInterval(hud, 30000);
+</script>
+</body>
+</html>

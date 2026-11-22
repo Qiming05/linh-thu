@@ -1,0 +1,330 @@
+{
+ "topic": "MSUTONG 2 · Phần 4: 衬衫、鞋、试…",
+ "vocab": [
+  {
+   "hanzi": "衬衫",
+   "pinyin": "chènshān",
+   "han_viet": "sấn sam",
+   "meaning": "áo sơ mi",
+   "pos": "danh từ",
+   "example": {
+    "hanzi": "这件衬衫很漂亮。",
+    "pinyin": "Zhè jiàn chènshān hěn piàoliang.",
+    "meaning": "Chiếc áo sơ mi này rất đẹp."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "鞋",
+   "pinyin": "xié",
+   "han_viet": "hài",
+   "meaning": "giày",
+   "pos": "danh từ",
+   "example": {
+    "hanzi": "这双鞋多少钱？",
+    "pinyin": "Zhè shuāng xié duōshao qián?",
+    "meaning": "Đôi giày này bao nhiêu tiền?"
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "试",
+   "pinyin": "shì",
+   "han_viet": "thí",
+   "meaning": "thử",
+   "pos": "động từ",
+   "example": {
+    "hanzi": "我想试一下。",
+    "pinyin": "Wǒ xiǎng shì yíxià.",
+    "meaning": "Tôi muốn thử một chút."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "穿",
+   "pinyin": "chuān",
+   "han_viet": "xuyên",
+   "meaning": "mặc, đi giày",
+   "pos": "động từ",
+   "example": {
+    "hanzi": "你穿这件很好看。",
+    "pinyin": "Nǐ chuān zhè jiàn hěn hǎokàn.",
+    "meaning": "Bạn mặc chiếc này rất đẹp."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "合适",
+   "pinyin": "héshì",
+   "han_viet": "hợp thích",
+   "meaning": "vừa, phù hợp",
+   "pos": "tính từ",
+   "example": {
+    "hanzi": "这双鞋很合适。",
+    "pinyin": "Zhè shuāng xié hěn héshì.",
+    "meaning": "Đôi giày này rất vừa."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "便宜",
+   "pinyin": "piányi",
+   "han_viet": "tiện nghi",
+   "meaning": "rẻ",
+   "pos": "tính từ",
+   "example": {
+    "hanzi": "这件衣服很便宜。",
+    "pinyin": "Zhè jiàn yīfu hěn piányi.",
+    "meaning": "Bộ quần áo này rất rẻ."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "颜色",
+   "pinyin": "yánsè",
+   "han_viet": "nhan sắc",
+   "meaning": "màu sắc",
+   "pos": "danh từ",
+   "example": {
+    "hanzi": "你喜欢什么颜色？",
+    "pinyin": "Nǐ xǐhuan shénme yánsè?",
+    "meaning": "Bạn thích màu gì?"
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "大号",
+   "pinyin": "dà hào",
+   "han_viet": "đại hiệu",
+   "meaning": "cỡ lớn",
+   "pos": "danh từ",
+   "example": {
+    "hanzi": "有大号的吗？",
+    "pinyin": "Yǒu dà hào de ma?",
+    "meaning": "Có cỡ lớn không?"
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "黑色",
+   "pinyin": "hēisè",
+   "han_viet": "hắc sắc",
+   "meaning": "màu đen",
+   "pos": "danh từ",
+   "example": {
+    "hanzi": "我想试黑色的。",
+    "pinyin": "Wǒ xiǎng shì hēisè de.",
+    "meaning": "Tôi muốn thử cái màu đen."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "中号",
+   "pinyin": "zhōng hào",
+   "han_viet": "trung hiệu",
+   "meaning": "cỡ vừa",
+   "pos": "danh từ",
+   "example": {
+    "hanzi": "我穿中号。",
+    "pinyin": "Wǒ chuān zhōng hào.",
+    "meaning": "Tôi mặc cỡ vừa."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "红色",
+   "pinyin": "hóngsè",
+   "han_viet": "hồng sắc",
+   "meaning": "màu đỏ",
+   "pos": "danh từ",
+   "example": {
+    "hanzi": "她喜欢红色。",
+    "pinyin": "Tā xǐhuan hóngsè.",
+    "meaning": "Cô ấy thích màu đỏ."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "小号",
+   "pinyin": "xiǎo hào",
+   "han_viet": "tiểu hiệu",
+   "meaning": "cỡ nhỏ",
+   "pos": "danh từ",
+   "example": {
+    "hanzi": "小号的太小了。",
+    "pinyin": "Xiǎo hào de tài xiǎo le.",
+    "meaning": "Cỡ nhỏ chật quá."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "蓝色",
+   "pinyin": "lánsè",
+   "han_viet": "lam sắc",
+   "meaning": "màu xanh lam",
+   "pos": "danh từ",
+   "example": {
+    "hanzi": "我要蓝色的衬衫。",
+    "pinyin": "Wǒ yào lánsè de chènshān.",
+    "meaning": "Tôi lấy áo sơ mi xanh lam."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "贵",
+   "pinyin": "guì",
+   "han_viet": "quý",
+   "meaning": "đắt",
+   "pos": "tính từ",
+   "example": {
+    "hanzi": "太贵了！",
+    "pinyin": "Tài guì le!",
+    "meaning": "Đắt quá!"
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "白色",
+   "pinyin": "báisè",
+   "han_viet": "bạch sắc",
+   "meaning": "màu trắng",
+   "pos": "danh từ",
+   "example": {
+    "hanzi": "白色的鞋很好看。",
+    "pinyin": "Báisè de xié hěn hǎokàn.",
+    "meaning": "Giày trắng rất đẹp."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "觉得",
+   "pinyin": "juéde",
+   "han_viet": "giác đắc",
+   "meaning": "cảm thấy, cho rằng",
+   "pos": "động từ",
+   "example": {
+    "hanzi": "我觉得不太合适。",
+    "pinyin": "Wǒ juéde bú tài héshì.",
+    "meaning": "Tôi thấy không vừa lắm."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "商场",
+   "pinyin": "shāngchǎng",
+   "han_viet": "thương trường",
+   "meaning": "trung tâm thương mại",
+   "pos": "danh từ",
+   "example": {
+    "hanzi": "我们去商场吧。",
+    "pinyin": "Wǒmen qù shāngchǎng ba.",
+    "meaning": "Mình đi trung tâm thương mại nhé."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "不错",
+   "pinyin": "búcuò",
+   "han_viet": "bất thác",
+   "meaning": "khá tốt",
+   "pos": "tính từ",
+   "example": {
+    "hanzi": "这件衣服不错。",
+    "pinyin": "Zhè jiàn yīfu búcuò.",
+    "meaning": "Bộ đồ này khá được."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "衣服",
+   "pinyin": "yīfu",
+   "han_viet": "y phục",
+   "meaning": "quần áo",
+   "pos": "danh từ",
+   "example": {
+    "hanzi": "我想买衣服。",
+    "pinyin": "Wǒ xiǎng mǎi yīfu.",
+    "meaning": "Tôi muốn mua quần áo."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "大小",
+   "pinyin": "dàxiǎo",
+   "han_viet": "đại tiểu",
+   "meaning": "kích cỡ",
+   "pos": "danh từ",
+   "example": {
+    "hanzi": "大小很合适。",
+    "pinyin": "Dàxiǎo hěn héshì.",
+    "meaning": "Kích cỡ rất vừa."
+   },
+   "correction": ""
+  }
+ ],
+ "characters": [
+  {
+   "char": "鞋",
+   "pinyin": "xié",
+   "han_viet": "hài",
+   "meaning": "giày",
+   "strokes": 15,
+   "type": "hình thanh",
+   "structure": "⿰",
+   "components": [
+    {
+     "part": "革",
+     "pinyin": "gé",
+     "han_viet": "cách",
+     "meaning": "da thuộc",
+     "role": "nghĩa"
+    },
+    {
+     "part": "圭",
+     "pinyin": "guī",
+     "han_viet": "khuê",
+     "meaning": "ngọc khuê",
+     "role": "âm"
+    }
+   ],
+   "meaning_part": "革 – da thuộc",
+   "sound_part": "圭 guī (gợi âm, chưa chắc về mức gần âm hiện đại)",
+   "mnemonic": "Giày làm bằng da (革), bên cạnh là hai chữ 土 chồng lên – hai đôi giày đi trên đất.",
+   "collocations": [
+    {
+     "hanzi": "一双鞋",
+     "pinyin": "yì shuāng xié",
+     "meaning": "một đôi giày"
+    },
+    {
+     "hanzi": "穿鞋",
+     "pinyin": "chuān xié",
+     "meaning": "đi giày"
+    },
+    {
+     "hanzi": "买鞋",
+     "pinyin": "mǎi xié",
+     "meaning": "mua giày"
+    }
+   ],
+   "confusables": [
+    {
+     "char": "挂",
+     "pinyin": "guà",
+     "meaning": "treo",
+     "tip": "Cùng có 圭; 挂 có bộ tay 扌, 鞋 có bộ da 革."
+    }
+   ],
+   "variant": "",
+   "shape_tip": "革 bên trái hơi hẹp, nét sổ giữa của 革 thẳng dài; 圭 bên phải hai chữ 土 xếp đều, nét ngang dưới cùng dài nhất.",
+   "stroke_rules": [
+    "trái trước phải sau",
+    "ngang trước sổ sau",
+    "trên trước dưới sau"
+   ]
+  }
+ ],
+ "dialogue": {
+  "lines": []
+ }
+}

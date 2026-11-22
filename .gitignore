@@ -1,0 +1,8 @@
+# bản sao lưu và công cụ cũ (dùng đường dẫn ../assets, không chạy trên web)
+index.backup-*.html
+sample-zone.html
+tileviewer.html
+# tiến trình xuất ra không đưa lên kho công khai
+linh-thu-tien-trinh-*.json
+.DS_Store
+Thumbs.db

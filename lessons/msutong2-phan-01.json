@@ -1,0 +1,269 @@
+{
+ "topic": "MSUTONG 2 · Phần 1: 听音乐、唱歌、打篮球…",
+ "vocab": [
+  {
+   "hanzi": "听音乐",
+   "pinyin": "tīng yīnyuè",
+   "han_viet": "thính âm nhạc",
+   "meaning": "nghe nhạc",
+   "pos": "cụm động từ",
+   "example": {
+    "hanzi": "我喜欢听音乐。",
+    "pinyin": "Wǒ xǐhuan tīng yīnyuè.",
+    "meaning": "Tôi thích nghe nhạc."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "唱歌",
+   "pinyin": "chànggē",
+   "han_viet": "xướng ca",
+   "meaning": "hát",
+   "pos": "động từ",
+   "example": {
+    "hanzi": "她很会唱歌。",
+    "pinyin": "Tā hěn huì chànggē.",
+    "meaning": "Cô ấy hát rất hay."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "打篮球",
+   "pinyin": "dǎ lánqiú",
+   "han_viet": "đả lam cầu",
+   "meaning": "chơi bóng rổ",
+   "pos": "cụm động từ",
+   "example": {
+    "hanzi": "周末我打篮球。",
+    "pinyin": "Zhōumò wǒ dǎ lánqiú.",
+    "meaning": "Cuối tuần tôi chơi bóng rổ."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "跳舞",
+   "pinyin": "tiàowǔ",
+   "han_viet": "khiêu vũ",
+   "meaning": "nhảy, múa",
+   "pos": "động từ",
+   "example": {
+    "hanzi": "我们一起跳舞吧！",
+    "pinyin": "Wǒmen yìqǐ tiàowǔ ba!",
+    "meaning": "Chúng mình cùng nhảy nhé!"
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "常常",
+   "pinyin": "chángcháng",
+   "han_viet": "thường thường",
+   "meaning": "thường xuyên",
+   "pos": "phó từ",
+   "example": {
+    "hanzi": "我常常去公园。",
+    "pinyin": "Wǒ chángcháng qù gōngyuán.",
+    "meaning": "Tôi thường đi công viên."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "好听",
+   "pinyin": "hǎotīng",
+   "han_viet": "hảo thính",
+   "meaning": "nghe hay",
+   "pos": "tính từ",
+   "example": {
+    "hanzi": "这首歌很好听。",
+    "pinyin": "Zhè shǒu gē hěn hǎotīng.",
+    "meaning": "Bài hát này rất hay."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "一起",
+   "pinyin": "yìqǐ",
+   "han_viet": "nhất khởi",
+   "meaning": "cùng nhau",
+   "pos": "phó từ",
+   "example": {
+    "hanzi": "我们一起吃饭吧。",
+    "pinyin": "Wǒmen yìqǐ chīfàn ba.",
+    "meaning": "Chúng mình cùng ăn cơm nhé."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "看电视",
+   "pinyin": "kàn diànshì",
+   "han_viet": "khán điện thị",
+   "meaning": "xem tivi",
+   "pos": "cụm động từ",
+   "example": {
+    "hanzi": "晚上我看电视。",
+    "pinyin": "Wǎnshang wǒ kàn diànshì.",
+    "meaning": "Buổi tối tôi xem tivi."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "行",
+   "pinyin": "xíng",
+   "han_viet": "hành",
+   "meaning": "được, đồng ý",
+   "pos": "động từ",
+   "example": {
+    "hanzi": "明天见，行吗？",
+    "pinyin": "Míngtiān jiàn, xíng ma?",
+    "meaning": "Mai gặp, được không?"
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "跳街舞",
+   "pinyin": "tiào jiēwǔ",
+   "han_viet": "khiêu nhai vũ",
+   "meaning": "nhảy đường phố",
+   "pos": "cụm động từ",
+   "example": {
+    "hanzi": "他会跳街舞。",
+    "pinyin": "Tā huì tiào jiēwǔ.",
+    "meaning": "Anh ấy biết nhảy đường phố."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "下次",
+   "pinyin": "xià cì",
+   "han_viet": "hạ thứ",
+   "meaning": "lần sau",
+   "pos": "danh từ",
+   "example": {
+    "hanzi": "下次一起去吧！",
+    "pinyin": "Xià cì yìqǐ qù ba!",
+    "meaning": "Lần sau cùng đi nhé!"
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "别人",
+   "pinyin": "biérén",
+   "han_viet": "biệt nhân",
+   "meaning": "người khác",
+   "pos": "đại từ",
+   "example": {
+    "hanzi": "别人都去了。",
+    "pinyin": "Biérén dōu qù le.",
+    "meaning": "Người khác đều đi rồi."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "流行音乐",
+   "pinyin": "liúxíng yīnyuè",
+   "han_viet": "lưu hành âm nhạc",
+   "meaning": "nhạc pop",
+   "pos": "danh từ",
+   "example": {
+    "hanzi": "我爱听流行音乐。",
+    "pinyin": "Wǒ ài tīng liúxíng yīnyuè.",
+    "meaning": "Tôi mê nghe nhạc pop."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "平时",
+   "pinyin": "píngshí",
+   "han_viet": "bình thời",
+   "meaning": "thường ngày",
+   "pos": "danh từ",
+   "example": {
+    "hanzi": "你平时几点睡觉？",
+    "pinyin": "Nǐ píngshí jǐ diǎn shuìjiào?",
+    "meaning": "Bạn thường ngủ lúc mấy giờ?"
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "摇滚音乐",
+   "pinyin": "yáogǔn yīnyuè",
+   "han_viet": "dao cổn âm nhạc",
+   "meaning": "nhạc rock",
+   "pos": "danh từ",
+   "example": {
+    "hanzi": "他喜欢摇滚音乐。",
+    "pinyin": "Tā xǐhuan yáogǔn yīnyuè.",
+    "meaning": "Anh ấy thích nhạc rock."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "周末",
+   "pinyin": "zhōumò",
+   "han_viet": "chu mạt",
+   "meaning": "cuối tuần",
+   "pos": "danh từ",
+   "example": {
+    "hanzi": "周末你做什么？",
+    "pinyin": "Zhōumò nǐ zuò shénme?",
+    "meaning": "Cuối tuần bạn làm gì?"
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "英文歌",
+   "pinyin": "Yīngwén gē",
+   "han_viet": "anh văn ca",
+   "meaning": "bài hát tiếng Anh",
+   "pos": "danh từ",
+   "example": {
+    "hanzi": "我会唱英文歌。",
+    "pinyin": "Wǒ huì chàng Yīngwén gē.",
+    "meaning": "Tôi biết hát bài tiếng Anh."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "只",
+   "pinyin": "zhǐ",
+   "han_viet": "chỉ",
+   "meaning": "chỉ",
+   "pos": "phó từ",
+   "example": {
+    "hanzi": "我只喝水。",
+    "pinyin": "Wǒ zhǐ hē shuǐ.",
+    "meaning": "Tôi chỉ uống nước."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "恐怖片",
+   "pinyin": "kǒngbùpiàn",
+   "han_viet": "khủng bố phiến",
+   "meaning": "phim kinh dị",
+   "pos": "danh từ",
+   "example": {
+    "hanzi": "我不看恐怖片。",
+    "pinyin": "Wǒ bú kàn kǒngbùpiàn.",
+    "meaning": "Tôi không xem phim kinh dị."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "还",
+   "pinyin": "hái",
+   "han_viet": "hoàn",
+   "meaning": "còn, còn… nữa",
+   "pos": "phó từ",
+   "example": {
+    "hanzi": "我还想喝茶。",
+    "pinyin": "Wǒ hái xiǎng hē chá.",
+    "meaning": "Tôi còn muốn uống trà nữa."
+   },
+   "correction": ""
+  }
+ ],
+ "characters": [],
+ "dialogue": {
+  "lines": []
+ }
+}

@@ -1,0 +1,269 @@
+{
+ "topic": "MSUTONG 2 · Phần 8: 做菜、水果沙拉、红酒…",
+ "vocab": [
+  {
+   "hanzi": "做菜",
+   "pinyin": "zuò cài",
+   "han_viet": "tố thái",
+   "meaning": "nấu ăn",
+   "pos": "cụm động từ",
+   "example": {
+    "hanzi": "你会做菜吗？",
+    "pinyin": "Nǐ huì zuò cài ma?",
+    "meaning": "Bạn biết nấu ăn không?"
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "水果沙拉",
+   "pinyin": "shuǐguǒ shālā",
+   "han_viet": "thủy quả sa lạp",
+   "meaning": "salad trái cây",
+   "pos": "danh từ",
+   "example": {
+    "hanzi": "我会做水果沙拉。",
+    "pinyin": "Wǒ huì zuò shuǐguǒ shālā.",
+    "meaning": "Tôi biết làm salad trái cây."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "红酒",
+   "pinyin": "hóngjiǔ",
+   "han_viet": "hồng tửu",
+   "meaning": "rượu vang đỏ",
+   "pos": "danh từ",
+   "example": {
+    "hanzi": "你喝红酒吗？",
+    "pinyin": "Nǐ hē hóngjiǔ ma?",
+    "meaning": "Bạn uống vang đỏ không?"
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "外语",
+   "pinyin": "wàiyǔ",
+   "han_viet": "ngoại ngữ",
+   "meaning": "ngoại ngữ",
+   "pos": "danh từ",
+   "example": {
+    "hanzi": "你会几门外语？",
+    "pinyin": "Nǐ huì jǐ mén wàiyǔ?",
+    "meaning": "Bạn biết mấy ngoại ngữ?"
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "聪明",
+   "pinyin": "cōngming",
+   "han_viet": "thông minh",
+   "meaning": "thông minh",
+   "pos": "tính từ",
+   "example": {
+    "hanzi": "你真聪明！",
+    "pinyin": "Nǐ zhēn cōngming!",
+    "meaning": "Bạn thông minh thật!"
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "尝",
+   "pinyin": "cháng",
+   "han_viet": "thường",
+   "meaning": "nếm",
+   "pos": "động từ",
+   "example": {
+    "hanzi": "你尝一下。",
+    "pinyin": "Nǐ cháng yíxià.",
+    "meaning": "Bạn nếm thử xem."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "会",
+   "pinyin": "huì",
+   "han_viet": "hội",
+   "meaning": "biết làm",
+   "pos": "động từ năng nguyện",
+   "example": {
+    "hanzi": "我会说中文。",
+    "pinyin": "Wǒ huì shuō Zhōngwén.",
+    "meaning": "Tôi biết nói tiếng Trung."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "瓶",
+   "pinyin": "píng",
+   "han_viet": "bình",
+   "meaning": "chai, lượng từ",
+   "pos": "lượng từ / danh từ",
+   "example": {
+    "hanzi": "我要一瓶水。",
+    "pinyin": "Wǒ yào yì píng shuǐ.",
+    "meaning": "Tôi lấy một chai nước."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "酒",
+   "pinyin": "jiǔ",
+   "han_viet": "tửu",
+   "meaning": "rượu",
+   "pos": "danh từ",
+   "example": {
+    "hanzi": "我不喝酒。",
+    "pinyin": "Wǒ bù hē jiǔ.",
+    "meaning": "Tôi không uống rượu."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "中国菜",
+   "pinyin": "Zhōngguó cài",
+   "han_viet": "trung quốc thái",
+   "meaning": "món Trung Quốc",
+   "pos": "danh từ",
+   "example": {
+    "hanzi": "我很喜欢中国菜。",
+    "pinyin": "Wǒ hěn xǐhuan Zhōngguó cài.",
+    "meaning": "Tôi rất thích món Trung Quốc."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "水果",
+   "pinyin": "shuǐguǒ",
+   "han_viet": "thủy quả",
+   "meaning": "trái cây",
+   "pos": "danh từ",
+   "example": {
+    "hanzi": "我每天吃水果。",
+    "pinyin": "Wǒ měitiān chī shuǐguǒ.",
+    "meaning": "Ngày nào tôi cũng ăn trái cây."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "韩国菜",
+   "pinyin": "Hánguó cài",
+   "han_viet": "hàn quốc thái",
+   "meaning": "món Hàn Quốc",
+   "pos": "danh từ",
+   "example": {
+    "hanzi": "韩国菜有点儿辣。",
+    "pinyin": "Hánguó cài yǒudiǎnr là.",
+    "meaning": "Món Hàn hơi cay."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "沙拉",
+   "pinyin": "shālā",
+   "han_viet": "sa lạp",
+   "meaning": "salad",
+   "pos": "danh từ",
+   "example": {
+    "hanzi": "我要一个沙拉。",
+    "pinyin": "Wǒ yào yí ge shālā.",
+    "meaning": "Tôi lấy một phần salad."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "日语",
+   "pinyin": "Rìyǔ",
+   "han_viet": "nhật ngữ",
+   "meaning": "tiếng Nhật",
+   "pos": "danh từ",
+   "example": {
+    "hanzi": "她会说日语。",
+    "pinyin": "Tā huì shuō Rìyǔ.",
+    "meaning": "Cô ấy biết nói tiếng Nhật."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "哪里哪里",
+   "pinyin": "nǎlǐ nǎlǐ",
+   "han_viet": "na lý na lý",
+   "meaning": "đâu có, lời đáp khi được khen",
+   "pos": "cụm từ",
+   "example": {
+    "hanzi": "哪里哪里，我只会一点儿。",
+    "pinyin": "Nǎlǐ nǎlǐ, wǒ zhǐ huì yìdiǎnr.",
+    "meaning": "Đâu có, tôi chỉ biết chút ít."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "法语",
+   "pinyin": "Fǎyǔ",
+   "han_viet": "pháp ngữ",
+   "meaning": "tiếng Pháp",
+   "pos": "danh từ",
+   "example": {
+    "hanzi": "法语很难吗？",
+    "pinyin": "Fǎyǔ hěn nán ma?",
+    "meaning": "Tiếng Pháp khó lắm không?"
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "一点儿",
+   "pinyin": "yìdiǎnr",
+   "han_viet": "nhất điểm nhi",
+   "meaning": "một chút",
+   "pos": "lượng từ",
+   "example": {
+    "hanzi": "我会说一点儿中文。",
+    "pinyin": "Wǒ huì shuō yìdiǎnr Zhōngwén.",
+    "meaning": "Tôi biết nói chút tiếng Trung."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "真行",
+   "pinyin": "zhēn xíng",
+   "han_viet": "chân hành",
+   "meaning": "giỏi thật",
+   "pos": "cụm từ",
+   "example": {
+    "hanzi": "你真行！",
+    "pinyin": "Nǐ zhēn xíng!",
+    "meaning": "Bạn giỏi thật!"
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "只",
+   "pinyin": "zhǐ",
+   "han_viet": "chỉ",
+   "meaning": "chỉ",
+   "pos": "phó từ",
+   "example": {
+    "hanzi": "我只会做一个菜。",
+    "pinyin": "Wǒ zhǐ huì zuò yí ge cài.",
+    "meaning": "Tôi chỉ biết nấu một món."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "非常",
+   "pinyin": "fēicháng",
+   "han_viet": "phi thường",
+   "meaning": "rất",
+   "pos": "phó từ",
+   "example": {
+    "hanzi": "这个菜非常好吃。",
+    "pinyin": "Zhège cài fēicháng hǎochī.",
+    "meaning": "Món này cực kỳ ngon."
+   },
+   "correction": ""
+  }
+ ],
+ "characters": [],
+ "dialogue": {
+  "lines": []
+ }
+}

@@ -1,0 +1,390 @@
+{
+ "topic": "MSUTONG 2 · Phần 3: 手机、号码、借…",
+ "vocab": [
+  {
+   "hanzi": "手机",
+   "pinyin": "shǒujī",
+   "han_viet": "thủ cơ",
+   "meaning": "điện thoại",
+   "pos": "danh từ",
+   "example": {
+    "hanzi": "我的手机没电了。",
+    "pinyin": "Wǒ de shǒujī méi diàn le.",
+    "meaning": "Điện thoại tôi hết pin rồi."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "号码",
+   "pinyin": "hàomǎ",
+   "han_viet": "hiệu mã",
+   "meaning": "số",
+   "pos": "danh từ",
+   "example": {
+    "hanzi": "你的手机号码是多少？",
+    "pinyin": "Nǐ de shǒujī hàomǎ shì duōshao?",
+    "meaning": "Số điện thoại của bạn là bao nhiêu?"
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "借",
+   "pinyin": "jiè",
+   "han_viet": "tá",
+   "meaning": "mượn, cho mượn",
+   "pos": "động từ",
+   "example": {
+    "hanzi": "我借一下你的笔。",
+    "pinyin": "Wǒ jiè yíxià nǐ de bǐ.",
+    "meaning": "Cho tôi mượn bút một lát."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "没电",
+   "pinyin": "méi diàn",
+   "han_viet": "một điện",
+   "meaning": "hết pin",
+   "pos": "cụm động từ",
+   "example": {
+    "hanzi": "电脑没电了。",
+    "pinyin": "Diànnǎo méi diàn le.",
+    "meaning": "Máy tính hết pin rồi."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "一遍",
+   "pinyin": "yí biàn",
+   "han_viet": "nhất biến",
+   "meaning": "một lượt",
+   "pos": "số lượng từ",
+   "example": {
+    "hanzi": "请再读一遍。",
+    "pinyin": "Qǐng zài dú yí biàn.",
+    "meaning": "Hãy đọc lại một lượt."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "没问题",
+   "pinyin": "méi wèntí",
+   "han_viet": "một vấn đề",
+   "meaning": "không vấn đề gì",
+   "pos": "cụm từ",
+   "example": {
+    "hanzi": "好的，没问题！",
+    "pinyin": "Hǎo de, méi wèntí!",
+    "meaning": "Được, không vấn đề gì!"
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "电脑",
+   "pinyin": "diànnǎo",
+   "han_viet": "điện não",
+   "meaning": "máy tính",
+   "pos": "danh từ",
+   "example": {
+    "hanzi": "我用电脑写作业。",
+    "pinyin": "Wǒ yòng diànnǎo xiě zuòyè.",
+    "meaning": "Tôi dùng máy tính làm bài."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "可以",
+   "pinyin": "kěyǐ",
+   "han_viet": "khả dĩ",
+   "meaning": "được phép",
+   "pos": "động từ năng nguyện",
+   "example": {
+    "hanzi": "我可以进来吗？",
+    "pinyin": "Wǒ kěyǐ jìnlái ma?",
+    "meaning": "Tôi vào được không?"
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "笔",
+   "pinyin": "bǐ",
+   "han_viet": "bút",
+   "meaning": "bút",
+   "pos": "danh từ",
+   "example": {
+    "hanzi": "这支笔很好用。",
+    "pinyin": "Zhè zhī bǐ hěn hǎo yòng.",
+    "meaning": "Cây bút này dùng rất tốt."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "可是",
+   "pinyin": "kěshì",
+   "han_viet": "khả thị",
+   "meaning": "nhưng",
+   "pos": "liên từ",
+   "example": {
+    "hanzi": "我想去，可是没空。",
+    "pinyin": "Wǒ xiǎng qù, kěshì méi kòng.",
+    "meaning": "Tôi muốn đi nhưng không rảnh."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "电话",
+   "pinyin": "diànhuà",
+   "han_viet": "điện thoại",
+   "meaning": "điện thoại",
+   "pos": "danh từ",
+   "example": {
+    "hanzi": "你的电话！",
+    "pinyin": "Nǐ de diànhuà!",
+    "meaning": "Điện thoại của bạn kìa!"
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "一下",
+   "pinyin": "yíxià",
+   "han_viet": "nhất hạ",
+   "meaning": "một chút",
+   "pos": "số lượng từ",
+   "example": {
+    "hanzi": "请等一下。",
+    "pinyin": "Qǐng děng yíxià.",
+    "meaning": "Xin đợi một chút."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "用",
+   "pinyin": "yòng",
+   "han_viet": "dụng",
+   "meaning": "dùng",
+   "pos": "động từ",
+   "example": {
+    "hanzi": "我可以用你的手机吗？",
+    "pinyin": "Wǒ kěyǐ yòng nǐ de shǒujī ma?",
+    "meaning": "Tôi dùng điện thoại của bạn được không?"
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "慢",
+   "pinyin": "màn",
+   "han_viet": "mạn",
+   "meaning": "chậm",
+   "pos": "tính từ",
+   "example": {
+    "hanzi": "请说慢一点儿。",
+    "pinyin": "Qǐng shuō màn yìdiǎnr.",
+    "meaning": "Xin nói chậm một chút."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "给",
+   "pinyin": "gěi",
+   "han_viet": "cấp",
+   "meaning": "cho",
+   "pos": "động từ / giới từ",
+   "example": {
+    "hanzi": "我给你打电话。",
+    "pinyin": "Wǒ gěi nǐ dǎ diànhuà.",
+    "meaning": "Tôi gọi điện cho bạn."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "对了",
+   "pinyin": "duì le",
+   "han_viet": "đối liễu",
+   "meaning": "à, nhân tiện",
+   "pos": "cụm từ",
+   "example": {
+    "hanzi": "对了，你明天有空吗？",
+    "pinyin": "Duì le, nǐ míngtiān yǒu kòng ma?",
+    "meaning": "À này, mai bạn rảnh không?"
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "等",
+   "pinyin": "děng",
+   "han_viet": "đẳng",
+   "meaning": "đợi",
+   "pos": "động từ",
+   "example": {
+    "hanzi": "我在这里等你。",
+    "pinyin": "Wǒ zài zhèlǐ děng nǐ.",
+    "meaning": "Tôi đợi bạn ở đây."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "再说一遍",
+   "pinyin": "zài shuō yí biàn",
+   "han_viet": "tái thuyết nhất biến",
+   "meaning": "nói lại một lần",
+   "pos": "cụm từ",
+   "example": {
+    "hanzi": "请再说一遍。",
+    "pinyin": "Qǐng zài shuō yí biàn.",
+    "meaning": "Xin nói lại một lần."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "找",
+   "pinyin": "zhǎo",
+   "han_viet": "trảo",
+   "meaning": "tìm",
+   "pos": "động từ",
+   "example": {
+    "hanzi": "我在找我的手机。",
+    "pinyin": "Wǒ zài zhǎo wǒ de shǒujī.",
+    "meaning": "Tôi đang tìm điện thoại."
+   },
+   "correction": ""
+  },
+  {
+   "hanzi": "打电话",
+   "pinyin": "dǎ diànhuà",
+   "han_viet": "đả điện thoại",
+   "meaning": "gọi điện",
+   "pos": "cụm động từ",
+   "example": {
+    "hanzi": "晚上给我打电话。",
+    "pinyin": "Wǎnshang gěi wǒ dǎ diànhuà.",
+    "meaning": "Tối gọi cho tôi nhé."
+   },
+   "correction": ""
+  }
+ ],
+ "characters": [
+  {
+   "char": "借",
+   "pinyin": "jiè",
+   "han_viet": "tá",
+   "meaning": "mượn, cho mượn",
+   "strokes": 10,
+   "type": "hình thanh",
+   "structure": "⿰",
+   "components": [
+    {
+     "part": "亻",
+     "pinyin": "rén",
+     "han_viet": "nhân",
+     "meaning": "người",
+     "role": "nghĩa"
+    },
+    {
+     "part": "昔",
+     "pinyin": "xī",
+     "han_viet": "tích",
+     "meaning": "xưa",
+     "role": "âm"
+    }
+   ],
+   "meaning_part": "亻 – người",
+   "sound_part": "昔 xī (gợi âm, nay không còn giống hẳn)",
+   "mnemonic": "Một người (亻) đến mượn đồ từ ngày xưa (昔) mà vẫn chưa trả.",
+   "collocations": [
+    {
+     "hanzi": "借书",
+     "pinyin": "jiè shū",
+     "meaning": "mượn sách"
+    },
+    {
+     "hanzi": "借给",
+     "pinyin": "jiè gěi",
+     "meaning": "cho mượn"
+    },
+    {
+     "hanzi": "借一下",
+     "pinyin": "jiè yíxià",
+     "meaning": "mượn một lát"
+    }
+   ],
+   "confusables": [
+    {
+     "char": "错",
+     "pinyin": "cuò",
+     "meaning": "sai",
+     "tip": "错 có bộ kim 钅 bên trái; 借 có bộ nhân 亻."
+    }
+   ],
+   "variant": "",
+   "shape_tip": "Bộ 亻 hẹp, chiếm khoảng 1/3 ô; 昔 rộng bên phải, chữ 日 ở dưới viết gọn, không to hơn phần trên.",
+   "stroke_rules": [
+    "trái trước phải sau",
+    "trên trước dưới sau",
+    "ngang trước sổ sau"
+   ]
+  },
+  {
+   "char": "慢",
+   "pinyin": "màn",
+   "han_viet": "mạn",
+   "meaning": "chậm",
+   "strokes": 14,
+   "type": "hình thanh",
+   "structure": "⿰",
+   "components": [
+    {
+     "part": "忄",
+     "pinyin": "xīn",
+     "han_viet": "tâm",
+     "meaning": "tim, lòng",
+     "role": "nghĩa"
+    },
+    {
+     "part": "曼",
+     "pinyin": "màn",
+     "han_viet": "mạn",
+     "meaning": "dài, kéo dài",
+     "role": "âm"
+    }
+   ],
+   "meaning_part": "忄 – lòng, tâm trạng",
+   "sound_part": "曼 màn",
+   "mnemonic": "Lòng (忄) thong thả, kéo dài (曼) thì làm gì cũng chậm.",
+   "collocations": [
+    {
+     "hanzi": "慢一点儿",
+     "pinyin": "màn yìdiǎnr",
+     "meaning": "chậm một chút"
+    },
+    {
+     "hanzi": "很慢",
+     "pinyin": "hěn màn",
+     "meaning": "rất chậm"
+    },
+    {
+     "hanzi": "慢走",
+     "pinyin": "màn zǒu",
+     "meaning": "đi thong thả (lời tiễn khách)"
+    }
+   ],
+   "confusables": [
+    {
+     "char": "漫",
+     "pinyin": "màn",
+     "meaning": "tràn, lan",
+     "tip": "漫 có bộ thủy 氵; 慢 có bộ tâm 忄."
+    }
+   ],
+   "variant": "",
+   "shape_tip": "忄 hẹp: hai chấm trước, nét sổ sau; 曼 chia ba tầng 日–罒–又, tầng giữa dẹt.",
+   "stroke_rules": [
+    "trái trước phải sau",
+    "trên trước dưới sau",
+    "giữa trước hai bên sau"
+   ]
+  }
+ ],
+ "dialogue": {
+  "lines": []
+ }
+}
