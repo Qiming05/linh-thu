@@ -165,6 +165,7 @@ utils → save → words & SRS → species → lessons import → maps → playe
 | Chủ tiệm | (6,8) | Bán đồ |
 | Người mở hội chợ | (16,8) | Mini game kiếm tiền |
 | Thợ rèn | (13,12) | Rèn châu |
+| Người phiên dịch | (8,8) | Luyện dịch cả câu, 3 cấp: Trung→Việt chọn, Trung→Việt xếp, Việt→Trung xếp. Đạt 4/5 mở cấp sau (`S.trans = {best, open}`). Câu lấy từ câu ví dụ đã học và hội thoại bài (`transPool`) |
 
 ### 6.6 Trận đấu
 - **Các dạng câu hỏi** (`makeQ`), mở dần theo bước SRS của từ:
@@ -176,6 +177,10 @@ utils → save → words & SRS → species → lessons import → maps → playe
   - `fill`: điền chỗ trống.
   - `order`: xếp câu.
   - `type`: gõ pinyin.
+  - `z2v`: đọc câu ví dụ tiếng Trung, chọn bản dịch tiếng Việt (từ bước SRS 1).
+  - `z2vt`: đọc câu tiếng Trung, xếp các mảnh tiếng Việt thành bản dịch (từ bước 2).
+  - `order` (Việt → Trung, xếp chữ Hán) **chỉ xuất hiện từ bước 3**, vì đây là dạng khó nhất.
+  - Mọi dạng xếp mảnh dùng chung `tileGame(box, toks, extra, sep, onDone, isDone)`. Câu tiếng Việt cắt bằng `viChunks` (tối đa 12 mảnh), câu tiếng Trung cắt bằng `zhToks`.
 - Có thêm **Hô to** (nhận giọng nói của Chrome) và **Uống trà**.
 - Sát thương tính từ hệ, Công, bậc và mức thuộc của từ vừa dùng làm chiêu.
 - Hạ linh thú hoang được +5 tiền và 50% rơi tinh thạch. Thắng Trưởng vùng được +2 tinh thạch.

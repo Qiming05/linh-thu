@@ -97,6 +97,7 @@ body.nopy .py{display:none!important}.vibig{font-size:22px;font-weight:700;margi
 .slots,.bank{display:flex;flex-wrap:wrap;gap:6px;min-height:46px;padding:6px;border-radius:8px;margin-top:6px}
 .slots{background:#0b0e1d;border:1px dashed var(--line)}.slots.good{border:1px solid var(--jade)}.slots.bad{border:1px solid var(--red)}
 .tile{font-family:var(--f-han);font-size:20px;padding:4px 12px;border-radius:8px;background:var(--panel2);border:1px solid var(--line);border-bottom-width:3px}
+.tile.vi{font-family:inherit;font-size:16px;padding:6px 11px}.tsent{font-size:22px;margin:4px 0}.tvi{font-size:19px;font-weight:600;margin:4px 0}.lv{display:inline-block;border-radius:6px;padding:0 6px;font-size:12px;font-weight:700;background:var(--gold);color:#271c05}
 .tile.used{visibility:hidden}
 .wbox{display:flex;justify-content:center;margin:6px 0}
 .wpad{position:relative;background:#f6eedc;border-radius:6px;background-image:linear-gradient(rgba(233,80,63,.35) 1px,transparent 1px),linear-gradient(90deg,rgba(233,80,63,.35) 1px,transparent 1px);background-size:50% 50%;background-position:center;border:2px solid var(--red);touch-action:none}
@@ -482,6 +483,7 @@ function buildVillage() {
     { x: 6, y: 8, s: 86, name: 'Chủ tiệm', fn: talkShop },
     { x: 16, y: 8, s: 87, name: 'Người mở hội chợ', fn: talkFair },
     { x: 13, y: 12, s: 99, name: 'Thợ rèn', fn: talkSmith },
+    { x: 8, y: 8, s: 88, name: 'Người phiên dịch', fn: talkTranslator },
   ];
   return { id: 'village', name: 'Làng Tân Thủ', m, houses, props, npcs, exit: null, wild: [] };
 }
@@ -1023,6 +1025,75 @@ function gamePyForge(done) {
 }
 /* ---- village fair: quick games that earn coins ---- */
 function fairPool() { return learned().map(h => WORDS.get(h)).filter(Boolean); }
+/* ---- translator: practise whole sentences, Chinese -> Vietnamese first, Vietnamese -> Chinese last ---- */
+const TR_LEVELS = [
+  { n: 'Cấp 1 · Trung → Việt (chọn)', d: 'Đọc câu tiếng Trung (có pinyin), chọn bản dịch tiếng Việt đúng.' },
+  { n: 'Cấp 2 · Trung → Việt (xếp)', d: 'Đọc câu tiếng Trung, tự xếp các mảnh tiếng Việt thành bản dịch.' },
+  { n: 'Cấp 3 · Việt → Trung (xếp)', d: 'Khó nhất: đọc câu tiếng Việt, xếp các mảnh chữ Hán (có pinyin) thành câu tiếng Trung.' },
+];
+function trState() { return S.trans || (S.trans = { best: [0, 0, 0], open: 1 }); }
+function talkTranslator() {
+  const pool = transPool(), st = trState();
+  if (pool.length < 5) { dialog([{ who: 'Người phiên dịch', zh: '你好，我是翻译。', py: 'Nǐ hǎo, wǒ shì fānyì.', vi: 'Ta luyện dịch cả câu. Hãy học thêm từ ở một vùng đất (cần ít nhất 5 câu ví dụ hoặc hội thoại) rồi quay lại nhé.' }]); return; }
+  sheet(`<h3>Người phiên dịch <span class="han">翻译</span></h3>
+    <p class="muted">Luyện dịch <b>cả câu</b> từ câu ví dụ và hội thoại của các bài bạn đã học (${pool.length} câu). Mỗi lượt 5 câu, đúng mỗi câu +2 tiền, đúng hết +5 tiền. Đạt 4/5 ở một cấp để mở cấp tiếp theo.</p>
+    <div class="fair">${TR_LEVELS.map((L, i) => { const lock = i + 1 > st.open;
+      return `<button class="mc" data-l="${i}" ${lock ? 'disabled' : ''}><div class="nm">${lock ? '🔒 ' : ''}${L.n}</div><small class="muted">${L.d}</small><br><small>${lock ? `Đạt 4/5 ở cấp ${i} để mở` : `Kỷ lục: ${st.best[i]}/5`}</small></button>`; }).join('')}</div>`, el => {
+    el.querySelectorAll('[data-l]').forEach(b => b.onclick = () => transRound(+b.dataset.l));
+  });
+}
+function transRound(level) {
+  const pool = transPool();
+  const fit = s => level === 0 ? true : level === 1 ? viToks(s.vi).length >= 3 : (n => n >= 3 && n <= 9)(zhToks(s.zh).length);
+  let qs = shuffle(pool.filter(fit)).slice(0, 5);
+  if (qs.length < 5) qs = shuffle(pool).slice(0, 5);
+  let k = 0, got = 0;
+  const next = () => {
+    if (k >= qs.length) return endRound();
+    const q = qs[k], others = pool.filter(x => x !== q);
+    let done = false;
+    const head = `<h3>${TR_LEVELS[level].n} <small class="muted">câu ${k + 1}/${qs.length} · đúng ${got}</small></h3>`;
+    const zhBlock = `<div class="tsent han">${esc(q.zh)}</div><button class="say" data-say="${esc(q.zh)}">nghe câu</button>`;
+    const el = sheet(head + (level === 2
+      ? `<p>Dịch sang tiếng Trung:</p><div class="tvi">«${esc(q.vi)}»</div><div id="trt"></div>`
+      : `<p>Câu này nghĩa là gì?</p>${zhBlock}<div id="trt"></div>`) + `<div class="res" id="trr" aria-live="polite"></div>`);
+    if (level !== 2) speak(q.zh);
+    const box = el.querySelector('#trt');
+    const finish = ok => {
+      if (done) return; done = true; if (ok) got++;
+      today().answers++; if (ok) today().correct++; if (q.h) track(q.h, ok, 10); save();
+      el.querySelector('#trr').innerHTML = `${ok ? '✓ Chính xác!' : '✗ Chưa đúng.'} <b class="han">${esc(q.zh)}</b> ${esc(q.py)}<br>→ ${esc(q.vi)}
+        <div class="row"><button class="btn" id="trn">${k + 1 < qs.length ? 'Câu tiếp' : 'Xem kết quả'}</button></div>`;
+      if (level === 2) speak(q.zh);
+      el.querySelector('#trn').onclick = () => { k++; next(); };
+    };
+    if (level === 0) {
+      const opts = shuffle([q, ...shuffle(others.filter(o => o.vi !== q.vi)).slice(0, 3)]);
+      box.innerHTML = `<div class="opts">${opts.map((o, i) => `<button class="opt" data-i="${i}">${i + 1}. ${esc(o.vi)}</button>`).join('')}</div>`;
+      box.querySelector('.opts').onclick = e => { const b = e.target.closest('.opt'); if (!b || done) return; const o = opts[+b.dataset.i];
+        box.querySelectorAll('.opt').forEach((x, i) => { x.disabled = true; if (opts[i] === q) x.classList.add('ok'); }); if (o !== q) b.classList.add('no'); finish(o === q); };
+    } else if (level === 1) {
+      const toks = viChunks(q.vi);
+      tileGame(box, toks, extraTiles(toks, others.map(o => o.vi), 2, true), ' ', finish, () => done);
+    } else {
+      const toks = zhToks(q.zh);
+      tileGame(box, toks, extraTiles(toks, others.map(o => o.zh), 2, false), '', finish, () => done);
+    }
+  };
+  const endRound = () => {
+    const st = trState(), coins = got * 2 + (got === qs.length ? 5 : 0), better = got > st.best[level];
+    if (better) st.best[level] = got;
+    const unlock = got >= 4 && st.open === level + 1 && level < 2;
+    if (unlock) st.open = level + 2;
+    S.coins += coins; save();
+    sheet(`<h3>Kết quả · ${TR_LEVELS[level].n}</h3><p style="font-size:20px">Đúng <b>${got}/${qs.length}</b> câu${better ? ' · kỷ lục mới!' : ''}</p>
+      <p>+${coins} tiền (đang có ${S.coins}).${unlock ? ` <b>Đã mở ${TR_LEVELS[level + 1].n}!</b>` : ''}</p>
+      <div class="row"><button class="btn" id="tra">Chơi lại</button><button class="btn ghost" id="trb">Chọn cấp khác</button><button class="btn ghost" id="trx">Rời đi</button></div>`, el => {
+      el.querySelector('#tra').onclick = () => transRound(level); el.querySelector('#trb').onclick = talkTranslator; el.querySelector('#trx').onclick = closeSheet;
+    });
+  };
+  next();
+}
 function talkFair() {
   const pool = fairPool();
   if (pool.length < 6) { dialog([{ who: 'Người mở hội chợ', zh: '欢迎！', py: 'Huānyíng!', vi: 'Hội chợ chỉ mở cho người đã học ít nhất 6 từ. Hãy học một vùng đất trước nhé.' }]); return; }
@@ -1324,7 +1395,7 @@ $('#bWr').onclick = () => { S.writeMode = S.writeMode !== true; save(); toast(S.
 function others(w, n, key, pool) {
   const out = [], seenM = new Set(w.m.split(/[,;]\s*/)), seen = new Set([w[key]]);
   for (const x of [...shuffle(pool), ...shuffle([...WORDS.values()])]) {
-    if (x.h === w.h || seen.has(x[key]) || x.m.split(/[,;]\s*/).some(m => seenM.has(m))) continue;
+    if (x.h === w.h || !x[key] || seen.has(x[key]) || x.m.split(/[,;]\s*/).some(m => seenM.has(m))) continue;
     if (key === 'h' && norm(x.p) === norm(w.p)) continue;
     seen.add(x[key]); out.push(x); if (out.length >= n) break;
   }
@@ -1348,11 +1419,49 @@ function tokenize(sent, target) {
   let i = 0; while (i < s.length) { let m = s.startsWith(target, i) ? target : dict.find(d => s.startsWith(d, i)); if (!m) m = s[i]; out.push(m); i += m.length; }
   return out;
 }
+/* translation helpers: Vietnamese sentence -> tiles (syllables, merged so there are at most 9) */
+const viToks = s => String(s).replace(/[.,!?;:…"“”()«»]/g, ' ').trim().split(/\s+/).filter(Boolean);
+function viChunks(s) { let t = viToks(s); while (t.length > 12) { const o = []; for (let i = 0; i < t.length; i += 2) o.push(t.slice(i, i + 2).join(' ')); t = o; } return t; }
+const zhToks = s => tokenize(s, '\u0000');
+/* sentences to translate: example sentences of studied words + dialogue of lessons the player has started */
+function transPool() {
+  const out = [], seen = new Set(), add = (zh, py, vi, h) => { zh = String(zh || '').trim(); if (!zh || !vi || seen.has(zh)) return; seen.add(zh); out.push({ zh, py: py || '', vi: String(vi).trim(), h }); };
+  for (const h of learned()) { const w = WORDS.get(h); if (w?.eh && w.em) add(w.eh, w.ep, w.em, h); }
+  for (const L of S.lessons) if (lessonWords(L).some(w => S.intro[w.h] || card(w.h))) for (const d of L.dialogue || []) if ([...String(d.zh || '')].length <= 26) add(d.zh, d.py, d.vi);
+  return out;
+}
+/* tile builder used by the battle and the translator: answer tokens + a few distractors, joined with sep */
+function tileGame(box, toks, extra, sep, onDone, isDone) {
+  let bank = shuffle([...toks.map((t, i) => ({ t, i })), ...extra.map(t => ({ t, x: 1 }))]);
+  if (bank.map(b => b.t).join(sep) === toks.join(sep)) bank.push(bank.shift());
+  const placed = [], han = sep === '';
+  box.innerHTML = `<div class="slots" data-s></div><div class="bank" data-b></div><div class="row"><button class="btn" data-ok disabled>Kiểm tra</button><button class="btn ghost" data-clr>Xoá</button></div>`;
+  const sl = box.querySelector('[data-s]'), bk = box.querySelector('[data-b]'), ok = box.querySelector('[data-ok]'), clr = box.querySelector('[data-clr]');
+  const draw = () => {
+    sl.innerHTML = placed.map((p, k) => `<button class="tile ${han ? '' : 'vi'}" data-k="${k}">${esc(p.t)}</button>`).join('') || '<span class="muted">Bấm các mảnh bên dưới theo đúng thứ tự</span>';
+    bk.innerHTML = bank.map((b, k) => `<button class="tile ${han ? '' : 'vi'} ${placed.includes(b) ? 'used' : ''}" data-i="${k}">${esc(b.t)}</button>`).join('');
+    ok.disabled = placed.length !== toks.length;
+  };
+  bk.onclick = e => { const b = e.target.closest('[data-i]'); if (!b || isDone()) return; const it = bank[+b.dataset.i]; if (!placed.includes(it)) { placed.push(it); draw(); } };
+  sl.onclick = e => { const b = e.target.closest('[data-k]'); if (!b || isDone()) return; placed.splice(+b.dataset.k, 1); draw(); };
+  clr.onclick = () => { if (isDone()) return; placed.length = 0; draw(); };
+  ok.onclick = () => { const good = placed.map(p => p.t).join(sep).toLowerCase() === toks.join(sep).toLowerCase(); sl.classList.add(good ? 'good' : 'bad'); ok.disabled = clr.disabled = true; onDone(good); };
+  draw();
+}
+/* distractor tiles: syllables (or words) from other sentences that are not in the answer */
+function extraTiles(toks, others, n, vi) {
+  const have = new Set(toks.map(t => t.toLowerCase()));
+  const cand = shuffle([...new Set(others.flatMap(o => vi ? viToks(o) : zhToks(o)))]).filter(t => !have.has(t.toLowerCase()) && (vi || /\p{Script=Han}/u.test(t)));
+  return cand.slice(0, n);
+}
 function makeQ(pool) {
   const w = pickWord(pool), step = card(w.h)?.step || 0;
-  const types = step === 0 ? ['h2m', 'h2m', 'm2h'] : step === 1 ? ['h2m', 'm2h', 'p2h', 'tone'] : step === 2 ? ['m2h', 'tone', 'listen', 'fill', 'order'] : ['type', 'fill', 'listen', 'type', 'order', 'tone'];
+  const types = step === 0 ? ['h2m', 'h2m', 'm2h'] : step === 1 ? ['h2m', 'm2h', 'p2h', 'tone', 'z2v'] : step === 2 ? ['m2h', 'tone', 'listen', 'fill', 'z2v', 'z2vt'] : ['type', 'fill', 'listen', 'type', 'order', 'tone', 'z2vt'];
   let t = pick(types);
-  if (t === 'order') { const toks = w.eh ? tokenize(w.eh, w.h) : []; if (toks.length >= 3 && toks.length <= 8) return { w, t, ask: `Xếp thành câu đúng · <i>${esc(w.em)}</i>`, body: '', opts: null, toks }; t = 'fill'; }
+  const sentBody = () => `<div class="sent han">${esc(w.eh)}</div><button class="say" data-say="${esc(w.eh)}">nghe câu</button>`;
+  if (t === 'z2vt') { const toks = w.eh && w.em ? viChunks(w.em) : []; if (toks.length >= 3) return { w, t, ask: 'Dịch sang tiếng Việt: xếp các mảnh theo đúng thứ tự', body: sentBody(), opts: null, toks, sep: ' ', extra: extraTiles(toks, pool.filter(x => x !== w && x.em).map(x => x.em), 2, true) }; t = 'z2v'; }
+  if (t === 'z2v') { const os = others(w, 3, 'em', pool.filter(x => x.em)); if (w.eh && w.em && os.length === 3) return { w, t, ask: 'Câu này nghĩa là gì?', body: sentBody(), opts: shuffle([w, ...os]).map(x => ({ label: x.em, ok: x === w })) }; t = 'h2m'; }
+  if (t === 'order') { const toks = w.eh ? tokenize(w.eh, w.h) : []; if (toks.length >= 3 && toks.length <= 8) return { w, t, ask: `Dịch sang tiếng Trung: xếp thành câu · <i>${esc(w.em)}</i>`, body: '', opts: null, toks, sep: '', extra: [] }; t = 'fill'; }
   if (t === 'tone') { const o = toneOpts(w.p); if (o) return { w, t, ask: 'Chọn phiên âm đúng (chú ý dấu thanh):', body: `<div class="big han">${esc(w.h)}</div><div class="muted">${esc(w.m)}</div>`, opts: shuffle(o).map(x => ({ label: x, ok: x === w.p })) }; t = 'p2h'; }
   if (t === 'fill' && !(w.eh && w.eh.includes(w.h))) t = 'p2h';
   if (t === 'listen' && !S.sound) t = 'p2h';
@@ -1434,40 +1543,26 @@ function menu(msg) {
 }
 function ask() {
   if (B.busy) return; B.busy = true;
-  const q = makeQ(B.pool), t0 = performance.now(), LIM = q.t === 'order' ? 35000 : q.t === 'type' ? 20000 : 15000; let done = false;
+  const q = makeQ(B.pool), t0 = performance.now(), LIM = q.toks ? 35000 : q.t === 'type' ? 20000 : 15000; let done = false;
   $('#bp').innerHTML = `<div class="tbar"><i id="qt"></i></div><div class="qa">${q.ask}</div><div class="qb" ${q.t === 'tone' || q.t === 'type' ? 'data-nopy' : ''}>${q.body}</div>
     ${q.opts ? `<div class="opts" ${q.t === 'p2h' ? 'data-nopy' : ''}>${q.opts.map((o, i) => `<button class="opt ${o.hz ? 'hz' : ''}" data-i="${i}">${i + 1}. ${esc(o.label)}</button>`).join('')}</div>`
-      : q.t === 'order' ? `<div class="slots" id="osl"></div><div class="bank" id="obk"></div><div class="row"><button class="btn" id="ochk" disabled>Kiểm tra</button><button class="btn ghost" id="oclr">Xoá</button></div>`
+      : q.toks ? `<div id="otiles"></div>`
       : `<form class="tin" id="tf"><input id="ti" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Pinyin"><button class="btn">Đánh</button></form>`}
     <div class="res" id="qr"></div>`;
   const timer = setInterval(() => { const r = 1 - (performance.now() - t0) / LIM, el = $('#qt'); if (!el) return clearInterval(timer); el.style.transform = `scaleX(${Math.max(0, r)})`; if (r <= 0) finish(false, true); }, 60);
   function finish(ok, timeout) {
     if (done) return; done = true; clearInterval(timer);
     const secs = (performance.now() - t0) / 1000, w = q.w;
-    const g = !ok ? 0 : (q.t === 'type' && secs < 8) ? 3 : secs < (q.t === 'order' ? 15 : 7) ? 2 : 1;
+    const g = !ok ? 0 : (q.t === 'type' && secs < 8) ? 3 : secs < (q.toks ? 15 : 7) ? 2 : 1;
     track(w.h, ok, secs); B.lastW = w;
     const counted = grade(w.h, g);
     if (q.opts) document.querySelectorAll('.opt').forEach((b, i) => { b.disabled = true; if (q.opts[i].ok) b.classList.add('ok'); });
-    $('#qr').innerHTML = `${ok ? '✓' : timeout ? '⏰ Hết giờ.' : '✗'} ${q.t === 'order' ? `<b class="han">${esc(w.eh)}</b> · ${esc(w.ep)}<br>` : ''}<b class="han">${esc(w.h)}</b> · ${esc(w.p)} · ${esc(w.m)} <span class="muted">${counted ? `(lịch ôn: ${g === 0 ? 'ôn lại sau 10 phút' : 'gặp lại sau ' + S.cards[w.h].interval + ' ngày'})` : '(chưa đến hạn, không đổi lịch ôn)'}</span>`;
+    $('#qr').innerHTML = `${ok ? '✓' : timeout ? '⏰ Hết giờ.' : '✗'} ${q.t === 'order' || q.t === 'z2v' || q.t === 'z2vt' ? `<b class="han">${esc(w.eh)}</b> · ${esc(w.ep)}<br>→ ${esc(w.em)}<br>` : ''}<b class="han">${esc(w.h)}</b> · ${esc(w.p)} · ${esc(w.m)} <span class="muted">${counted ? `(lịch ôn: ${g === 0 ? 'ôn lại sau 10 phút' : 'gặp lại sau ' + S.cards[w.h].interval + ' ngày'})` : '(chưa đến hạn, không đổi lịch ôn)'}</span>`;
     speak(w.h);
     setTimeout(() => ok ? hitFoe() : hitMe(), ok ? 1000 : 2000);
   }
   if (q.opts) $('#bp').querySelector('.opts').onclick = e => { const b = e.target.closest('.opt'); if (!b) return; const i = +b.dataset.i; if (!q.opts[i].ok) b.classList.add('no'); finish(q.opts[i].ok); };
-  else if (q.t === 'order') {
-    let bank = shuffle(q.toks.map((t, i) => ({ t, i })));
-    if (bank.map(b => b.t).join('') === q.toks.join('')) bank.push(bank.shift());
-    const placed = [];
-    const drawO = () => {
-      $('#osl').innerHTML = placed.map((p, k) => `<button class="tile" data-k="${k}">${esc(p.t)}</button>`).join('') || '<span class="muted">Bấm các mảnh bên dưới theo đúng thứ tự</span>';
-      $('#obk').innerHTML = bank.map((b, k) => `<button class="tile ${placed.includes(b) ? 'used' : ''}" data-b="${k}">${esc(b.t)}</button>`).join('');
-      $('#ochk').disabled = placed.length < q.toks.length;
-    };
-    $('#obk').onclick = e => { const b = e.target.closest('[data-b]'); if (!b || done) return; const it = bank[+b.dataset.b]; if (!placed.includes(it)) { placed.push(it); drawO(); } };
-    $('#osl').onclick = e => { const b = e.target.closest('[data-k]'); if (!b || done) return; placed.splice(+b.dataset.k, 1); drawO(); };
-    $('#oclr').onclick = () => { if (done) return; placed.length = 0; drawO(); };
-    $('#ochk').onclick = () => { const ok = placed.map(p => p.t).join('') === q.toks.join(''); $('#osl').classList.add(ok ? 'good' : 'bad'); $('#ochk').disabled = $('#oclr').disabled = true; finish(ok); };
-    drawO();
-  }
+  else if (q.toks) tileGame($('#otiles'), q.toks, q.extra || [], q.sep ?? '', ok => finish(ok), () => done);
   else { $('#ti').focus(); $('#tf').onsubmit = e => { e.preventDefault(); const v = norm($('#ti').value), a = norm(q.w.p); finish(v === a || (q.w.h.endsWith('儿') && v === a.replace(/r$/, ''))); }; }
 }
 function floatAt(id, txt) { const el = $(id), r = el.getBoundingClientRect(), fr = $('#bf').getBoundingClientRect(); const f = document.createElement('div'); f.className = 'float'; f.textContent = txt; f.style.left = (r.left - fr.left + r.width / 2 - 14) + 'px'; f.style.top = (r.top - fr.top + 10) + 'px'; $('#bf').appendChild(f); setTimeout(() => f.remove(), 900); }
